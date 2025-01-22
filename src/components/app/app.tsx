@@ -11,8 +11,7 @@ type AppAmountOfPlaces = {
 
 function App({amountOfPlaces}:AppAmountOfPlaces): JSX.Element {
   return (
-    <MainScreen amountOfPlaces = {amountOfPlaces}>
-    </MainScreen>
+    <MainScreen amountOfPlaces = {amountOfPlaces}/>
   );
 }
 
