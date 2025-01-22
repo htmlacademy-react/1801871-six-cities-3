@@ -11,7 +11,6 @@ root.render(
   <React.StrictMode>
     <App
       amountOfPlaces={Mock.amountOfPlaces}
-    >
-    </App>
+    />
   </React.StrictMode>
 );
