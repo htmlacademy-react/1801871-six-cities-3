@@ -1,4 +1,5 @@
 import React from 'react';
+import Logo from '../../components/logo/logo';
 
 function NotFoundScreen ():JSX.Element {
   return (
@@ -7,21 +8,15 @@ function NotFoundScreen ():JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <img
-                  className="header__logo"
-                  src="img/logo.svg"
-                  alt="6 cities logo"
-                  width={81}
-                  height={41}
-                />
-              </a>
+              <Logo/>
             </div>
           </div>
         </div>
       </header>
-      <main>
-        <p>404</p>
+      <main className='page__main'>
+        <section className='not-found container'>
+          <p className='not-found__warning'>404, unfortunately the page was not found! <br></br>Return to the main page by clicking on the logo.</p>
+        </section>
       </main>
     </React.Fragment>
   );
