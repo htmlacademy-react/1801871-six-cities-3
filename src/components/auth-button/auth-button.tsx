@@ -10,7 +10,7 @@ function AuthButton ({authButtonState}:ButtonStatus):JSX.Element {
   return (
     <li className="header__nav-item">
       <Link className="header__nav-link" to="/login">
-        {authButtonState === AuthButtonStatus.LogIn ? <span className="header__signout">Sign out</span> : <span className="header__login">Sign in</span>}
+        {authButtonState === AuthButtonStatus.LogOut ? <span className="header__signout">Sign out</span> : <span className="header__login">Sign in</span>}
       </Link>
     </li>
   );
