@@ -14,3 +14,9 @@ export enum AuthorizationsStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN'
 }
+
+export enum AuthButtonStatus {
+  LogIn = 'LOGIN',
+  LogOut = 'LOGOUT',
+  Hide = 'HIDE'
+}

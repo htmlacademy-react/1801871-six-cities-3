@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { AppRoute, AuthorizationsStatus } from '../../const';
 
+import Layout from '../layout/layout';
 import MainScreen from '../../pages/main-page/main-page';
 import NotFoundScreen from '../../pages/not-found/not-found';
 import LoginScreen from '../../pages/login/login';
@@ -20,19 +21,24 @@ function App({amountOfPlaces}:AppAmountOfPlaces): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Root} element={<MainScreen amountOfPlaces={amountOfPlaces}/>}>
-        </Route>
-        <Route path={AppRoute.Offer} element={<OffersScreen/>}>
-        </Route>
-        <Route path={AppRoute.Favorite} element={
-          <PrivateRoute authorizationStatus={AuthorizationsStatus.Auth}>
-            <FavoritesScreen/>
-          </PrivateRoute>
-        }
-        />
-        <Route path={AppRoute.Login} element={<LoginScreen/>}>
-        </Route>
-        <Route path='*' element={<NotFoundScreen/>}>
+        <Route path={AppRoute.Root} element={<Layout authorizationStatus={AuthorizationsStatus.NoAuth}/>}>
+          <Route index element={<MainScreen amountOfPlaces={amountOfPlaces}/>}>
+          </Route>
+
+          <Route path={AppRoute.Offer} element={<OffersScreen/>}>
+          </Route>
+
+          <Route path={AppRoute.Favorite} element={
+            <PrivateRoute authorizationStatus={AuthorizationsStatus.Auth}>
+              <FavoritesScreen/>
+            </PrivateRoute>
+          }
+          />
+          <Route path={AppRoute.Login} element={<LoginScreen/>}>
+          </Route>
+
+          <Route path='*' element={<NotFoundScreen/>}>
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
