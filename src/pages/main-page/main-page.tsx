@@ -2,7 +2,6 @@ import PlaceCard from '../../components/place-card/place-card';
 
 type AmountOfPlaces = {
     amountOfPlaces: number;
-    index?:boolean;
   }
 
 function MainScreen({amountOfPlaces}:AmountOfPlaces): JSX.Element {

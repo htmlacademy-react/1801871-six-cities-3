@@ -22,7 +22,7 @@ function App({amountOfPlaces}:AppAmountOfPlaces): JSX.Element {
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Root} element={<Layout authorizationStatus={AuthorizationsStatus.NoAuth}/>}>
-          <Route index element={<MainScreen amountOfPlaces={amountOfPlaces}/>}>
+          <Route index={false} element={<MainScreen amountOfPlaces={amountOfPlaces}/>}>
           </Route>
 
           <Route path={AppRoute.Offer} element={<OffersScreen/>}>
