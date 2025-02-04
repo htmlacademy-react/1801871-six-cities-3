@@ -19,29 +19,7 @@ type AppAmountOfPlaces = {
 
 function App({amountOfPlaces}:AppAmountOfPlaces): JSX.Element {
   return (
-  // <BrowserRouter>
-  //   <Routes>
-  //     <Route path={AppRoute.Root} element={<Layout authorizationStatus={AuthorizationsStatus.NoAuth}/>}>
-  //       <Route path={AppRoute.Root} element={<MainScreen amountOfPlaces={amountOfPlaces}/>}>
-  //       </Route>
 
-  //       <Route path={AppRoute.Offer} element={<OffersScreen/>}>
-  //       </Route>
-
-  //       <Route path={AppRoute.Favorite} element={
-  //         <PrivateRoute authorizationStatus={AuthorizationsStatus.Auth}>
-  //           <FavoritesScreen/>
-  //         </PrivateRoute>
-  //       }
-  //       />
-  //       <Route path={AppRoute.Login} element={<LoginScreen/>}>
-  //       </Route>
-
-  //       <Route path='*' element={<NotFoundScreen/>}>
-  //       </Route>
-  //     </Route>
-  //   </Routes>
-  // </BrowserRouter>
 
     <BrowserRouter>
       <Routes>
