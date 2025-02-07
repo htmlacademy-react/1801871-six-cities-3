@@ -1,10 +1,10 @@
-import { AuthButtonStatus } from '../../const';
+import { AuthLayoutState } from '../../const';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
 
 type ButtonStatus= {
-  authButtonState: AuthButtonStatus;
+  authButtonState: AuthLayoutState;
 }
 
 type AuthState = {
@@ -18,16 +18,16 @@ type AuthState = {
   label:'';
 }
 
-const authState : Record<AuthButtonStatus, AuthState> = {
-  [AuthButtonStatus.LogIn]: {
+const authState : Record<AuthLayoutState, AuthState> = {
+  [AuthLayoutState.LogIn]: {
     class: 'header__signout',
     label: 'Sign out'
   },
-  [AuthButtonStatus.LogOut]: {
+  [AuthLayoutState.LogOut]: {
     class: 'header__login',
     label: 'Sign in'
   },
-  [AuthButtonStatus.Hide]: {
+  [AuthLayoutState.Hide]: {
     class: 'hide',
     label: ''
   }

@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { AppRoute, AuthorizationsStatus } from '../../const';
+import { AppRoute, AuthState } from '../../const';
 
 import Layout from '../layout/layout';
 import MainScreen from '../../pages/main-page/main-page';
@@ -23,14 +23,14 @@ function App({amountOfPlaces}:AppAmountOfPlaces): JSX.Element {
 
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Root} element={<Layout authorizationStatus={AuthorizationsStatus.NoAuth}/>}>
+        <Route path={AppRoute.Root} element={<Layout authorizationStatus={AuthState.NoAuth}/>}>
 
           <Route index element={<MainScreen amountOfPlaces={amountOfPlaces}/>}/>
 
           <Route path={AppRoute.Offer} element={<OffersScreen/>}/>
 
           <Route path={AppRoute.Favorite} element={
-            <PrivateRoute authorizationStatus={AuthorizationsStatus.Auth}>
+            <PrivateRoute authorizationStatus={AuthState.Auth}>
               <FavoritesScreen/>
             </PrivateRoute>
           }

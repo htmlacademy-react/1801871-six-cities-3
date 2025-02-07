@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import React from 'react';
 
-import { AppRoute, AuthorizationsStatus, AuthButtonStatus } from '../../const';
+import { AppRoute, AuthState, AuthLayoutState } from '../../const';
 
 
 import Logo from '../logo/logo';
@@ -9,33 +9,33 @@ import UserInfo from '../user-info/user-info';
 import AuthButton from '../auth-button/auth-button';
 
 type LayoutState = {
-  'showUserInfo': boolean;
-  'AuthButtonState': AuthButtonStatus;
+  showUserInfo: boolean;
+  AuthButtonState: AuthLayoutState;
 }
 
 type LayoutProps = {
-  authorizationStatus:AuthorizationsStatus;
+  authorizationStatus:AuthState;
 };
 
 
-function getLayoutState (pathname: AppRoute, authorizationStatus: AuthorizationsStatus): LayoutState {
+function getLayoutState (pathname: AppRoute, authorizationStatus: AuthState): LayoutState {
 
   if (pathname === AppRoute.Login) {
     return {
       'showUserInfo':false,
-      'AuthButtonState':AuthButtonStatus.Hide
+      'AuthButtonState':AuthLayoutState.Hide
     };
   }
-  if (authorizationStatus === AuthorizationsStatus.NoAuth) {
+  if (authorizationStatus === AuthState.NoAuth) {
     return {
       'showUserInfo':false,
-      'AuthButtonState':AuthButtonStatus.LogIn
+      'AuthButtonState':AuthLayoutState.LogIn
     };
   }
 
   return {
     'showUserInfo':true,
-    'AuthButtonState':AuthButtonStatus.LogOut
+    'AuthButtonState':AuthLayoutState.LogOut
   };
 }
 
@@ -54,7 +54,7 @@ function Layout ({authorizationStatus}: LayoutProps):JSX.Element {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 {showUserInfo ? <UserInfo /> : ''}
-                {AuthButtonState !== AuthButtonStatus.Hide ? <AuthButton authButtonState={AuthButtonState} /> : ''}
+                {AuthButtonState !== AuthLayoutState.Hide ? <AuthButton authButtonState={AuthButtonState} /> : ''}
               </ul>
             </nav>
           </div>

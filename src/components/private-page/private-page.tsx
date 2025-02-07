@@ -1,17 +1,15 @@
-import { AppRoute, AuthorizationsStatus } from '../../const';
+import { AppRoute, AuthState } from '../../const';
 import { Navigate } from 'react-router-dom';
 
 
 type PrivateRouteProps = {
-  authorizationStatus:AuthorizationsStatus;
+  authorizationStatus:AuthState;
   children:JSX.Element;
 
 };
 
-function PrivateRoute (props: PrivateRouteProps) {
-  const {authorizationStatus, children} = props;
-
-  return authorizationStatus === AuthorizationsStatus.Auth ? children : <Navigate to={AppRoute.Login} />;
+function PrivateRoute ({authorizationStatus, children}: PrivateRouteProps) {
+  return authorizationStatus === AuthState.Auth ? children : <Navigate to={AppRoute.Login} />;
 }
 
 export default PrivateRoute;

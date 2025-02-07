@@ -9,13 +9,13 @@ export enum AppRoute {
   Root = '/',
 }
 
-export enum AuthorizationsStatus {
+export enum AuthState {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN'
 }
 
-export enum AuthButtonStatus {
+export enum AuthLayoutState {
   LogIn = 'LOGIN',
   LogOut = 'LOGOUT',
   Hide = 'HIDE'
