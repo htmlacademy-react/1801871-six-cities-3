@@ -6,7 +6,7 @@ type NotFoundProps = {
 
 const notFoundScreenState : Record<NotFoundPageType, string> = {
   offer: 'Product not found',
-  route: '404, unfortunately the page was not found! <br></br>Return to the main page by clicking on the logo.'
+  route: '404, unfortunately the page was not found! Return to the main page by clicking on the logo.'
 };
 
 
