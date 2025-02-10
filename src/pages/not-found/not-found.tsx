@@ -1,4 +1,3 @@
-
 function NotFoundScreen ():JSX.Element {
   return (
 
@@ -12,3 +11,4 @@ function NotFoundScreen ():JSX.Element {
 }
 
 export default NotFoundScreen;
+

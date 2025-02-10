@@ -1,3 +1,9 @@
+import NotFoundScreen from '../not-found/not-found';
+import { ValidID } from '../../const';
+
+
+
+
 function OffersScreen(): JSX.Element {
   return (
     <div className="page">

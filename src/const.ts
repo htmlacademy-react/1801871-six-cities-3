@@ -20,3 +20,5 @@ export enum AuthLayoutState {
   LogOut = 'LOGOUT',
   Hide = 'HIDE'
 }
+
+export const ValidID: Set<number> = new Set([111, 123]);
