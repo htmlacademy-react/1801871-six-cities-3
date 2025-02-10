@@ -21,4 +21,7 @@ export enum AuthLayoutState {
   Hide = 'HIDE'
 }
 
-export const ValidID: Set<number> = new Set([111, 123]);
+export type NotFoundPageType = 'offer' | 'route';
+
+
+export const ValidID: Set<string | undefined> = new Set(['111', '123']);

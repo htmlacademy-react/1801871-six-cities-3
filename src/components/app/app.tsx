@@ -38,7 +38,7 @@ function App({amountOfPlaces}:AppAmountOfPlaces): JSX.Element {
 
           <Route path={AppRoute.Login} element={<LoginScreen/>}/>
 
-          <Route path='*' element={<NotFoundScreen/>}/>
+          <Route path='*' element={<NotFoundScreen notFoundPageType={'route'} />}/>
         </Route>
       </Routes>
     </BrowserRouter>

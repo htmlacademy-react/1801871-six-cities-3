@@ -1,10 +1,17 @@
+import {useParams} from 'react-router-dom';
+
 import NotFoundScreen from '../not-found/not-found';
 import { ValidID } from '../../const';
 
 
-
+const isValidID = (id: string | undefined): boolean => ValidID.has(id);
 
 function OffersScreen(): JSX.Element {
+  const id = useParams().id;
+
+  if(!isValidID(id)) {
+    return <NotFoundScreen notFoundPageType={'offer'}/>;
+  }
   return (
     <div className="page">
       <main className="page__main page__main--offer">
