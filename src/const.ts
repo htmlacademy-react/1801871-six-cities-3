@@ -1,5 +1,5 @@
 export const Mock = {
-  amountOfPlaces: 1000000000
+  amountOfPlaces: 12
 };
 
 export enum AppRoute {
