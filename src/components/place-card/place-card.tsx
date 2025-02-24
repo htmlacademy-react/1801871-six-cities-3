@@ -1,9 +1,11 @@
 import { Offer } from '../../types/offers';
+import { CardType } from '../../const';
 
 
-type OfferProps = {
+type PlaceCardProps = {
   offer: Offer;
   getCardId:(offer: Offer) => void;
+  cardType:CardType;
 };
 
 function isPremium(cardType:boolean): JSX.Element | undefined {
@@ -19,16 +21,20 @@ function getStarsInWidthPercent(stars:number): string {
   return `${stars * 20}%`;
 }
 
-function PlaceCard({offer, getCardId} : OfferProps): JSX.Element {
+function isMainCardType(cardType:CardType):boolean {
+  return cardType === 'main';
+}
 
+function PlaceCard({offer, getCardId, cardType} : PlaceCardProps): JSX.Element {
 
   return (
-    <article className="cities__card place-card" onMouseOver={() => {
-      getCardId(offer);
-    }}
+    <article className={isMainCardType(cardType) ? 'cities__card place-card' : 'favorites__card place-card'}
+      onMouseOver={() => {
+        getCardId(offer);
+      }}
     >
       {isPremium(offer.isPremium)}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={isMainCardType(cardType) ? 'cities__image-wrapper place-card__image-wrapper' : 'favorites__image-wrapper place-card__image-wrapper'}>
         <a href="#">
           <img
             className="place-card__image"
@@ -39,7 +45,7 @@ function PlaceCard({offer, getCardId} : OfferProps): JSX.Element {
           />
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={isMainCardType(cardType) ? 'place-card__info' : 'favorites__card-info place-card__info'}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">{offer.price}</b>

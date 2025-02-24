@@ -23,5 +23,7 @@ export enum AuthLayoutState {
 
 export type NotFoundPageType = 'offer' | 'route';
 
+export type CardType = 'main' | 'favorite';
+
 
 export const ValidID: Set<string | undefined> = new Set(['111', '123']);
