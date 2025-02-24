@@ -4,8 +4,8 @@ import { CardType } from '../../const';
 
 type PlaceCardProps = {
   offer: Offer;
-  getCardId:(offer: Offer) => void;
   cardType:CardType;
+  getCardId?:(offer: Offer) => void;
 };
 
 function isPremium(cardType:boolean): JSX.Element | undefined {
@@ -30,7 +30,9 @@ function PlaceCard({offer, getCardId, cardType} : PlaceCardProps): JSX.Element {
   return (
     <article className={isMainCardType(cardType) ? 'cities__card place-card' : 'favorites__card place-card'}
       onMouseOver={() => {
-        getCardId(offer);
+        if(getCardId){
+          getCardId(offer);
+        }
       }}
     >
       {isPremium(offer.isPremium)}
