@@ -1,7 +1,9 @@
 import { Offer } from '../../types/offers';
 
+
 type OfferProps = {
   offer: Offer;
+  getCardId:(offer: Offer) => void;
 };
 
 function isPremium(cardType:boolean): JSX.Element | undefined {
@@ -17,9 +19,14 @@ function getStarsInWidthPercent(stars:number): string {
   return `${stars * 20}%`;
 }
 
-function PlaceCard({offer} : OfferProps): JSX.Element {
+function PlaceCard({offer, getCardId} : OfferProps): JSX.Element {
+
+
   return (
-    <article className="cities__card place-card">
+    <article className="cities__card place-card" onMouseOver={() => {
+      getCardId(offer);
+    }}
+    >
       {isPremium(offer.isPremium)}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">

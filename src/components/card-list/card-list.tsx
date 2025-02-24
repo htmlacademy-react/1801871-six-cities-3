@@ -1,3 +1,7 @@
+
+import { useState } from 'react';
+
+
 import { Offer } from '../../types/offers';
 import PlaceCard from '../place-card/place-card';
 
@@ -9,6 +13,14 @@ type CardListProps = {
 
 
 function CardList({offers, amountOfPlaces}:CardListProps):JSX.Element {
+
+
+  const [activePoint, setActivePoint] = useState('');
+
+  function getCardId (offer: Offer){
+    setActivePoint(offer.id);
+  }
+
   return (
     <div className="cities">
       <div className="cities__places-container container">
@@ -42,11 +54,12 @@ function CardList({offers, amountOfPlaces}:CardListProps):JSX.Element {
             </ul>
           </form>
           <div className="cities__places-list places__list tabs__content">
-            {offers.map((offer) => <PlaceCard offer={offer} key={offer.id}/>)}
+            {offers.map((offer) => <PlaceCard offer={offer} key={offer.id} getCardId={getCardId}/>)}
           </div>
         </section>
         <div className="cities__right-section">
           <section className="cities__map map" />
+          <span>{activePoint}</span>
         </div>
       </div>
     </div>
