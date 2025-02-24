@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom';
+
 import { Offer } from '../../types/offers';
 import { CardType } from '../../const';
 
@@ -21,14 +23,10 @@ function getStarsInWidthPercent(stars:number): string {
   return `${stars * 20}%`;
 }
 
-function isMainCardType(cardType:CardType):boolean {
-  return cardType === 'main';
-}
-
 function PlaceCard({offer, getCardId, cardType} : PlaceCardProps): JSX.Element {
 
   return (
-    <article className={isMainCardType(cardType) ? 'cities__card place-card' : 'favorites__card place-card'}
+    <article className={`${cardType}__card place-card`}
       onMouseOver={() => {
         if(getCardId){
           getCardId(offer);
@@ -36,8 +34,8 @@ function PlaceCard({offer, getCardId, cardType} : PlaceCardProps): JSX.Element {
       }}
     >
       {isPremium(offer.isPremium)}
-      <div className={isMainCardType(cardType) ? 'cities__image-wrapper place-card__image-wrapper' : 'favorites__image-wrapper place-card__image-wrapper'}>
-        <a href="#">
+      <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
+        <Link to={`offer/${offer.id}`}>
           <img
             className="place-card__image"
             src={offer.previewImage}
@@ -45,9 +43,9 @@ function PlaceCard({offer, getCardId, cardType} : PlaceCardProps): JSX.Element {
             height={200}
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
-      <div className={isMainCardType(cardType) ? 'place-card__info' : 'favorites__card-info place-card__info'}>
+      <div className={`${cardType}__card-info place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">{offer.price}</b>
@@ -74,9 +72,9 @@ function PlaceCard({offer, getCardId, cardType} : PlaceCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">
+          <Link to={`offer/${offer.id}`}>
             {offer.title}
-          </a>
+          </Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>
