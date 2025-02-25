@@ -5,6 +5,10 @@ function Reviews ():JSX.Element {
   const [comment, setComment] = useState('');
   const key = [1,2,3,4,5];
 
+  function isMoreFortyNineSymbol(text:string):boolean {
+    return text.length >= 50;
+  }
+
   return (
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">
@@ -96,7 +100,7 @@ function Reviews ():JSX.Element {
           <button
             className="reviews__submit form__submit button"
             type="submit"
-            disabled
+            disabled={isMoreFortyNineSymbol(comment)}
           >
       Submit
           </button>
