@@ -1,13 +1,30 @@
-import { useState,Fragment } from 'react';
+import { useState, Fragment, ChangeEventHandler } from 'react';
+
+
+type CommentHandler = ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>
+
 
 function Reviews ():JSX.Element {
-  const [rating, setRating] = useState([false, false , false , false , false]);
-  const [comment, setComment] = useState('');
-  const key = [1,2,3,4,5];
 
-  function isMoreFortyNineSymbol(text:string):boolean {
-    return text.length >= 50;
-  }
+  const rating = [
+    {title: 'perfect', value: 5},
+    {title: 'good', value: 4},
+    {title: 'not bad', value: 3},
+    {title: 'badly', value: 2},
+    {title: 'terribly', value: 1},
+  ];
+
+  const [comment, setComment] = useState({comment:'', rating:-1});
+
+  const getCommentHandler = (type: keyof typeof comment): CommentHandler => (e) => {
+    setComment({
+      ...comment,
+      [type]: type === 'comment'
+        ? e.target.value
+        : Number(e.target.value)
+    });
+  };
+
 
   return (
     <section className="offer__reviews reviews">
@@ -51,24 +68,19 @@ function Reviews ():JSX.Element {
     Your review
         </label>
         <div className="reviews__rating-form form__rating">
-          {rating.map((element, id)=>(
-            <Fragment key={key[id]}>
+          {rating.map((rate)=>(
+            <Fragment key={rate.title}>
               <input
                 className="form__rating-input visually-hidden"
                 name="rating"
-                defaultValue={rating.length - id}
-                id={`${rating.length - id}-stars`}
+                defaultValue={rate.value}
+                id={`${rate.value}-stars`}
                 type="radio"
-                checked={element}
-                onChange={() => {
-
-                  const values = [false, false , false , false , false];
-                  values[id] = true;
-                  setRating(values);
-                }}
+                checked={comment.rating === rate.value}
+                onChange={getCommentHandler('rating')}
               />
               <label
-                htmlFor={`${rating.length - id}-stars`}
+                htmlFor={`${rate.value}-stars`}
                 className="reviews__rating-label form__rating-label"
                 title="perfect"
               >
@@ -85,10 +97,8 @@ function Reviews ():JSX.Element {
           id="review"
           name="review"
           placeholder="Tell how was your stay, what you like and what can be improved"
-          defaultValue={comment}
-          onChange={(event) => {
-            setComment(event.target.value);
-          }}
+          defaultValue={comment.comment}
+          onChange={getCommentHandler('comment')}
         />
         <div className="reviews__button-wrapper">
           <p className="reviews__help">
@@ -100,7 +110,7 @@ function Reviews ():JSX.Element {
           <button
             className="reviews__submit form__submit button"
             type="submit"
-            disabled={isMoreFortyNineSymbol(comment)}
+            disabled={comment.comment.length <= 50}
           >
       Submit
           </button>
