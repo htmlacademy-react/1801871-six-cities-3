@@ -21,7 +21,7 @@ type location = {
 };
 
 
-export type Offer = {
+export interface Offer {
       'id': string;
       'title': string;
       'type': OfferType;

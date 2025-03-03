@@ -17,6 +17,7 @@ function Reviews ():JSX.Element {
   const [comment, setComment] = useState({comment:'', rating:-1});
 
   const getCommentHandler = (type: keyof typeof comment): CommentHandler => (e) => {
+
     setComment({
       ...comment,
       [type]: type === 'comment'
