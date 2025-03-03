@@ -1,13 +1,18 @@
 import {Link} from 'react-router-dom';
 
 import { Offer } from '../../types/offers';
-import { CardType } from '../../const';
 
+
+type Type = 'cities' | 'favorites';
 
 type PlaceCardProps = {
+  type: Extract<Type, 'cities'>;
   offer: Offer;
-  cardType:CardType;
-  getCardId?:(offer: Offer) => void;
+  getCardId:(offer: Offer) => void;
+} | {
+  type: Exclude<Type, 'cities'>;
+  offer:Offer;
+  getCardId?:(offer: Offer) => undefined;
 };
 
 function isPremium(cardType:boolean): JSX.Element | undefined {
@@ -23,18 +28,15 @@ function getStarsInWidthPercent(stars:number): string {
   return `${stars * 20}%`;
 }
 
-function PlaceCard({offer, getCardId, cardType} : PlaceCardProps): JSX.Element {
+function PlaceCard({offer, getCardId, type} : PlaceCardProps): JSX.Element {
+  const handelOnMouseOver = () => type === 'cities' ? getCardId(offer) : undefined;
 
   return (
-    <article className={`${cardType}__card place-card`}
-      onMouseOver={() => {
-        if(getCardId){
-          getCardId(offer);
-        }
-      }}
+    <article className={`${type}__card place-card`}
+      onMouseOver={handelOnMouseOver}
     >
       {isPremium(offer.isPremium)}
-      <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
+      <div className={`${type}__image-wrapper place-card__image-wrapper`}>
         <Link to={`offer/${offer.id}`}>
           <img
             className="place-card__image"
@@ -45,7 +47,7 @@ function PlaceCard({offer, getCardId, cardType} : PlaceCardProps): JSX.Element {
           />
         </Link>
       </div>
-      <div className={`${cardType}__card-info place-card__info`}>
+      <div className={`${type}__card-info place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">{offer.price}</b>
