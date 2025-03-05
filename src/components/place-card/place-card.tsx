@@ -8,11 +8,11 @@ type Type = 'cities' | 'favorites';
 type PlaceCardProps = {
   type: Extract<Type, 'cities'>;
   offer: Offer;
-  getCardId:(offer: Offer) => void;
+  handelCurrentActiveCard:(offer: Offer | null) => void;
 } | {
   type: Exclude<Type, 'cities'>;
   offer:Offer;
-  getCardId?:(offer: Offer) => undefined;
+  handelCurrentActiveCard?:(offer: Offer) => undefined;
 };
 
 function isPremium(cardType:boolean): JSX.Element | undefined {
@@ -28,12 +28,13 @@ function getStarsInWidthPercent(stars:number): string {
   return `${stars * 20}%`;
 }
 
-function PlaceCard({offer, getCardId, type} : PlaceCardProps): JSX.Element {
-  const handelOnMouseOver = () => type === 'cities' ? getCardId(offer) : undefined;
-
+function PlaceCard({offer, handelCurrentActiveCard, type} : PlaceCardProps): JSX.Element {
+  const handleMouseEnter = () => type === 'cities' ? handelCurrentActiveCard(offer) : undefined;
+  const handleMouseLeave = () => type === 'cities' ? handelCurrentActiveCard(null) : undefined;
   return (
     <article className={`${type}__card place-card`}
-      onMouseOver={handelOnMouseOver}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {isPremium(offer.isPremium)}
       <div className={`${type}__image-wrapper place-card__image-wrapper`}>

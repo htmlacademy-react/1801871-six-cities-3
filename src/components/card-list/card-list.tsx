@@ -15,10 +15,14 @@ type CardListProps = {
 function CardList({offers, amountOfPlaces}:CardListProps):JSX.Element {
 
 
-  const [activePoint, setActivePoint] = useState('');
+  const [activePoint, setActivePoint] = useState<string | null>(null);
 
-  function getCardId (offer: Offer){
-    setActivePoint(offer.id);
+  function handelCurrentActiveCard (offer: Offer | null){
+    if(offer) {
+      setActivePoint(offer.id);
+    } else{
+      setActivePoint('');
+    }
   }
 
   return (
@@ -54,7 +58,9 @@ function CardList({offers, amountOfPlaces}:CardListProps):JSX.Element {
             </ul>
           </form>
           <div className="cities__places-list places__list tabs__content">
-            {offers.map((offer) => <PlaceCard offer={offer} key={offer.id} getCardId={getCardId} type='cities'/>)}
+            {offers.map((offer) =>
+              (<PlaceCard offer={offer} key={offer.id} handelCurrentActiveCard={handelCurrentActiveCard} type='cities'/>
+              ))}
           </div>
         </section>
         <div className="cities__right-section">
