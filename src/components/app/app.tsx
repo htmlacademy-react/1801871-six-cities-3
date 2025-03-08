@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { AppRoute, AuthState } from '../../const';
 
+import { Offer } from '../../types/offers';
+
 import Layout from '../layout/layout';
 import MainScreen from '../../pages/main-page/main-page';
 import NotFoundScreen from '../../pages/not-found/not-found';
@@ -12,12 +14,13 @@ import FavoritesScreen from '../../pages/favorites/favorites';
 import PrivateRoute from '../private-page/private-page';
 
 
-type AppAmountOfPlaces = {
+type AppScreenProps = {
     amountOfPlaces: number;
+    offers:Offer[];
   }
 
 
-function App({amountOfPlaces}:AppAmountOfPlaces): JSX.Element {
+function App({amountOfPlaces, offers}:AppScreenProps): JSX.Element {
   return (
 
 
@@ -25,13 +28,13 @@ function App({amountOfPlaces}:AppAmountOfPlaces): JSX.Element {
       <Routes>
         <Route path={AppRoute.Root} element={<Layout authorizationStatus={AuthState.NoAuth}/>}>
 
-          <Route index element={<MainScreen amountOfPlaces={amountOfPlaces}/>}/>
+          <Route index element={<MainScreen amountOfPlaces={amountOfPlaces} offers = {offers}/>}/>
 
           <Route path={AppRoute.Offer} element={<OffersScreen/>}/>
 
           <Route path={AppRoute.Favorite} element={
             <PrivateRoute authorizationStatus={AuthState.Auth}>
-              <FavoritesScreen/>
+              <FavoritesScreen offers = {offers}/>
             </PrivateRoute>
           }
           />
