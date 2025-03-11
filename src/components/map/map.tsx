@@ -14,7 +14,11 @@ type MapProps = {
   city:City;
   points:Offer[];
   activePoint:Offer| null;
-}
+} | {
+  city:City;
+  points:Offer[];
+  activePoint?:undefined;
+};
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -45,7 +49,7 @@ function Map({city, points, activePoint} : MapProps):JSX.Element{
 
         marker
           .setIcon(
-            activePoint !== null && point.id === activePoint.id
+            activePoint !== null && activePoint !== undefined && point.id === activePoint.id
               ? currentCustomIcon
               : defaultCustomIcon
           );
