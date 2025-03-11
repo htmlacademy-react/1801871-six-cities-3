@@ -5,7 +5,7 @@ export enum OfferType {
   Hotel = 'hotel'
 }
 
-type city = {
+export type City = {
   'name': string;
   'location': {
     'latitude': number;
@@ -14,7 +14,7 @@ type city = {
   };
 }
 
-type location = {
+export type Location = {
   'latitude': number;
   'longitude': number;
   'zoom': number;
@@ -27,8 +27,8 @@ export interface Offer {
       'type': OfferType;
       'price': number;
       'previewImage': string;
-      'city': city;
-      'location':location;
+      'city': City;
+      'location':Location;
       'isFavorite': boolean;
       'isPremium': boolean;
       'rating': number;
