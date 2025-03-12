@@ -67,7 +67,7 @@ function CardList({offers, amountOfPlaces}:CardListProps):JSX.Element {
           </div>
         </section>
         <div className="cities__right-section">
-          <Map activePoint={activePoint} city={CITY} points={offers}/>
+          <Map activePoint={activePoint} city={CITY} points={offers} className='cities'/>
         </div>
       </div>
     </div>

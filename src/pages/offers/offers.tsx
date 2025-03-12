@@ -167,7 +167,7 @@ function OffersScreen(): JSX.Element | undefined {
               </div>
             </div>
             <section className="offer__map map">
-              <Map city={CITY} points={Offers}/>
+              <Map city={CITY} points={Offers} className='offer'/>
             </section>
           </section>
           <div className="container">

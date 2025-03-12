@@ -8,13 +8,16 @@ import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
 import { City, Offer} from '../../types/offers';
 
 import useMap from './use-map';
+type ClassName = 'offer' | 'cities';
 
 
 type MapProps = {
+  className:Extract<ClassName, 'cities'>;
   city:City;
   points:Offer[];
   activePoint:Offer| null;
 } | {
+  className:Exclude<ClassName, 'cities'>;
   city:City;
   points:Offer[];
   activePoint?:undefined;
@@ -33,7 +36,7 @@ const currentCustomIcon = new Icon({
 });
 
 
-function Map({city, points, activePoint} : MapProps):JSX.Element{
+function Map({city, points, activePoint, className} : MapProps):JSX.Element{
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -75,8 +78,7 @@ function Map({city, points, activePoint} : MapProps):JSX.Element{
   }, [map, points, activePoint]);
 
   return (
-    <section className="cities__map map" style={{background:'none'}}>
-      <div ref={mapRef} style={{height: '600px'}}></div>
-    </section>);
+    <section className={`${className}__map`} ref={mapRef} />
+  );
 }
 export default Map;
