@@ -166,9 +166,9 @@ function OffersScreen(): JSX.Element | undefined {
                 <ReviewList comments={Comments}/>
               </div>
             </div>
-            <section className="offer__map map">
+            <div>
               <Map city={CITY} points={Offers} className='offer'/>
-            </section>
+            </div>
           </section>
           <div className="container">
             <section className="near-places places">
