@@ -1,10 +1,15 @@
+import { setActiveCity } from '../../store/actions';
+import { useAppDispatch } from '../../store/hooks';
 import { City } from '../../types/offers';
 
+import { CITIES } from '../../сities';
+
 type CityListProps = {
-  city:City;
+  activeCity:City;
 }
 
-function CityList({city}: CityListProps):JSX.Element {
+function CityList({activeCity}: CityListProps):JSX.Element {
+  const dispatch = useAppDispatch();
 
   const markActiveCity = function(name:string, activeCityName:string):string {
     if(activeCityName === name) {
@@ -16,36 +21,18 @@ function CityList({city}: CityListProps):JSX.Element {
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
-        <li className="locations__item">
-          <a className={`locations__item-link tabs__item ${markActiveCity('Paris', city.name)}`} href="#" >
-            <span>Paris</span>
-          </a>
-        </li>
-        <li className="locations__item">
-          <a className={`locations__item-link tabs__item ${markActiveCity('Cologne', city.name)}`} href="#">
-            <span>Cologne</span>
-          </a>
-        </li>
-        <li className="locations__item">
-          <a className={`locations__item-link tabs__item ${markActiveCity('Brussels', city.name)}`} href="#">
-            <span>Brussels</span>
-          </a>
-        </li>
-        <li className="locations__item">
-          <a className={`locations__item-link tabs__item ${markActiveCity('Amsterdam', city.name)}`} href="#">
-            <span>Amsterdam</span>
-          </a>
-        </li>
-        <li className="locations__item">
-          <a className={`locations__item-link tabs__item ${markActiveCity('Hamburg', city.name)}`} href="#">
-            <span>Hamburg</span>
-          </a>
-        </li>
-        <li className="locations__item">
-          <a className={`locations__item-link tabs__item ${markActiveCity('Dusseldorf', city.name)}`} href="#">
-            <span>Dusseldorf</span>
-          </a>
-        </li>
+        {CITIES.map((city)=>(
+          <li className="locations__item" key={city.name}>
+            <a
+              className={`locations__item-link tabs__item ${markActiveCity(activeCity.name, city.name)}`}
+              onClick={()=>{
+                dispatch(setActiveCity(city));
+              }}
+            >
+              <span>{city.name}</span>
+            </a>
+          </li>)
+        )}
       </ul>
     </section>
   );

@@ -2,7 +2,7 @@ import {useParams} from 'react-router-dom';
 
 import { Offers } from '../../mocks/offers';
 import { Comments } from '../../mocks/comments';
-import { CITY } from '../../сities';
+import { CITIES } from '../../сities';
 
 import { ValidID } from '../../const';
 
@@ -167,7 +167,7 @@ function OffersScreen(): JSX.Element | undefined {
               </div>
             </div>
             <div>
-              <Map city={CITY} points={Offers} className='offer'/>
+              <Map city={CITIES[0]} points={Offers} className='offer'/>
             </div>
           </section>
           <div className="container">

@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 
 import { Offer } from '../../types/offers';
-import { CITY } from '../../сities';
+import { CITIES } from '../../сities';
 
 import PlaceCard from '../place-card/place-card';
 import Map from '../map/map';
@@ -67,7 +67,7 @@ function CardList({offers, amountOfPlaces}:CardListProps):JSX.Element {
           </div>
         </section>
         <div className="cities__right-section">
-          <Map activePoint={activePoint} city={CITY} points={offers} className='cities'/>
+          <Map activePoint={activePoint} city={CITIES[0]} points={offers} className='cities'/>
         </div>
       </div>
     </div>

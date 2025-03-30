@@ -1,7 +1,7 @@
-import { createReducer } from '@reduxjs/toolkit';
-import { incCountAction } from './actions';
+import { createReducer, PayloadAction } from '@reduxjs/toolkit';
+import { setActiveCity } from './actions';
 import { City } from '../types/offers';
-import { CITY } from '../сities';
+import { CITIES } from '../сities';
 
 type stateType = {
   count: number;
@@ -10,12 +10,12 @@ type stateType = {
 
 const initialState:stateType = {
   count: 0,
-  city: CITY
+  city: CITIES[0]
 };
 
 export const updateCity = createReducer(initialState, (builder) => {
   builder
-    .addCase(incCountAction, (state:stateType) => {
-      state.count += 1;
+    .addCase(setActiveCity, (state, action: PayloadAction<City>) => {
+      state.city = action.payload;
     });
 });

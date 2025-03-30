@@ -18,7 +18,7 @@ function MainScreen({amountOfPlaces, offers}:MainPageProps): JSX.Element {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <CityList city={city} />
+          <CityList activeCity={city} />
         </div>
         <CardList amountOfPlaces={amountOfPlaces} offers={offers}/>
 
