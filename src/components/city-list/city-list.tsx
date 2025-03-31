@@ -1,14 +1,11 @@
 import { setActiveCity } from '../../store/actions';
-import { useAppDispatch } from '../../store/hooks';
-import { City } from '../../types/offers';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 import { CITIES } from '../../сities';
 
-type CityListProps = {
-  activeCity:City;
-}
 
-function CityList({activeCity}: CityListProps):JSX.Element {
+function CityList():JSX.Element {
+  const activeCity = useAppSelector((state)=> state.city);
   const dispatch = useAppDispatch();
 
   const markActiveCity = function(name:string, activeCityName:string):string {
