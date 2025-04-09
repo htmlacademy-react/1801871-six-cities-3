@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import { Offer } from '../../types/offers';
 
 
-type Type = 'cities' | 'favorites';
+type Type = 'cities' | 'favorites' | 'near-places';
 
 type PlaceCardProps = {
   type: Extract<Type, 'cities'>;
@@ -12,7 +12,7 @@ type PlaceCardProps = {
 } | {
   type: Exclude<Type, 'cities'>;
   offer:Offer;
-  handelCurrentActiveCard?:(offer: Offer) => undefined;
+  handelCurrentActiveCard?:undefined;
 };
 
 function isPremium(cardType:boolean): JSX.Element | undefined {

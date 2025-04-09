@@ -3,7 +3,10 @@ import { useState } from 'react';
 
 
 import { Offer } from '../../types/offers';
+import { CITIES } from '../../сities';
+
 import PlaceCard from '../place-card/place-card';
+import Map from '../map/map';
 
 
 type CardListProps = {
@@ -15,13 +18,13 @@ type CardListProps = {
 function CardList({offers, amountOfPlaces}:CardListProps):JSX.Element {
 
 
-  const [activePoint, setActivePoint] = useState<string | null>(null);
+  const [activePoint, setActivePoint] = useState<Offer | null>(null);
 
   function handelCurrentActiveCard (offer: Offer | null){
     if(offer) {
-      setActivePoint(offer.id);
+      setActivePoint(offer);
     } else{
-      setActivePoint('');
+      setActivePoint(null);
     }
   }
 
@@ -64,8 +67,7 @@ function CardList({offers, amountOfPlaces}:CardListProps):JSX.Element {
           </div>
         </section>
         <div className="cities__right-section">
-          <section className="cities__map map" />
-          <span>{activePoint}</span>
+          <Map activePoint={activePoint} city={CITIES[0]} points={offers} className='cities'/>
         </div>
       </div>
     </div>
