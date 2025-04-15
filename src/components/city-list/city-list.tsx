@@ -1,5 +1,7 @@
+import { useAppSelector } from '../../store/hooks';
 
 function CityList():JSX.Element {
+  const activeCity = useAppSelector((state)=>state.city);
 
   return (
     <section className="locations container">

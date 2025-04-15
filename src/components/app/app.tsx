@@ -5,7 +5,7 @@ import { AppRoute, AuthState } from '../../const';
 import { Offer } from '../../types/offers';
 
 import Layout from '../layout/layout';
-import MainScreen from '../../pages/main-page/main-page';
+import MainPage from '../../pages/main-page/main-page';
 import NotFoundScreen from '../../pages/not-found/not-found';
 import LoginScreen from '../../pages/login/login';
 import OffersScreen from '../../pages/offers/offers';
@@ -28,7 +28,7 @@ function App({amountOfPlaces, offers}:AppScreenProps): JSX.Element {
       <Routes>
         <Route path={AppRoute.Root} element={<Layout authorizationStatus={AuthState.NoAuth}/>}>
 
-          <Route index element={<MainScreen amountOfPlaces={amountOfPlaces} offers = {offers}/>}/>
+          <Route index element={<MainPage amountOfPlaces={amountOfPlaces} offers = {offers}/>}/>
 
           <Route path={AppRoute.Offer} element={<OffersScreen/>}/>
 

@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { incCountAction } from './actions';
 import { City } from '../types/offers';
-import { CITY } from '../cities';
+import { CITES } from '../cities';
 
 type stateType = {
   count: number;
@@ -10,7 +10,7 @@ type stateType = {
 
 const initialState:stateType = {
   count: 0,
-  city: CITY
+  city: CITES[0]
 };
 
 export const updateCity = createReducer(initialState, (builder) => {

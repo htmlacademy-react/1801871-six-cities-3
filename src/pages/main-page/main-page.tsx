@@ -8,7 +8,7 @@ type MainPageProps = {
   }
 
 
-function MainScreen({amountOfPlaces, offers}:MainPageProps): JSX.Element {
+function MainPage({amountOfPlaces, offers}:MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <main className="page__main page__main--index">
@@ -23,5 +23,5 @@ function MainScreen({amountOfPlaces, offers}:MainPageProps): JSX.Element {
   );
 }
 
-export default MainScreen;
+export default MainPage;
 
