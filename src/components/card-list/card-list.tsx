@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 
 import { Offer } from '../../types/offers';
-import { CITY } from '../../сities';
+import { CITY } from '../../cities';
 
 import PlaceCard from '../place-card/place-card';
 import Map from '../map/map';

@@ -2,7 +2,7 @@ import {useParams} from 'react-router-dom';
 
 import { Offers } from '../../mocks/offers';
 import { Comments } from '../../mocks/comments';
-import { CITY } from '../../сities';
+import { CITY } from '../../cities';
 
 import { ValidID } from '../../const';
 

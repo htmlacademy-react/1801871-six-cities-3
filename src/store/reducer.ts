@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { incCountAction } from './actions';
 import { City } from '../types/offers';
-import { CITY } from '../сities';
+import { CITY } from '../cities';
 
 type stateType = {
   count: number;

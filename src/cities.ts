@@ -1,4 +1,5 @@
 import { City } from './types/offers';
+import { afee } from './const';
 
 export const CITY: City = {
   name: 'Амстердам',
