@@ -1,11 +1,9 @@
 import { createAction } from '@reduxjs/toolkit';
+import { City } from '../types/offers';
 
 export const Action = {
-  INC_COUNT: 'INC_COUNT',
-  DEC_COUNT: 'DEC_COUNT',
-  RESTART: 'RESTART',
-  ADD_SOME_VALUE: 'ADD_SOME_VALUE',
+  UPDATE_CITY: 'UPDATE_CITY',
 };
 
 
-export const incCountAction = createAction(Action.INC_COUNT);
+export const updateCityAction = createAction<City>(Action.UPDATE_CITY);
