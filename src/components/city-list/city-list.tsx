@@ -11,14 +11,14 @@ function CityList():JSX.Element {
 
     const target = evt.target as HTMLElement;
     const cityElement = target.closest('[data-city-name]') as HTMLElement ;
+    const cityName = cityElement.dataset.cityName;
 
-    if (cityElement) {
-      const cityName = cityElement.dataset.cityName;
-      const currentCity = CITES.find((city) => city.name === cityName);
-      if (currentCity && cityName !== activeCity.name) {
-        dispatch(updateCityAction(currentCity));
-      }
+    const currentCity = CITES.find((city) => city.name === cityName);
+
+    if (currentCity && cityName !== activeCity.name) {
+      dispatch(updateCityAction(currentCity));
     }
+
   };
 
   return (
