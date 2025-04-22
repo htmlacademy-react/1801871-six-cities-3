@@ -8,7 +8,7 @@ function MainPage(): JSX.Element {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <CityList/>
+          <CityList />
         </div>
         <CardList/>
 
