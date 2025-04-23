@@ -33,3 +33,5 @@ export interface Offer {
       isPremium: boolean;
       rating: number;
 }
+
+
