@@ -1,28 +1,27 @@
 import {useParams} from 'react-router-dom';
 
-import { Offers } from '../../mocks/offers';
-import { Comments } from '../../mocks/comments';
-import { CITIES } from '../../сities';
 
-import { ValidID } from '../../const';
+import { Comments } from '../../mocks/comments';
+import { CITES } from '../../cities';
+
 
 import NotFoundScreen from '../not-found/not-found';
 import ReviewList from '../../components/review-list/review-list';
 import Map from '../../components/map/map';
 import NearPlacesList from '../../components/near-places-list/near-places-list';
+import { useAppSelector } from '../../store/hooks';
 
-
-const isValidID = (id: string | undefined): boolean => ValidID.has(id);
 
 function OffersScreen(): JSX.Element | undefined {
   const id = useParams().id;
-  const currenOffer = Offers.find((offer)=>offer.id === id);
+  const offers = useAppSelector((state) => state.offers);
+  const currenOffer = offers.find((offer)=>offer.id === id);
 
   function getStarsInWidthPercent(stars:number): string {
     return `${stars * 20}%`;
   }
 
-  if(!isValidID(id)) {
+  if(!currenOffer) {
     return <NotFoundScreen notFoundPageType={'offer'}/>;
   }
 
@@ -167,7 +166,7 @@ function OffersScreen(): JSX.Element | undefined {
               </div>
             </div>
             <div>
-              <Map city={CITIES[0]} points={Offers} className='offer'/>
+              <Map city={CITES[0]} points={offers} className='offer'/>
             </div>
           </section>
           <div className="container">

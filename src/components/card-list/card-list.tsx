@@ -3,22 +3,20 @@ import { useState } from 'react';
 
 
 import { Offer } from '../../types/offers';
-import { CITIES } from '../../сities';
 
 import PlaceCard from '../place-card/place-card';
 import Map from '../map/map';
+import { useAppSelector } from '../../store/hooks';
 
 
-type CardListProps = {
-  amountOfPlaces: number;
-  offers:Offer[];
-}
-
-
-function CardList({offers, amountOfPlaces}:CardListProps):JSX.Element {
+function CardList():JSX.Element {
 
 
   const [activePoint, setActivePoint] = useState<Offer | null>(null);
+  const activeCity = useAppSelector((state)=> state.city);
+  const offers = useAppSelector((state)=> state.offers);
+
+  const currentOffers = offers.filter((offer)=> offer.city.name === activeCity.name);
 
   function handelCurrentActiveCard (offer: Offer | null){
     if(offer) {
@@ -33,7 +31,7 @@ function CardList({offers, amountOfPlaces}:CardListProps):JSX.Element {
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">{amountOfPlaces} places to stay in Amsterdam</b>
+          <b className="places__found">{currentOffers.length} places to stay in {activeCity.name}</b>
           <form className="places__sorting" action="#" method="get">
             <span className="places__sorting-caption">Sort by</span>
             <span className="places__sorting-type" tabIndex={0}>
@@ -61,13 +59,13 @@ function CardList({offers, amountOfPlaces}:CardListProps):JSX.Element {
             </ul>
           </form>
           <div className="cities__places-list places__list tabs__content">
-            {offers.map((offer) =>
+            {currentOffers.map((offer) =>
               (<PlaceCard offer={offer} key={offer.id} handelCurrentActiveCard={handelCurrentActiveCard} type='cities'/>
               ))}
           </div>
         </section>
         <div className="cities__right-section">
-          <Map activePoint={activePoint} city={CITIES[0]} points={offers} className='cities'/>
+          <Map activePoint={activePoint} city={activeCity} points={currentOffers} className='cities'/>
         </div>
       </div>
     </div>

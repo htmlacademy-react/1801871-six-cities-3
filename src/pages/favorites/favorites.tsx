@@ -1,13 +1,9 @@
 import PlaceCard from '../../components/place-card/place-card';
-import { Offer } from '../../types/offers';
+import { useAppSelector } from '../../store/hooks';
 
 
-type FavoritesScreenProps = {
-    offers:Offer[];
-  }
-
-
-function FavoritesScreen({offers}:FavoritesScreenProps): JSX.Element {
+function FavoritesScreen(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
   return (
     <div className="page">
       <main className="page__main page__main--favorites">

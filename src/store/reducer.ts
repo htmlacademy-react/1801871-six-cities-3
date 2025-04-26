@@ -1,21 +1,22 @@
-import { createReducer, PayloadAction } from '@reduxjs/toolkit';
-import { setActiveCity } from './actions';
-import { City } from '../types/offers';
-import { CITIES } from '../сities';
+import { createReducer } from '@reduxjs/toolkit';
+import { updateCityAction } from './actions';
+import { City, Offer } from '../types/offers';
+import { CITES } from '../cities';
+import { Offers } from '../mocks/offers';
 
 type stateType = {
-  count: number;
   city: City;
+  offers: Offer[];
 }
 
 const initialState:stateType = {
-  count: 0,
-  city: CITIES[0]
+  city: CITES[0],
+  offers: Offers
 };
 
 export const updateCity = createReducer(initialState, (builder) => {
   builder
-    .addCase(setActiveCity, (state, action: PayloadAction<City>) => {
+    .addCase(updateCityAction, (state, action) => {
       state.city = action.payload;
     });
 });
