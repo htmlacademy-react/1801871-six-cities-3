@@ -47,7 +47,13 @@ function CardList():JSX.Element {
           <div className="cities__places-list places__list tabs__content">
 
             {currentOffers.map((offer) =>
-              (<PlaceCard offer={offer} key={offer.id} handelCurrentActiveCard={handelCurrentActiveCard} type='cities'/>
+              (
+                <PlaceCard
+                  offer={offer}
+                  key={offer.id}
+                  handelCurrentActiveCard={handelCurrentActiveCard}
+                  type='cities'
+                />
               ))}
 
           </div>
