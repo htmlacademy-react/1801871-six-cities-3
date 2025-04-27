@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 import { City } from '../types/offers';
-import { TSortKey } from '../types/sort';
+import { TSortDictItem } from '../types/sort';
 
 
 export const Action = {
@@ -10,4 +10,4 @@ export const Action = {
 
 
 export const setActiveCity = createAction<City>(Action.UPDATE_CITY);
-export const changeSort = createAction<TSortKey>(Action.CHANGE_SORT);
+export const changeSort = createAction<TSortDictItem>(Action.CHANGE_SORT);

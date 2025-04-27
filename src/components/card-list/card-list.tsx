@@ -18,8 +18,12 @@ function CardList():JSX.Element {
   const [activePoint, setActivePoint] = useState<Offer | null>(null);
   const activeCity = useAppSelector((state)=> state.city);
   const offers = useAppSelector((state)=> state.offers);
+  const currentSort = useAppSelector((state)=> state.currentSort);
+
 
   const currentOffers = offers.filter((offer)=> offer.city.name === activeCity.name);
+
+  currentOffers.sort(currentSort.handler);
 
   function handelCurrentActiveCard (offer: Offer | null){
     if(offer) {

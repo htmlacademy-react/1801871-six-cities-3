@@ -3,18 +3,21 @@ import { changeSort, setActiveCity } from './actions';
 import { City, Offer } from '../types/offers';
 import { CITES } from '../cities';
 import { Offers } from '../mocks/offers';
-import { TSortKey } from '../types/sort';
+import { TSortDictItem } from '../types/sort';
 
 type stateType = {
   city: City;
   offers: Offer[];
-  currentSort: TSortKey;
+  currentSort: TSortDictItem;
 }
 
 const initialState:stateType = {
   city: CITES[0],
   offers: Offers,
-  currentSort: 'Popular'
+  currentSort: {
+    label: 'Popular',
+    handler: () => 0
+  }
 };
 
 export const updateCity = createReducer(initialState, (builder) => {

@@ -1,9 +1,11 @@
+import { Offer } from './offers';
+
 export type TSortKey = 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first';
 
 
-type TSortDictItem = {
+export type TSortDictItem = {
   label: TSortKey;
-  handler: () => void;
+  handler: (a:Offer, b:Offer) => number;
 };
 
 type TSortDict = Record<TSortKey, TSortDictItem>;
@@ -11,19 +13,45 @@ type TSortDict = Record<TSortKey, TSortDictItem>;
 export const sortDict: TSortDict = {
   'Popular': {
     label: 'Popular',
-    handler: () => { console.log('Sort by popular'); }
+    handler: () => 0
   },
   'Price: low to high': {
     label: 'Price: low to high',
-    handler: () => { console.log('Sort by price low to high'); }
+    handler: (a, b) =>{
+      if (a.price < b.price) {
+        return -1;
+      }
+      if (a.price > b.price) {
+        return 1;
+      }
+      return 0;
+    }
   },
+
   'Price: high to low': {
     label: 'Price: high to low',
-    handler: () => { console.log('Sort by price high to low'); }
+    handler: (a, b) =>{
+      if (a.price > b.price) {
+        return -1;
+      }
+      if (a.price < b.price) {
+        return 1;
+      }
+      return 0;
+    }
   },
+
   'Top rated first': {
     label: 'Top rated first',
-    handler: () => { console.log('Sort by top rated first'); }
+    handler: (a, b) =>{
+      if (a.rating > b.rating) {
+        return -1;
+      }
+      if (a.rating < b.rating) {
+        return 1;
+      }
+      return 0;
+    }
   }
 };
 
