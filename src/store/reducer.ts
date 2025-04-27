@@ -1,14 +1,14 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeSort, updateCityAction } from './actions';
+import { changeSort, setActiveCity } from './actions';
 import { City, Offer } from '../types/offers';
 import { CITES } from '../cities';
 import { Offers } from '../mocks/offers';
-import { Sort } from '../types/sort';
+import { TSortKey } from '../types/sort';
 
 type stateType = {
   city: City;
   offers: Offer[];
-  currentSort: Sort;
+  currentSort: TSortKey;
 }
 
 const initialState:stateType = {
@@ -19,7 +19,7 @@ const initialState:stateType = {
 
 export const updateCity = createReducer(initialState, (builder) => {
   builder
-    .addCase(updateCityAction, (state, action) => {
+    .addCase(setActiveCity, (state, action) => {
       state.city = action.payload;
     })
     .addCase(changeSort, (state, action) => {

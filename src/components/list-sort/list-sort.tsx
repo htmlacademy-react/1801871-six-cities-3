@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { changeSort } from '../../store/actions';
-import { Sort } from '../../types/sort';
+import { sortDict, SortTypeKey} from '../../types/sort';
 
 function ListSort(): JSX.Element {
   const [isOpen, setOpenClose] = useState(false);
@@ -12,14 +12,6 @@ function ListSort(): JSX.Element {
     setOpenClose(!isOpen);
   };
 
-  const handelSortTypeClick = (evt: React.MouseEvent<HTMLElement>) => {
-    const target = evt.target as HTMLElement;
-    const sortName = target.dataset.cityName;
-
-    if (sortName && sortName !== currentSort) {
-      dispatch(changeSort(sortName as Sort));
-    }
-  };
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -32,19 +24,21 @@ function ListSort(): JSX.Element {
         </svg>
       </span>
 
-      <ul className={`places__options places__options--custom ${isOpen ? 'places__options--opened' : ''}`} onClick={handelSortTypeClick}>
-        <li className="places__option" data-city-name='Popular' tabIndex={0} >
-Popular
-        </li>
-        <li className="places__option" data-city-name='Price: low to high' tabIndex={0}>
-Price: low to high
-        </li>
-        <li className="places__option" data-city-name='Price: high to low' tabIndex={0}>
-Price: high to low
-        </li>
-        <li className="places__option" data-city-name='Top rated first' tabIndex={0}>
-Top rated first
-        </li>
+      <ul className={`places__options places__options--custom ${isOpen ? 'places__options--opened' : ''}`}>
+        {SortTypeKey.map((key)=>
+          (
+            <li className="places__option" tabIndex={0} key={key}
+
+              onClick={()=>{
+                sortDict[key].handler();
+                dispatch(changeSort(key));
+              }}
+            >
+              {sortDict[key].label}
+            </li>
+          )
+        )}
+
       </ul>
     </form>
   );
