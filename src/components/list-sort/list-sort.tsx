@@ -18,7 +18,7 @@ function ListSort(): JSX.Element {
       <span className="places__sorting-caption">Sort by </span>
 
       <span className="places__sorting-type" tabIndex={0} onClick={handleSortPopupClick}>
-        {currentSort.label}
+        {sortDict[currentSort].label}
         <svg className="places__sorting-arrow" width={7} height={4}>
           <use xlinkHref="#icon-arrow-select" />
         </svg>
@@ -30,7 +30,7 @@ function ListSort(): JSX.Element {
             <li className="places__option" tabIndex={0} key={key}
 
               onClick={()=>{
-                dispatch(changeSort(sortDict[key]));
+                dispatch(changeSort(key));
               }}
             >
               {sortDict[key].label}

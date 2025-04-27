@@ -2,7 +2,7 @@ import {useParams} from 'react-router-dom';
 
 
 import { Comments } from '../../mocks/comments';
-import { CITES } from '../../cities';
+import { CITIES } from '../../сities';
 
 
 import NotFoundScreen from '../not-found/not-found';
@@ -166,7 +166,7 @@ function OffersScreen(): JSX.Element | undefined {
               </div>
             </div>
             <div>
-              <Map city={CITES[0]} points={offers} className='offer'/>
+              <Map city={CITIES[0]} points={offers} className='offer'/>
             </div>
           </section>
           <div className="container">

@@ -47,8 +47,8 @@ function Map({city, points, activePoint, className} : MapProps):JSX.Element{
     if(map){
       map.setView({
         lat: city.location.latitude,
-        lng: city.location.longitude
-      });
+        lng: city.location.longitude,
+      }, city.location.zoom);
       markerLayer.current.addTo(map);
       markerLayer.current.clearLayers();
     }

@@ -7,6 +7,8 @@ import { Offer } from '../../types/offers';
 import PlaceCard from '../place-card/place-card';
 import ListSort from '../list-sort/list-sort';
 
+import { sortDict } from '../../utils/sort';
+
 
 import Map from '../map/map';
 import { useAppSelector } from '../../store/hooks';
@@ -23,7 +25,7 @@ function CardList():JSX.Element {
 
   const currentOffers = offers.filter((offer)=> offer.city.name === activeCity.name);
 
-  currentOffers.sort(currentSort.handler);
+  currentOffers.sort(sortDict[currentSort].handler);
 
   function handelCurrentActiveCard (offer: Offer | null){
     if(offer) {

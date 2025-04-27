@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { CITES } from '../../cities';
+import { CITIES } from '../../сities';
 import { setActiveCity } from '../../store/actions';
 import { City } from '../../types/offers';
 
@@ -15,7 +15,7 @@ function CityList():JSX.Element {
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
-        {CITES.map((city)=>
+        {CITIES.map((city)=>
           (
             <li className="locations__item"
               key={city.name}
