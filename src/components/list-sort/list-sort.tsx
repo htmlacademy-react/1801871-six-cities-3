@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { changeSort } from '../../store/actions';
 import { sortDict, SortTypeKey} from '../../utils/sort';
@@ -11,6 +11,24 @@ function ListSort(): JSX.Element {
   const handleSortPopupClick = () => {
     setOpenClose(!isOpen);
   };
+
+
+  useEffect(()=>{
+
+    function handleEscKeydown(evt: KeyboardEvent) {
+      if (evt.key === 'Escape') {
+        setOpenClose(!isOpen);
+      }
+    }
+
+    if(isOpen) {
+      document.addEventListener('keydown', handleEscKeydown);
+    }
+
+    return ()=>{
+      document.removeEventListener('keydown', handleEscKeydown);
+    };
+  },[isOpen]);
 
 
   return (
