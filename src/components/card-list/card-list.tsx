@@ -35,12 +35,16 @@ function CardList():JSX.Element {
     }
   }
 
+  function getPlaceFoundText(placeAmount:number) {
+    return placeAmount > 1 ? 'places' : 'place';
+  }
+
   return (
     <div className="cities">
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">{currentOffers.length} places to stay in {activeCity.name}</b>
+          <b className="places__found">{currentOffers.length} {getPlaceFoundText(currentOffers.length)} to stay in {activeCity.name}</b>
 
           <ListSort/>
 
