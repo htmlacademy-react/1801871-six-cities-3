@@ -11,6 +11,10 @@ import FavoritesScreen from '../../pages/favorites/favorites';
 
 import PrivateRoute from '../private-page/private-page';
 
+import fetchOffers from '../../store/api-action';
+import { store } from '../../store/store';
+
+store.dispatch(fetchOffers());
 
 function App(): JSX.Element {
   return (
