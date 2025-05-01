@@ -41,3 +41,5 @@ export const LAYER_ATTRIBUTE =
 export const URL_DATA = 'https://15.design.htmlacademy.pro';
 
 export const TIME_CONNECTION = 5000;
+
+export const TOKEN_KEY_NAME = 'token';

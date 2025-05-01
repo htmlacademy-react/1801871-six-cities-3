@@ -1,5 +1,6 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { URL_DATA, TIME_CONNECTION } from '../const';
+import { getToken } from './token';
 
 
 export const createAPI = (): AxiosInstance => {
@@ -24,6 +25,4 @@ export const createAPI = (): AxiosInstance => {
 };
 
 export default createAPI;
-
-
 

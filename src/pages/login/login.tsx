@@ -1,15 +1,42 @@
+import { FormEvent, useRef } from 'react';
+import { loginAction } from '../../store/api-action';
+
+import { useAppDispatch } from '../../store/hooks';
 
 function LoginScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const loginRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+
+  function handleAuthSubmit (evt: FormEvent<HTMLFormElement>) {
+    evt.preventDefault();
+
+    if (loginRef.current !== null && passwordRef.current !== null) {
+      const login = loginRef.current.value;
+      const password = passwordRef.current.value;
+
+      dispatch(loginAction({ login, password }));
+    }
+  }
+
   return (
     <div className="page page--gray page--login">
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
+            <form
+              className="login__form form"
+              action="#"
+              method="post"
+              onSubmit={handleAuthSubmit}
+            >
+
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
+                  ref={loginRef}
                   className="login__input form__input"
                   type="email"
                   name="email"
@@ -17,9 +44,11 @@ function LoginScreen(): JSX.Element {
                   required
                 />
               </div>
+
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
                 <input
+                  ref={passwordRef}
                   className="login__input form__input"
                   type="password"
                   name="password"
@@ -27,6 +56,7 @@ function LoginScreen(): JSX.Element {
                   required
                 />
               </div>
+
               <button className="login__submit form__submit button" type="submit">
             Sign in
               </button>

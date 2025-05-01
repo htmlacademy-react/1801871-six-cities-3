@@ -2,10 +2,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
-import { loadQuestions, setLoadingStatus } from './actions';
+import { loadQuestions, setAuthorization, setLoadingStatus } from './actions';
 import { Offer } from '../types/offers';
+import { AuthData, UserData } from '../types/user';
+import { setToken } from '../api/token';
+import { AuthState } from '../const';
 
-const fetchOffers = createAsyncThunk<void, undefined, {
+export const fetchOffers = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -19,4 +22,16 @@ const fetchOffers = createAsyncThunk<void, undefined, {
   }
 );
 
-export default fetchOffers;
+export const loginAction = createAsyncThunk<void, AuthData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/login',
+  async ({login: email, password}, {dispatch, extra: api}) => {
+    const {data: {token}} = await api.post<UserData>('/six-cities/login', {email, password});
+    setToken(token);
+    dispatch(setAuthorization(AuthState.Auth));
+  },
+);
+
