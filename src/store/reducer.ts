@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeSort, loadQuestions, setActiveCity } from './actions';
+import { changeSort, loadQuestions, setActiveCity, setLoadingStatus } from './actions';
 import { City, Offer } from '../types/offers';
 import { CITIES } from '../сities';
 
@@ -10,12 +10,14 @@ type stateType = {
   city: City;
   offers: Offer[];
   currentSort: TSortKey;
+  isLoading: boolean;
 }
 
 const initialState:stateType = {
   city: CITIES[0],
   offers: [],
-  currentSort: 'Popular'
+  currentSort: 'Popular',
+  isLoading: false
 };
 
 export const updateCity = createReducer(initialState, (builder) => {
@@ -28,5 +30,8 @@ export const updateCity = createReducer(initialState, (builder) => {
     })
     .addCase(loadQuestions, (state, action)=> {
       state.offers = action.payload;
+    })
+    .addCase(setLoadingStatus, (state, action)=> {
+      state.isLoading = action.payload;
     });
 });

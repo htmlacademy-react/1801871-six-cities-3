@@ -1,5 +1,5 @@
 // import { Offers } from '../../mocks/offers';
-import PlaceCard from '../place-card/place-card';
+// import PlaceCard from '../place-card/place-card';
 
 function NearPlacesList () :JSX.Element {
   return (
