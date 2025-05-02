@@ -5,6 +5,11 @@ import { useState } from 'react';
 import { Offer } from '../../types/offers';
 
 import PlaceCard from '../place-card/place-card';
+import ListSort from '../list-sort/list-sort';
+
+import { sortDict } from '../../utils/sort';
+
+
 import Map from '../map/map';
 import { useAppSelector } from '../../store/hooks';
 
@@ -15,8 +20,12 @@ function CardList():JSX.Element {
   const [activePoint, setActivePoint] = useState<Offer | null>(null);
   const activeCity = useAppSelector((state)=> state.city);
   const offers = useAppSelector((state)=> state.offers);
+  const currentSort = useAppSelector((state)=> state.currentSort);
+
 
   const currentOffers = offers.filter((offer)=> offer.city.name === activeCity.name);
+
+  currentOffers.sort(sortDict[currentSort].handler);
 
   function handelCurrentActiveCard (offer: Offer | null){
     if(offer) {
@@ -26,46 +35,38 @@ function CardList():JSX.Element {
     }
   }
 
+  function getPlaceFoundText(placeAmount:number) {
+    return placeAmount > 1 ? 'places' : 'place';
+  }
+
   return (
     <div className="cities">
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">{currentOffers.length} places to stay in {activeCity.name}</b>
-          <form className="places__sorting" action="#" method="get">
-            <span className="places__sorting-caption">Sort by</span>
-            <span className="places__sorting-type" tabIndex={0}>
-      Popular
-              <svg className="places__sorting-arrow" width={7} height={4}>
-                <use xlinkHref="#icon-arrow-select" />
-              </svg>
-            </span>
-            <ul className="places__options places__options--custom places__options--opened">
-              <li
-                className="places__option places__option--active"
-                tabIndex={0}
-              >
-        Popular
-              </li>
-              <li className="places__option" tabIndex={0}>
-        Price: low to high
-              </li>
-              <li className="places__option" tabIndex={0}>
-        Price: high to low
-              </li>
-              <li className="places__option" tabIndex={0}>
-        Top rated first
-              </li>
-            </ul>
-          </form>
+          <b className="places__found">{currentOffers.length} {getPlaceFoundText(currentOffers.length)} to stay in {activeCity.name}</b>
+
+          <ListSort/>
+
           <div className="cities__places-list places__list tabs__content">
+
             {currentOffers.map((offer) =>
-              (<PlaceCard offer={offer} key={offer.id} handelCurrentActiveCard={handelCurrentActiveCard} type='cities'/>
+              (
+                <PlaceCard
+                  offer={offer}
+                  key={offer.id}
+                  handelCurrentActiveCard={handelCurrentActiveCard}
+                  type='cities'
+                />
               ))}
+
           </div>
         </section>
+
         <div className="cities__right-section">
+
           <Map activePoint={activePoint} city={activeCity} points={currentOffers} className='cities'/>
+
         </div>
       </div>
     </div>

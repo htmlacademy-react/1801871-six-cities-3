@@ -1,22 +1,30 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { updateCityAction } from './actions';
+import { changeSort, setActiveCity } from './actions';
 import { City, Offer } from '../types/offers';
-import { CITES } from '../cities';
+import { CITIES } from '../сities';
 import { Offers } from '../mocks/offers';
+
+import { TSortKey } from '../types/sort';
+
 
 type stateType = {
   city: City;
   offers: Offer[];
+  currentSort: TSortKey;
 }
 
 const initialState:stateType = {
-  city: CITES[0],
-  offers: Offers
+  city: CITIES[0],
+  offers: Offers,
+  currentSort: 'Popular'
 };
 
 export const updateCity = createReducer(initialState, (builder) => {
   builder
-    .addCase(updateCityAction, (state, action) => {
+    .addCase(setActiveCity, (state, action) => {
       state.city = action.payload;
+    })
+    .addCase(changeSort, (state, action) => {
+      state.currentSort = action.payload;
     });
 });
