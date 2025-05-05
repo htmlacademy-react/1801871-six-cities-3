@@ -2,7 +2,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
-import { loadQuestions, setAuthorization, setLoadingStatus } from './actions';
+import { loadQuestions, setAuthorization, setLoadingStatus, setUserInfo } from './actions';
 import { Offer } from '../types/offers';
 import { AuthData, UserData } from '../types/user';
 import { setToken } from '../api/token';
@@ -29,9 +29,10 @@ export const loginAction = createAsyncThunk<void, AuthData, {
 }>(
   'user/login',
   async ({login: email, password}, {dispatch, extra: api}) => {
-    const {data: {token}} = await api.post<UserData>('/six-cities/login', {email, password});
-    setToken(token);
+    const { data } = await api.post<UserData>('/six-cities/login', {email, password});
+    setToken(data.token);
     dispatch(setAuthorization(AuthState.Auth));
+    dispatch(setUserInfo(data));
   },
 );
 

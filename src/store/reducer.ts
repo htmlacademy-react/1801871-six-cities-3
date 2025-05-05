@@ -1,10 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeSort, loadQuestions, setActiveCity, setAuthorization, setLoadingStatus } from './actions';
+import { changeSort, loadQuestions, setActiveCity, setAuthorization, setLoadingStatus, setUserInfo } from './actions';
 import { City, Offer } from '../types/offers';
 import { CITIES } from '../сities';
 
 import { TSortKey } from '../types/sort';
 import { AuthState } from '../const';
+import { UserData } from '../types/user';
 
 
 type stateType = {
@@ -13,6 +14,7 @@ type stateType = {
   currentSort: TSortKey;
   isLoading: boolean;
   authStatus: AuthState;
+  userInfo: UserData | null;
 }
 
 const initialState:stateType = {
@@ -20,7 +22,8 @@ const initialState:stateType = {
   offers: [],
   currentSort: 'Popular',
   isLoading: false,
-  authStatus: AuthState.Unknown
+  authStatus: AuthState.Unknown,
+  userInfo: null
 };
 
 export const updateCity = createReducer(initialState, (builder) => {
@@ -39,5 +42,8 @@ export const updateCity = createReducer(initialState, (builder) => {
     })
     .addCase(setAuthorization, (state, action)=> {
       state.authStatus = action.payload;
+    })
+    .addCase(setUserInfo, (state, action)=> {
+      state.userInfo = action.payload;
     });
 });

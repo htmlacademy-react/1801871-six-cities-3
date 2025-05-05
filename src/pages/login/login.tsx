@@ -1,10 +1,14 @@
 import { FormEvent, useRef } from 'react';
 import { loginAction } from '../../store/api-action';
 
-import { useAppDispatch } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { AppRoute, AuthState } from '../../const';
+import { Navigate } from 'react-router-dom';
 
 function LoginScreen(): JSX.Element {
   const dispatch = useAppDispatch();
+
+  const authStatus = useAppSelector((state)=> state.authStatus);
 
   const loginRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -18,6 +22,10 @@ function LoginScreen(): JSX.Element {
 
       dispatch(loginAction({ login, password }));
     }
+  }
+
+  if(authStatus === AuthState.Auth) {
+    return <Navigate to={AppRoute.Root} />;
   }
 
   return (

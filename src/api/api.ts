@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import { URL_DATA, TIME_CONNECTION } from '../const';
 import { getToken } from './token';
 
@@ -9,17 +9,17 @@ export const createAPI = (): AxiosInstance => {
     timeout: TIME_CONNECTION,
   });
 
-  // api.interceptors.request.use(
-  //   (config: AxiosRequestConfig) => {
-  //     const token = getToken();
+  api.interceptors.request.use(
+    (config) => {
+      const token = getToken();
 
-  //     if (token && config.headers) {
-  //       config.headers['x-token'] = token;
-  //     }
+      if (token && config.headers) {
+        config.headers['x-token'] = token;
+      }
 
-  //     return config;
-  //   },
-  // );
+      return config;
+    },
+  );
 
   return api;
 };
