@@ -5,7 +5,7 @@ import { AxiosInstance } from 'axios';
 import { loadQuestions, setAuthorization, setLoadingStatus, setUserInfo } from './actions';
 import { Offer } from '../types/offers';
 import { AuthData, UserData } from '../types/user';
-import { setToken } from '../api/token';
+import { deleteToken, setToken } from '../api/token';
 import { AuthState } from '../const';
 
 export const fetchOffers = createAsyncThunk<void, undefined, {
@@ -53,6 +53,19 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
     } catch {
       dispatch(setAuthorization(AuthState.NoAuth));
     }
+  },
+);
+
+export const logoutAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/logout',
+  async (_arg, {dispatch, extra: api}) => {
+    await api.delete('/six-cities/logout');
+    deleteToken();
+    dispatch(setAuthorization(AuthState.NoAuth));
   },
 );
 

@@ -38,9 +38,8 @@ export const createAPI = (): AxiosInstance => {
 
       if (error.response?.data?.details?.[0]?.messages) {
         SetError(error.response.data.details[0].messages.join(' '));
-      } else {
-        SetError('Неизвестная ошибка');
       }
+      throw error;
     }
 
   );

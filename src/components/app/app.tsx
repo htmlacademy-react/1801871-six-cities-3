@@ -18,6 +18,7 @@ import { useAppSelector } from '../../store/hooks';
 store.dispatch(fetchOffers());
 store.dispatch(checkAuthAction());
 
+
 function App(): JSX.Element {
   const authStatus = useAppSelector((state)=> state.authStatus);
   return (
