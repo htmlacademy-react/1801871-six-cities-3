@@ -29,10 +29,30 @@ export const loginAction = createAsyncThunk<void, AuthData, {
 }>(
   'user/login',
   async ({login: email, password}, {dispatch, extra: api}) => {
+
     const { data } = await api.post<UserData>('/six-cities/login', {email, password});
     setToken(data.token);
     dispatch(setAuthorization(AuthState.Auth));
     dispatch(setUserInfo(data));
+  },
+);
+
+export const checkAuthAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/checkAuth',
+  async (_arg, {dispatch, extra: api}) => {
+    try {
+      const { data } = await api.get<UserData>('/six-cities/login');
+      dispatch(setAuthorization(AuthState.Auth));
+      dispatch(setUserInfo(data));
+
+
+    } catch {
+      dispatch(setAuthorization(AuthState.NoAuth));
+    }
   },
 );
 

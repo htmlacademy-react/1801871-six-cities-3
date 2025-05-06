@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeSort, loadQuestions, setActiveCity, setAuthorization, setLoadingStatus, setUserInfo } from './actions';
+import { changeSort, loadQuestions, setActiveCity, setAuthorization, setErrorText, setLoadingStatus, setUserInfo } from './actions';
 import { City, Offer } from '../types/offers';
 import { CITIES } from '../сities';
 
@@ -15,6 +15,7 @@ type stateType = {
   isLoading: boolean;
   authStatus: AuthState;
   userInfo: UserData | null;
+  errorMessage: string;
 }
 
 const initialState:stateType = {
@@ -23,7 +24,8 @@ const initialState:stateType = {
   currentSort: 'Popular',
   isLoading: false,
   authStatus: AuthState.Unknown,
-  userInfo: null
+  userInfo: null,
+  errorMessage: ''
 };
 
 export const updateCity = createReducer(initialState, (builder) => {
@@ -45,5 +47,8 @@ export const updateCity = createReducer(initialState, (builder) => {
     })
     .addCase(setUserInfo, (state, action)=> {
       state.userInfo = action.payload;
+    })
+    .addCase(setErrorText, (state, action)=> {
+      state.errorMessage = action.payload;
     });
 });

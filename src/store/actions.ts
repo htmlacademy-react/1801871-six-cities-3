@@ -11,7 +11,8 @@ export const Action = {
   LOAD_QUESTION: 'LOAD_QUESTION',
   LOADING_STATUS: 'LOADING_STATUS',
   SET_AUTHORIZATION: 'SET_AUTHORIZATION',
-  SET_USER_INFO: 'SET_USER_INFO'
+  SET_USER_INFO: 'SET_USER_INFO',
+  SET_ERROR_TEXT: 'SET_ERROR_TEXT'
 };
 
 
@@ -21,3 +22,4 @@ export const loadQuestions = createAction<Offer[]>(Action.LOAD_QUESTION);
 export const setLoadingStatus = createAction<boolean>(Action.LOADING_STATUS);
 export const setAuthorization = createAction<AuthState>(Action.SET_AUTHORIZATION);
 export const setUserInfo = createAction<UserData>(Action.SET_USER_INFO);
+export const setErrorText = createAction<string>(Action.SET_ERROR_TEXT);

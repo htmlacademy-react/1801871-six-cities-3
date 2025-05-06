@@ -1,7 +1,9 @@
 import { FormEvent, useRef } from 'react';
 import { loginAction } from '../../store/api-action';
 
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import ErrorText from '../../components/error-text/error-text';
+
+import { useAppDispatch, useAppSelector} from '../../store/hooks';
 import { AppRoute, AuthState } from '../../const';
 import { Navigate } from 'react-router-dom';
 
@@ -9,6 +11,7 @@ function LoginScreen(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const authStatus = useAppSelector((state)=> state.authStatus);
+  const errorMessage = useAppSelector((state)=> state.errorMessage);
 
   const loginRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -64,6 +67,8 @@ function LoginScreen(): JSX.Element {
                   required
                 />
               </div>
+
+              {errorMessage !== '' ? <ErrorText /> : ''}
 
               <button className="login__submit form__submit button" type="submit">
             Sign in

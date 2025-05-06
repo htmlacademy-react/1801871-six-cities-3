@@ -11,11 +11,12 @@ import FavoritesScreen from '../../pages/favorites/favorites';
 
 import PrivateRoute from '../private-page/private-page';
 
-import { fetchOffers } from '../../store/api-action';
+import { checkAuthAction, fetchOffers } from '../../store/api-action';
 import { store } from '../../store/store';
 import { useAppSelector } from '../../store/hooks';
 
 store.dispatch(fetchOffers());
+store.dispatch(checkAuthAction());
 
 function App(): JSX.Element {
   const authStatus = useAppSelector((state)=> state.authStatus);
