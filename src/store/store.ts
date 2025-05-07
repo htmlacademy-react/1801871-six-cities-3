@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { updateCity } from './reducer';
 import createAPI from '../api/api';
 
-export const api = createAPI();
+const api = createAPI();
 
 export const store = configureStore({
 

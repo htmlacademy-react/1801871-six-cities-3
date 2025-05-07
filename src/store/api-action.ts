@@ -22,6 +22,7 @@ export const fetchOffers = createAsyncThunk<void, undefined, {
   }
 );
 
+
 export const loginAction = createAsyncThunk<void, AuthData, {
   dispatch: AppDispatch;
   state: State;
