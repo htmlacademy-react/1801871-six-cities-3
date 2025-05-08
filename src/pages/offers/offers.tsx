@@ -1,7 +1,7 @@
 import {useParams} from 'react-router-dom';
 
 
-import { Comments } from '../../mocks/comments';
+
 import { CITIES } from '../../сities';
 
 
@@ -17,6 +17,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { LoadingSpinner } from '../../components/loading-spinner/loading-spinner';
 import { FullOffer } from '../../types/offer';
+import { TComment } from '../../types/comment';
+import { Offer } from '../../types/offers';
 
 
 function OffersScreen(): JSX.Element | undefined {
@@ -26,7 +28,10 @@ function OffersScreen(): JSX.Element | undefined {
   const isLoading = useAppSelector((state)=>state.isLoading);
 
   const [offer, setOffer] = useState<FullOffer | null>(null);
+  const [comments, setComments] = useState<TComment[] | null>(null);
   const [isNotFound, setNotFound] = useState<boolean>(false);
+  const [nearbyOffer, setNearbyOffer] = useState<Offer[] | null>(null);
+
   useEffect(() => {
     const fetchOffer = async () => {
       try {
@@ -34,7 +39,6 @@ function OffersScreen(): JSX.Element | undefined {
         const { data } = await axios.get<FullOffer>(
           `https://15.design.htmlacademy.pro/six-cities/offers/${id}`
         );
-        console.log(data);
         setOffer(data);
       } catch (err) {
         console.log(err);
@@ -46,6 +50,49 @@ function OffersScreen(): JSX.Element | undefined {
 
     if (id) {
       fetchOffer();
+    }
+  }, [id, dispatch]);
+
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        dispatch(setLoadingStatus(true));
+        const { data } = await axios.get<TComment[]>(
+          `https://15.design.htmlacademy.pro/six-cities/comments/${id}`
+        );
+        setComments(data);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        dispatch(setLoadingStatus(false));
+      }
+    };
+
+    if (id) {
+      fetchComments();
+    }
+  }, [id, dispatch]);
+
+
+  useEffect(() => {
+    const fetchNearbyOffers = async () => {
+      try {
+        dispatch(setLoadingStatus(true));
+        const { data } = await axios.get<Offer[]>(
+          `https://15.design.htmlacademy.pro/six-cities/offers/${id}/nearby`
+        );
+        console.log(data);
+        setNearbyOffer(data);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        dispatch(setLoadingStatus(false));
+      }
+    };
+
+    if (id) {
+      fetchNearbyOffers();
     }
   }, [id, dispatch]);
 
@@ -162,11 +209,11 @@ function OffersScreen(): JSX.Element | undefined {
                     </p>
                   </div>
                 </div>
-                {/* <ReviewList comments={Comments}/> */}
+                {comments ? <ReviewList comments={comments}/> : ''}
               </div>
             </div>
             <div>
-              {/* <Map city={CITIES[0]} points={offers} className='offer'/> */}
+              { nearbyOffer !== null ? <Map city={offer.city} activePoint={offer} points={nearbyOffer} className='offer'/> : ''}
             </div>
           </section>
           <div className="container">
