@@ -2,11 +2,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
-import { loadQuestions, setAuthorization, setLoadingStatus, setUserInfo } from './actions';
+import { loadQuestions, setAuthorization, setCurrentFullOffer, setLoadingStatus, setUserInfo } from './actions';
 import { Offer } from '../types/offers';
 import { AuthData, UserData } from '../types/user';
 import { deleteToken, setToken } from '../api/token';
 import { AuthState } from '../const';
+import { FullOffer } from '../types/offer';
 
 export const fetchOffers = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -70,3 +71,17 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   },
 );
 
+
+export const fetchFullOffer = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'get/fullOffer',
+  async (id, {dispatch, extra: api}) => {
+    dispatch(setLoadingStatus(true));
+    const {data} = await api.get<FullOffer>(`/six-cities/offers/${id}`);
+    dispatch(setLoadingStatus(false));
+    dispatch(setCurrentFullOffer(data));
+  }
+);

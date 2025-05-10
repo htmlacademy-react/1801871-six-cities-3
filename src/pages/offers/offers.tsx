@@ -1,10 +1,6 @@
 import {useParams} from 'react-router-dom';
 
 
-
-import { CITIES } from '../../сities';
-
-
 import NotFoundScreen from '../not-found/not-found';
 import ReviewList from '../../components/review-list/review-list';
 import Map from '../../components/map/map';
@@ -19,6 +15,7 @@ import { LoadingSpinner } from '../../components/loading-spinner/loading-spinner
 import { FullOffer } from '../../types/offer';
 import { TComment } from '../../types/comment';
 import { Offer } from '../../types/offers';
+import { fetchFullOffer } from '../../store/api-action';
 
 
 function OffersScreen(): JSX.Element | undefined {
@@ -26,30 +23,22 @@ function OffersScreen(): JSX.Element | undefined {
   const dispatch = useAppDispatch();
 
   const isLoading = useAppSelector((state)=>state.isLoading);
+  const offer = useAppSelector((state)=>state.currentOffer);
+  const errorMessage = useAppSelector((state)=> state.errorMessage);
 
-  const [offer, setOffer] = useState<FullOffer | null>(null);
   const [comments, setComments] = useState<TComment[] | null>(null);
   const [isNotFound, setNotFound] = useState<boolean>(false);
   const [nearbyOffers, setNearbyOffers] = useState<Offer[] | null>(null);
 
   useEffect(() => {
-    const fetchOffer = async () => {
-      try {
-        dispatch(setLoadingStatus(true));
-        const { data } = await axios.get<FullOffer>(
-          `https://15.design.htmlacademy.pro/six-cities/offers/${id}`
-        );
-        setOffer(data);
-      } catch (err) {
-        console.log(err);
-        setNotFound(true);
-      } finally {
-        dispatch(setLoadingStatus(false));
-      }
-    };
+    if (errorMessage) {
+      setNotFound(true);
+    }
+  }, [errorMessage]);
 
+  useEffect(() => {
     if (id) {
-      fetchOffer();
+      dispatch(fetchFullOffer(id));
     }
   }, [id, dispatch]);
 
@@ -124,8 +113,6 @@ function OffersScreen(): JSX.Element | undefined {
   if(isNotFound) {
     return <NotFoundScreen notFoundPageType={'offer'}/>;
   }
-
-
 
 
   if(offer) {
