@@ -100,15 +100,6 @@ function OffersScreen(): JSX.Element | undefined {
     return `${stars * 20}%`;
   }
 
-  if(isLoading) {
-    return <LoadingSpinner/>;
-  }
-
-  if(isNotFound) {
-    return <NotFoundScreen notFoundPageType={'offer'}/>;
-  }
-
-
   function isPremium(cardType:boolean): JSX.Element | undefined {
     if(cardType) {
       return (
@@ -125,6 +116,17 @@ function OffersScreen(): JSX.Element | undefined {
       );
     }
   }
+
+  if(isLoading) {
+    return <LoadingSpinner/>;
+  }
+
+  if(isNotFound) {
+    return <NotFoundScreen notFoundPageType={'offer'}/>;
+  }
+
+
+
 
   if(offer) {
     return (
@@ -208,7 +210,7 @@ function OffersScreen(): JSX.Element | undefined {
                     </p>
                   </div>
                 </div>
-                {comments ? <ReviewList comments={comments}/> : ''}
+                {comments && id ? <ReviewList id={id} comments={comments}/> : ''}
               </div>
             </div>
             <div>
