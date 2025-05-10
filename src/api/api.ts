@@ -37,9 +37,10 @@ export const createAPI = (): AxiosInstance => {
       }
 
       if (error.response?.data?.details?.[0]?.messages) {
-        console.log('eerher')
         SetError(error.response.data.details[0].messages.join(' '));
       }
+
+      SetError('error');
       throw error;
     }
 

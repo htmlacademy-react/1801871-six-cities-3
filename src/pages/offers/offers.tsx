@@ -12,7 +12,7 @@ import { setLoadingStatus } from '../../store/actions';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { LoadingSpinner } from '../../components/loading-spinner/loading-spinner';
-import { FullOffer } from '../../types/offer';
+// import { FullOffer } from '../../types/offer';
 import { TComment } from '../../types/comment';
 import { Offer } from '../../types/offers';
 import { fetchFullOffer } from '../../store/api-action';
