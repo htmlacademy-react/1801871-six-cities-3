@@ -30,7 +30,7 @@ function OffersScreen(): JSX.Element | undefined {
   const [offer, setOffer] = useState<FullOffer | null>(null);
   const [comments, setComments] = useState<TComment[] | null>(null);
   const [isNotFound, setNotFound] = useState<boolean>(false);
-  const [nearbyOffer, setNearbyOffer] = useState<Offer[] | null>(null);
+  const [nearbyOffers, setNearbyOffers] = useState<Offer[] | null>(null);
 
   useEffect(() => {
     const fetchOffer = async () => {
@@ -82,8 +82,7 @@ function OffersScreen(): JSX.Element | undefined {
         const { data } = await axios.get<Offer[]>(
           `https://15.design.htmlacademy.pro/six-cities/offers/${id}/nearby`
         );
-        console.log(data);
-        setNearbyOffer(data);
+        setNearbyOffers(data);
       } catch (err) {
         console.log(err);
       } finally {
@@ -213,7 +212,7 @@ function OffersScreen(): JSX.Element | undefined {
               </div>
             </div>
             <div>
-              { nearbyOffer !== null ? <Map city={offer.city} activePoint={offer} points={nearbyOffer} className='offer'/> : ''}
+              { nearbyOffers !== null ? <Map city={offer.city} activePoint={offer} points={nearbyOffers} className='offer'/> : ''}
             </div>
           </section>
           <div className="container">
@@ -221,7 +220,7 @@ function OffersScreen(): JSX.Element | undefined {
               <h2 className="near-places__title">
           Other places in the neighbourhood
               </h2>
-              <NearPlacesList />
+              { nearbyOffers !== null ? <NearPlacesList offers={nearbyOffers}/> : ''}
             </section>
           </div>
         </main>

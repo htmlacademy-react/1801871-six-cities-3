@@ -90,7 +90,7 @@ function ReviewList ({comments}:ReviewListProps):JSX.Element {
           <button
             className="reviews__submit form__submit button"
             type="submit"
-            disabled={comment.comment.length <= 50}
+            disabled={comment.comment.length >= 50}
           >
       Submit
           </button>
