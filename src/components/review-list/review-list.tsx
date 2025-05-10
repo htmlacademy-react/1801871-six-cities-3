@@ -2,16 +2,24 @@ import { useState, Fragment, ChangeEventHandler } from 'react';
 import { TComment } from '../../types/comment';
 
 import Comment from '../comment/comment';
+import axios from 'axios';
+import { setLoadingStatus } from '../../store/actions';
+import { useAppDispatch } from '../../store/hooks';
+import { getToken } from '../../api/token';
+import { fetchFullOffer } from '../../store/api-action';
 
 type ReviewListProps = {
   comments: TComment[];
+  id:string;
 }
 
 
 type CommentHandler = ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>
 
 
-function ReviewList ({comments}:ReviewListProps):JSX.Element {
+function ReviewList ({comments , id}:ReviewListProps):JSX.Element {
+
+  const dispatch = useAppDispatch();
 
   const rating = [
     {title: 'perfect', value: 5},
@@ -33,6 +41,36 @@ function ReviewList ({comments}:ReviewListProps):JSX.Element {
     });
   };
 
+  const onSubmitComment = (event: React.FormEvent) => {
+    event.preventDefault();
+    const SendComment = async () => {
+      try {
+        dispatch(setLoadingStatus(true));
+        await axios.post(
+          `https://15.design.htmlacademy.pro/six-cities/comments/${id}`,
+          {
+            comment: comment.comment,
+            rating: comment.rating,
+          },
+          {
+            headers: {
+              'x-token': getToken(),
+            },
+          }
+        );
+      } catch (err) {
+        console.log(err);
+      } finally {
+        // dispatch(fetchFullOffer(id));
+        dispatch(setLoadingStatus(false));
+      }
+    };
+
+    if(comment.comment && comment.rating !== -1) {
+      SendComment();
+    }
+  };
+
 
   return (
     <section className="offer__reviews reviews">
@@ -43,7 +81,7 @@ function ReviewList ({comments}:ReviewListProps):JSX.Element {
         {comments.map((element) =>
           (<Comment comment={element} key={element.id} />))}
       </ul>
-      <form className="reviews__form form" action="#" method="post">
+      <form className="reviews__form form" action="#" method="post" onSubmit={onSubmitComment}>
         <label className="reviews__label form__label" htmlFor="review">
     Your review
         </label>

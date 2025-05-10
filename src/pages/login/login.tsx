@@ -1,15 +1,53 @@
+import { FormEvent, useRef } from 'react';
+import { loginAction } from '../../store/api-action';
+
+import ErrorText from '../../components/error-text/error-text';
+
+import { useAppDispatch, useAppSelector} from '../../store/hooks';
+import { AppRoute, AuthState } from '../../const';
+import { Navigate } from 'react-router-dom';
 
 function LoginScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const authStatus = useAppSelector((state)=> state.authStatus);
+  const errorMessage = useAppSelector((state)=> state.errorMessage);
+
+  const loginRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+
+  function handleAuthSubmit (evt: FormEvent<HTMLFormElement>) {
+    evt.preventDefault();
+
+    if (loginRef.current !== null && passwordRef.current !== null) {
+      const login = loginRef.current.value;
+      const password = passwordRef.current.value;
+
+      dispatch(loginAction({ login, password }));
+    }
+  }
+
+  if(authStatus === AuthState.Auth) {
+    return <Navigate to={AppRoute.Root} />;
+  }
+
   return (
     <div className="page page--gray page--login">
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
+            <form
+              className="login__form form"
+              action="#"
+              method="post"
+              onSubmit={handleAuthSubmit}
+            >
+
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
+                  ref={loginRef}
                   className="login__input form__input"
                   type="email"
                   name="email"
@@ -17,9 +55,11 @@ function LoginScreen(): JSX.Element {
                   required
                 />
               </div>
+
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
                 <input
+                  ref={passwordRef}
                   className="login__input form__input"
                   type="password"
                   name="password"
@@ -27,6 +67,9 @@ function LoginScreen(): JSX.Element {
                   required
                 />
               </div>
+
+              {errorMessage !== '' ? <ErrorText /> : ''}
+
               <button className="login__submit form__submit button" type="submit">
             Sign in
               </button>

@@ -36,3 +36,12 @@ export const LAYER_PNG =
 
 export const LAYER_ATTRIBUTE =
 '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+
+
+export const URL_DATA = 'https://15.design.htmlacademy.pro';
+
+export const TIME_CONNECTION = 5000;
+
+export const TIME_ERROR = 5000;
+
+export const TOKEN_KEY_NAME = 'token';

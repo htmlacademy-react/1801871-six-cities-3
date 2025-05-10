@@ -26,16 +26,16 @@ function getLayoutState (pathname: AppRoute, authorizationStatus: AuthState): La
       'AuthButtonState':AuthLayoutState.Hide
     };
   }
-  if (authorizationStatus === AuthState.NoAuth) {
+  if (authorizationStatus === AuthState.NoAuth || authorizationStatus === AuthState.Unknown) {
     return {
       'showUserInfo':false,
-      'AuthButtonState':AuthLayoutState.LogIn
+      'AuthButtonState':AuthLayoutState.LogOut
     };
   }
 
   return {
     'showUserInfo':true,
-    'AuthButtonState':AuthLayoutState.LogOut
+    'AuthButtonState':AuthLayoutState.LogIn
   };
 }
 

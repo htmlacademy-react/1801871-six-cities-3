@@ -1,5 +1,6 @@
 import { AppRoute, AuthState } from '../../const';
 import { Navigate } from 'react-router-dom';
+import { LoadingSpinner } from '../loading-spinner/loading-spinner';
 
 
 type PrivateRouteProps = {
@@ -8,7 +9,10 @@ type PrivateRouteProps = {
 
 };
 
-function PrivateRoute ({authorizationStatus, children}: PrivateRouteProps) {
+function PrivateRoute ({authorizationStatus, children}: PrivateRouteProps):JSX.Element {
+  if(authorizationStatus === AuthState.Unknown) {
+    return <LoadingSpinner />;
+  }
   return authorizationStatus === AuthState.Auth ? children : <Navigate to={AppRoute.Login} />;
 }
 
