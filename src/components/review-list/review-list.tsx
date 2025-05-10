@@ -6,7 +6,7 @@ import axios from 'axios';
 import { setLoadingStatus } from '../../store/actions';
 import { useAppDispatch } from '../../store/hooks';
 import { getToken } from '../../api/token';
-import { fetchFullOffer } from '../../store/api-action';
+import { fetchComments, fetchFullOffer } from '../../store/api-action';
 
 type ReviewListProps = {
   comments: TComment[];
@@ -58,10 +58,10 @@ function ReviewList ({comments , id}:ReviewListProps):JSX.Element {
             },
           }
         );
+        dispatch(fetchComments(id));
       } catch (err) {
         console.log(err);
       } finally {
-        // dispatch(fetchFullOffer(id));
         dispatch(setLoadingStatus(false));
       }
     };

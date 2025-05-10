@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeSort, loadQuestions, setActiveCity, setAuthorization, setCurrentFullOffer, setErrorText, setLoadingStatus, setUserInfo } from './actions';
+import { changeSort, loadQuestions, setActiveCity, setAuthorization, setComments, setCurrentFullOffer, setErrorText, setLoadingStatus, setUserInfo } from './actions';
 import { City, Offer } from '../types/offers';
 import { CITIES } from '../сities';
 
@@ -7,6 +7,7 @@ import { TSortKey } from '../types/sort';
 import { AuthState } from '../const';
 import { UserData } from '../types/user';
 import { FullOffer } from '../types/offer';
+import { TComment } from '../types/comment';
 
 
 type stateType = {
@@ -18,6 +19,7 @@ type stateType = {
   userInfo: UserData | null;
   errorMessage: string;
   currentOffer: FullOffer | null;
+  comments:TComment[] | null;
 }
 
 const initialState:stateType = {
@@ -28,7 +30,8 @@ const initialState:stateType = {
   authStatus: AuthState.Unknown,
   userInfo: null,
   errorMessage: '',
-  currentOffer: null
+  currentOffer: null,
+  comments: null,
 };
 
 export const updateCity = createReducer(initialState, (builder) => {
@@ -56,5 +59,8 @@ export const updateCity = createReducer(initialState, (builder) => {
     })
     .addCase(setCurrentFullOffer, (state, action)=> {
       state.currentOffer = action.payload;
+    })
+    .addCase(setComments, (state, action)=> {
+      state.comments = action.payload;
     });
 });

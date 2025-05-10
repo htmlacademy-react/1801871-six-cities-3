@@ -13,9 +13,9 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { LoadingSpinner } from '../../components/loading-spinner/loading-spinner';
 // import { FullOffer } from '../../types/offer';
-import { TComment } from '../../types/comment';
+// import { TComment } from '../../types/comment';
 import { Offer } from '../../types/offers';
-import { fetchFullOffer } from '../../store/api-action';
+import { fetchComments, fetchFullOffer } from '../../store/api-action';
 
 
 function OffersScreen(): JSX.Element | undefined {
@@ -25,8 +25,8 @@ function OffersScreen(): JSX.Element | undefined {
   const isLoading = useAppSelector((state)=>state.isLoading);
   const offer = useAppSelector((state)=>state.currentOffer);
   const errorMessage = useAppSelector((state)=> state.errorMessage);
+  const comments = useAppSelector((state)=>state.comments);
 
-  const [comments, setComments] = useState<TComment[] | null>(null);
   const [isNotFound, setNotFound] = useState<boolean>(false);
   const [nearbyOffers, setNearbyOffers] = useState<Offer[] | null>(null);
 
@@ -39,27 +39,13 @@ function OffersScreen(): JSX.Element | undefined {
   useEffect(() => {
     if (id) {
       dispatch(fetchFullOffer(id));
+
     }
   }, [id, dispatch]);
 
-
   useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        dispatch(setLoadingStatus(true));
-        const { data } = await axios.get<TComment[]>(
-          `https://15.design.htmlacademy.pro/six-cities/comments/${id}`
-        );
-        setComments(data);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        dispatch(setLoadingStatus(false));
-      }
-    };
-
     if (id) {
-      fetchComments();
+      dispatch(fetchComments(id));
     }
   }, [id, dispatch]);
 

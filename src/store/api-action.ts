@@ -2,12 +2,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
-import { loadQuestions, setAuthorization, setCurrentFullOffer, setLoadingStatus, setUserInfo } from './actions';
+import { loadQuestions, setAuthorization, setComments, setCurrentFullOffer, setLoadingStatus, setUserInfo } from './actions';
 import { Offer } from '../types/offers';
 import { AuthData, UserData } from '../types/user';
 import { deleteToken, setToken } from '../api/token';
 import { AuthState } from '../const';
 import { FullOffer } from '../types/offer';
+import { TComment } from '../types/comment';
 
 export const fetchOffers = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -83,5 +84,20 @@ export const fetchFullOffer = createAsyncThunk<void, string, {
     const {data} = await api.get<FullOffer>(`/six-cities/offers/${id}`);
     dispatch(setLoadingStatus(false));
     dispatch(setCurrentFullOffer(data));
+  }
+);
+
+
+export const fetchComments = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'get/comments',
+  async (id, {dispatch, extra: api}) => {
+    dispatch(setLoadingStatus(true));
+    const {data} = await api.get<TComment[]>(`/six-cities/comments/${id}`);
+    dispatch(setComments(data));
+    dispatch(setLoadingStatus(false));
   }
 );
