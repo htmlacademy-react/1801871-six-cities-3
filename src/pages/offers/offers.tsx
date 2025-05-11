@@ -8,14 +8,14 @@ import NearPlacesList from '../../components/near-places-list/near-places-list';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 
-import { setLoadingStatus } from '../../store/actions';
+// import { setLoadingStatus } from '../../store/actions';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { LoadingSpinner } from '../../components/loading-spinner/loading-spinner';
 // import { FullOffer } from '../../types/offer';
 // import { TComment } from '../../types/comment';
-import { Offer } from '../../types/offers';
-import { fetchComments, fetchFullOffer } from '../../store/api-action';
+// import { Offer } from '../../types/offers';
+import { fetchComments, fetchFullOffer, fetchNearbyOffers } from '../../store/api-action';
 
 
 function OffersScreen(): JSX.Element | undefined {
@@ -26,9 +26,10 @@ function OffersScreen(): JSX.Element | undefined {
   const offer = useAppSelector((state)=>state.currentOffer);
   const errorMessage = useAppSelector((state)=> state.errorMessage);
   const comments = useAppSelector((state)=>state.comments);
+  const nearbyOffers = useAppSelector((state)=>state.nearbyOffers);
 
   const [isNotFound, setNotFound] = useState<boolean>(false);
-  const [nearbyOffers, setNearbyOffers] = useState<Offer[] | null>(null);
+
 
   useEffect(() => {
     if (errorMessage) {
@@ -51,22 +52,8 @@ function OffersScreen(): JSX.Element | undefined {
 
 
   useEffect(() => {
-    const fetchNearbyOffers = async () => {
-      try {
-        dispatch(setLoadingStatus(true));
-        const { data } = await axios.get<Offer[]>(
-          `https://15.design.htmlacademy.pro/six-cities/offers/${id}/nearby`
-        );
-        setNearbyOffers(data);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        dispatch(setLoadingStatus(false));
-      }
-    };
-
     if (id) {
-      fetchNearbyOffers();
+      dispatch(fetchNearbyOffers(id));
     }
   }, [id, dispatch]);
 

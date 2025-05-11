@@ -4,9 +4,11 @@ import { TComment } from '../../types/comment';
 import Comment from '../comment/comment';
 import axios from 'axios';
 import { setLoadingStatus } from '../../store/actions';
-import { useAppDispatch } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getToken } from '../../api/token';
-import { fetchComments, fetchFullOffer } from '../../store/api-action';
+import { fetchComments, fetchFullOffer, sendComment } from '../../store/api-action';
+import ErrorText from '../error-text/error-text';
+import SetError from '../../api/error-handler';
 
 type ReviewListProps = {
   comments: TComment[];
@@ -20,6 +22,7 @@ type CommentHandler = ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>
 function ReviewList ({comments , id}:ReviewListProps):JSX.Element {
 
   const dispatch = useAppDispatch();
+  const errorText = useAppSelector((state)=>state.errorMessage);
 
   const rating = [
     {title: 'perfect', value: 5},
@@ -30,6 +33,7 @@ function ReviewList ({comments , id}:ReviewListProps):JSX.Element {
   ];
 
   const [comment, setComment] = useState({comment:'', rating:-1});
+
 
   const getCommentHandler = (type: keyof typeof comment): CommentHandler => (e) => {
 
@@ -43,31 +47,16 @@ function ReviewList ({comments , id}:ReviewListProps):JSX.Element {
 
   const onSubmitComment = (event: React.FormEvent) => {
     event.preventDefault();
-    const SendComment = async () => {
-      try {
-        dispatch(setLoadingStatus(true));
-        await axios.post(
-          `https://15.design.htmlacademy.pro/six-cities/comments/${id}`,
-          {
-            comment: comment.comment,
-            rating: comment.rating,
-          },
-          {
-            headers: {
-              'x-token': getToken(),
-            },
-          }
-        );
-        dispatch(fetchComments(id));
-      } catch (err) {
-        console.log(err);
-      } finally {
-        dispatch(setLoadingStatus(false));
-      }
-    };
+
 
     if(comment.comment && comment.rating !== -1) {
-      SendComment();
+      dispatch(sendComment(
+        {
+          id:id,
+          comment:comment.comment,
+          rating: comment.rating
+        }
+      ));
     }
   };
 
@@ -132,6 +121,7 @@ function ReviewList ({comments , id}:ReviewListProps):JSX.Element {
           >
       Submit
           </button>
+          {/* {errorText !== '' ? <ErrorText/> : ''} */}
         </div>
       </form>
     </section>

@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeSort, loadQuestions, setActiveCity, setAuthorization, setComments, setCurrentFullOffer, setErrorText, setLoadingStatus, setUserInfo } from './actions';
+import { changeSort, loadQuestions, setActiveCity, setAuthorization, setComments, setCurrentFullOffer, setErrorText, setLoadingStatus, setNearbyOffers, setUserInfo } from './actions';
 import { City, Offer } from '../types/offers';
 import { CITIES } from '../сities';
 
@@ -20,6 +20,7 @@ type stateType = {
   errorMessage: string;
   currentOffer: FullOffer | null;
   comments:TComment[] | null;
+  nearbyOffers:Offer[] | null;
 }
 
 const initialState:stateType = {
@@ -32,6 +33,7 @@ const initialState:stateType = {
   errorMessage: '',
   currentOffer: null,
   comments: null,
+  nearbyOffers: null
 };
 
 export const updateCity = createReducer(initialState, (builder) => {
@@ -62,5 +64,8 @@ export const updateCity = createReducer(initialState, (builder) => {
     })
     .addCase(setComments, (state, action)=> {
       state.comments = action.payload;
+    })
+    .addCase(setNearbyOffers, (state, action)=> {
+      state.nearbyOffers = action.payload;
     });
 });

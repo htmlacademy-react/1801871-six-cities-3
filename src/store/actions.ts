@@ -16,7 +16,8 @@ export const Action = {
   SET_USER_INFO: 'SET_USER_INFO',
   SET_ERROR_TEXT: 'SET_ERROR_TEXT',
   SET_CURRENT_FULL_OFFER: 'SET_CURRENT_FULL_OFFER',
-  SET_COMMENTS:'SET_COMMENTS'
+  SET_COMMENTS:'SET_COMMENTS',
+  SET_NEARBY_OFFERS:'SET_NEARBY_OFFERS'
 };
 
 
@@ -29,3 +30,4 @@ export const setUserInfo = createAction<UserData>(Action.SET_USER_INFO);
 export const setErrorText = createAction<string>(Action.SET_ERROR_TEXT);
 export const setCurrentFullOffer = createAction<FullOffer>(Action.SET_CURRENT_FULL_OFFER);
 export const setComments = createAction<TComment[]>(Action.SET_COMMENTS);
+export const setNearbyOffers = createAction<Offer[]>(Action.SET_NEARBY_OFFERS);

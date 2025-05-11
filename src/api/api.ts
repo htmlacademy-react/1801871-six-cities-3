@@ -7,6 +7,9 @@ type APIErrorResponse = {
   details: {
     messages: string[];
   }[];
+
+  message:string;
+
 };
 
 export const createAPI = (): AxiosInstance => {
@@ -31,16 +34,23 @@ export const createAPI = (): AxiosInstance => {
     (response) => response,
     (error: AxiosError<APIErrorResponse>) => {
 
+      if(error.config?.url === '/six-cities/login') {
+        throw error;
+      }
+
       if(error.code !== 'ERR_BAD_REQUEST') {
         SetError(`Ошибка ${error.code}`);
-        return;
+        throw error;
       }
 
       if (error.response?.data?.details?.[0]?.messages) {
         SetError(error.response.data.details[0].messages.join(' '));
+        throw error;
       }
 
-      SetError('error');
+      if (error.response?.data?.message) {
+        SetError(error.response.data.message);
+      }
       throw error;
     }
 

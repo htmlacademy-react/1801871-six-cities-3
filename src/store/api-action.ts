@@ -2,13 +2,19 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
-import { loadQuestions, setAuthorization, setComments, setCurrentFullOffer, setLoadingStatus, setUserInfo } from './actions';
+import { loadQuestions, setAuthorization, setComments, setCurrentFullOffer, setLoadingStatus, setNearbyOffers, setUserInfo } from './actions';
 import { Offer } from '../types/offers';
 import { AuthData, UserData } from '../types/user';
 import { deleteToken, setToken } from '../api/token';
 import { AuthState } from '../const';
 import { FullOffer } from '../types/offer';
 import { TComment } from '../types/comment';
+
+type CommentPayload = {
+  id:string;
+  comment: string;
+  rating: number;
+}
 
 export const fetchOffers = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -93,11 +99,45 @@ export const fetchComments = createAsyncThunk<void, string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'get/comments',
+  'get/fetchComments',
   async (id, {dispatch, extra: api}) => {
     dispatch(setLoadingStatus(true));
     const {data} = await api.get<TComment[]>(`/six-cities/comments/${id}`);
     dispatch(setComments(data));
     dispatch(setLoadingStatus(false));
+  }
+);
+
+
+export const fetchNearbyOffers = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'get/nearbyOffers',
+  async (id, {dispatch, extra: api}) => {
+    dispatch(setLoadingStatus(true));
+    const {data} = await api.get<Offer[]>(`/six-cities/offers/${id}/nearby`);
+    dispatch(setNearbyOffers(data));
+    dispatch(setLoadingStatus(false));
+  }
+);
+
+
+export const sendComment = createAsyncThunk<void, CommentPayload, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'post/sendComment',
+  async ({id, comment, rating}, {dispatch, extra: api}) => {
+    // dispatch(setLoadingStatus(true));
+    await api.post<TComment>(`/six-cities/comments/${id}`, {
+      comment: comment,
+      rating: rating,
+    });
+
+    // dispatch(setLoadingStatus(false));
+    dispatch(fetchComments(id));
   }
 );
