@@ -12,7 +12,7 @@ import { TComment } from '../types/comment';
 
 type stateType = {
   city: City;
-  offers: Offer[];
+  offers: Offer[] | null;
   currentSort: TSortKey;
   isLoading: boolean;
   authStatus: AuthState;

@@ -23,11 +23,16 @@ export const fetchOffers = createAsyncThunk<void, undefined, {
 }>(
   'get/offers',
   async (_arg, {dispatch, extra: api}) => {
-    dispatch(setLoadingStatus(true));
-    const {data} = await api.get<Offer[]>('/six-cities/offers');
-    dispatch(setLoadingStatus(false));
-    dispatch(loadOffers(data));
+    try {
+      dispatch(setLoadingStatus(true));
+      const {data} = await api.get<Offer[]>('/six-cities/offers');
+      dispatch(setLoadingStatus(false));
+      dispatch(loadOffers(data));
+    } catch {
+      dispatch(loadOffers(null));
+    }
   }
+
 );
 
 
@@ -57,8 +62,6 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
       const { data } = await api.get<UserData>('/six-cities/login');
       dispatch(setAuthorization(AuthState.Auth));
       dispatch(setUserInfo(data));
-
-
     } catch {
       dispatch(setAuthorization(AuthState.NoAuth));
     }
@@ -86,10 +89,14 @@ export const fetchFullOffer = createAsyncThunk<void, string, {
 }>(
   'get/fullOffer',
   async (id, {dispatch, extra: api}) => {
-    dispatch(setLoadingStatus(true));
-    const {data} = await api.get<FullOffer>(`/six-cities/offers/${id}`);
-    dispatch(setLoadingStatus(false));
-    dispatch(setCurrentFullOffer(data));
+    try {
+      dispatch(setLoadingStatus(true));
+      const {data} = await api.get<FullOffer>(`/six-cities/offers/${id}`);
+      dispatch(setLoadingStatus(false));
+      dispatch(setCurrentFullOffer(data));
+    } catch {
+      dispatch(setCurrentFullOffer(null));
+    }
   }
 );
 
@@ -101,10 +108,14 @@ export const fetchComments = createAsyncThunk<void, string, {
 }>(
   'get/fetchComments',
   async (id, {dispatch, extra: api}) => {
-    dispatch(setLoadingStatus(true));
-    const {data} = await api.get<TComment[]>(`/six-cities/comments/${id}`);
-    dispatch(setComments(data));
-    dispatch(setLoadingStatus(false));
+    try {
+      dispatch(setLoadingStatus(true));
+      const {data} = await api.get<TComment[]>(`/six-cities/comments/${id}`);
+      dispatch(setComments(data));
+      dispatch(setLoadingStatus(false));
+    } catch {
+      dispatch(setComments(null));
+    }
   }
 );
 
@@ -116,10 +127,14 @@ export const fetchNearbyOffers = createAsyncThunk<void, string, {
 }>(
   'get/nearbyOffers',
   async (id, {dispatch, extra: api}) => {
-    dispatch(setLoadingStatus(true));
-    const {data} = await api.get<Offer[]>(`/six-cities/offers/${id}/nearby`);
-    dispatch(setNearbyOffers(data));
-    dispatch(setLoadingStatus(false));
+    try {
+      dispatch(setLoadingStatus(true));
+      const {data} = await api.get<Offer[]>(`/six-cities/offers/${id}/nearby`);
+      dispatch(setNearbyOffers(data));
+      dispatch(setLoadingStatus(false));
+    } catch {
+      dispatch(setNearbyOffers(null));
+    }
   }
 );
 

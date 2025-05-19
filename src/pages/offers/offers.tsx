@@ -24,18 +24,10 @@ function OffersScreen(): JSX.Element | undefined {
 
   const isLoading = useAppSelector((state)=>state.isLoading);
   const offer = useAppSelector((state)=>state.currentOffer);
-  const errorMessage = useAppSelector((state)=> state.errorMessage);
+
   const comments = useAppSelector((state)=>state.comments);
   const nearbyOffers = useAppSelector((state)=>state.nearbyOffers);
 
-  const [isNotFound, setNotFound] = useState<boolean>(false);
-
-
-  useEffect(() => {
-    if (errorMessage) {
-      setNotFound(true);
-    }
-  }, [errorMessage]);
 
   useEffect(() => {
     if (id) {
@@ -83,7 +75,7 @@ function OffersScreen(): JSX.Element | undefined {
     return <LoadingSpinner/>;
   }
 
-  if(isNotFound) {
+  if(!offer) {
     return <NotFoundScreen notFoundPageType={'offer'}/>;
   }
 
