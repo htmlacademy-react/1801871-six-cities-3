@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeSort, loadQuestions, setActiveCity, setAuthorization, setComments, setCurrentFullOffer, setErrorText, setLoadingStatus, setNearbyOffers, setUserInfo } from './actions';
+import { changeSort, loadOffers, setActiveCity, setAuthorization, setComments, setCurrentFullOffer, setErrorText, setLoadingStatus, setNearbyOffers, setUserInfo } from './actions';
 import { City, Offer } from '../types/offers';
 import { CITIES } from '../сities';
 
@@ -44,7 +44,7 @@ export const updateCity = createReducer(initialState, (builder) => {
     .addCase(changeSort, (state, action) => {
       state.currentSort = action.payload;
     })
-    .addCase(loadQuestions, (state, action)=> {
+    .addCase(loadOffers, (state, action)=> {
       state.offers = action.payload;
     })
     .addCase(setLoadingStatus, (state, action)=> {

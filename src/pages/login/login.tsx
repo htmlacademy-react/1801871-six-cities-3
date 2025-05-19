@@ -6,6 +6,7 @@ import ErrorText from '../../components/error-text/error-text';
 import { useAppDispatch, useAppSelector} from '../../store/hooks';
 import { AppRoute, AuthState } from '../../const';
 import { Navigate } from 'react-router-dom';
+import SetError from '../../api/error-handler';
 
 function LoginScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -16,6 +17,13 @@ function LoginScreen(): JSX.Element {
   const loginRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
+  function isFieldsValid (login:string, password:string):boolean {
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{4,}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    return passwordRegex.test(password) && emailRegex.test(login);
+  }
+
   function handleAuthSubmit (evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
 
@@ -23,6 +31,10 @@ function LoginScreen(): JSX.Element {
       const login = loginRef.current.value;
       const password = passwordRef.current.value;
 
+      if(!isFieldsValid(login, password)){
+        SetError('Данные не валидны, убедитесь, что в пароле есть заглавная буква и цифра, а почта валидна');
+        return;
+      }
       dispatch(loginAction({ login, password }));
     }
   }
