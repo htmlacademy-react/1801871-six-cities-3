@@ -2,13 +2,13 @@ import { useState, Fragment, ChangeEventHandler } from 'react';
 import { TComment } from '../../types/comment';
 
 import Comment from '../comment/comment';
-import axios from 'axios';
-import { setLoadingStatus } from '../../store/actions';
+
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { getToken } from '../../api/token';
-import { fetchComments, fetchFullOffer, sendComment } from '../../store/api-action';
+
+import { sendComment } from '../../store/api-action';
 import ErrorText from '../error-text/error-text';
-import SetError from '../../api/error-handler';
+
+import { ENDPOINTS } from '../../types/endpoint';
 
 type ReviewListProps = {
   comments: TComment[];
@@ -22,7 +22,7 @@ type CommentHandler = ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>
 function ReviewList ({comments , id}:ReviewListProps):JSX.Element {
 
   const dispatch = useAppDispatch();
-  const errorText = useAppSelector((state)=>state.errorData);
+  const errorData = useAppSelector((state)=>state.errorData);
 
   const rating = [
     {title: 'perfect', value: 5},
@@ -59,6 +59,16 @@ function ReviewList ({comments , id}:ReviewListProps):JSX.Element {
       ));
     }
   };
+
+  function showHideError() {
+    if(!errorData?.path.includes(ENDPOINTS.comments)) {
+      return;
+    }
+
+    const err = errorData.data?.find((data)=> data.field === 'comment');
+
+    return err ? <ErrorText errorText={err.messages.join(' ')} /> : undefined;
+  }
 
 
   return (
@@ -107,6 +117,7 @@ function ReviewList ({comments , id}:ReviewListProps):JSX.Element {
           defaultValue={comment.comment}
           onChange={getCommentHandler('comment')}
         />
+        {showHideError()}
         <div className="reviews__button-wrapper">
           <p className="reviews__help">
       To submit review please make sure to set{' '}
@@ -121,7 +132,6 @@ function ReviewList ({comments , id}:ReviewListProps):JSX.Element {
           >
       Submit
           </button>
-          {/* {errorText !== '' ? <ErrorText/> : ''} */}
         </div>
       </form>
     </section>

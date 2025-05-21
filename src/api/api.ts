@@ -34,13 +34,11 @@ export const createAPI = (): AxiosInstance => {
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError<APIErrorResponse>) => {
-      // console.log(error.response?.status);
 
       const path = error.config?.url;
       if(error.response?.status === 401 && path === '/six-cities/login') {
         throw error;
       }
-      // 400+ 401-
 
       if(!error.response?.data.details.length) {
         SetError({

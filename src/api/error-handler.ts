@@ -4,9 +4,7 @@ import { store } from '../store/store';
 import { ErrorData } from './error-type';
 
 function SetError(error:ErrorData) {
-  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 
-  console.log(error);
   store.dispatch(setError(error));
   setTimeout(()=> {
     store.dispatch(setError(null));

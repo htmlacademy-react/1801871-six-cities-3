@@ -1,21 +1,17 @@
 import {useParams} from 'react-router-dom';
+import { useEffect } from 'react';
 
 
 import NotFoundScreen from '../not-found/not-found';
-import ReviewList from '../../components/review-list/review-list';
-import Map from '../../components/map/map';
+
 import NearPlacesList from '../../components/near-places-list/near-places-list';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-
-
-// import { setLoadingStatus } from '../../store/actions';
-import { useEffect, useState } from 'react';
-// import axios from 'axios';
 import { LoadingSpinner } from '../../components/loading-spinner/loading-spinner';
-// import { FullOffer } from '../../types/offer';
-// import { TComment } from '../../types/comment';
-// import { Offer } from '../../types/offers';
+import ReviewList from '../../components/review-list/review-list';
+
+import Map from '../../components/map/map';
+
 import { fetchComments, fetchFullOffer, fetchNearbyOffers } from '../../store/api-action';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 
 function OffersScreen(): JSX.Element | undefined {
@@ -32,20 +28,9 @@ function OffersScreen(): JSX.Element | undefined {
   useEffect(() => {
     if (id) {
       dispatch(fetchFullOffer(id));
-
-    }
-  }, [id, dispatch]);
-
-  useEffect(() => {
-    if (id) {
-      dispatch(fetchComments(id));
-    }
-  }, [id, dispatch]);
-
-
-  useEffect(() => {
-    if (id) {
       dispatch(fetchNearbyOffers(id));
+      dispatch(fetchComments(id));
+
     }
   }, [id, dispatch]);
 

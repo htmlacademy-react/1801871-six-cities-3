@@ -93,7 +93,7 @@ export const fetchFullOffer = createAsyncThunk<void, string, {
   async (id, {dispatch, extra: api}) => {
     try {
       dispatch(setLoadingStatus(true));
-      const {data} = await api.get<FullOffer>(`${ENDPOINTS.offers}${id}`);
+      const {data} = await api.get<FullOffer>(`${ENDPOINTS.offers}/${id}`);
       dispatch(setLoadingStatus(false));
       dispatch(setCurrentFullOffer(data));
     } catch {
@@ -112,7 +112,7 @@ export const fetchComments = createAsyncThunk<void, string, {
   async (id, {dispatch, extra: api}) => {
     try {
       dispatch(setLoadingStatus(true));
-      const {data} = await api.get<TComment[]>(`${ENDPOINTS.comments}${id}`);
+      const {data} = await api.get<TComment[]>(`${ENDPOINTS.comments}/${id}`);
       dispatch(setComments(data));
       dispatch(setLoadingStatus(false));
     } catch {
@@ -131,7 +131,7 @@ export const fetchNearbyOffers = createAsyncThunk<void, string, {
   async (id, {dispatch, extra: api}) => {
     try {
       dispatch(setLoadingStatus(true));
-      const {data} = await api.get<Offer[]>(`${ENDPOINTS.offers}${id}/nearby`);
+      const {data} = await api.get<Offer[]>(`${ENDPOINTS.offers}/${id}/nearby`);
       dispatch(setNearbyOffers(data));
       dispatch(setLoadingStatus(false));
     } catch {
@@ -148,13 +148,16 @@ export const sendComment = createAsyncThunk<void, CommentPayload, {
 }>(
   'post/sendComment',
   async ({id, comment, rating}, {dispatch, extra: api}) => {
-    // dispatch(setLoadingStatus(true));
-    await api.post<TComment>(`${ENDPOINTS.comments}${id}`, {
-      comment: comment,
-      rating: rating,
-    });
-
-    // dispatch(setLoadingStatus(false));
-    dispatch(fetchComments(id));
+    try {
+      dispatch(setLoadingStatus(true));
+      await api.post<TComment>(`${ENDPOINTS.comments}/${id}`, {
+        comment: comment,
+        rating: rating,
+      });
+      dispatch(setLoadingStatus(false));
+      dispatch(fetchComments(id));
+    } catch {
+      dispatch(setLoadingStatus(false));
+    }
   }
 );
