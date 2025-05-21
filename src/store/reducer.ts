@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeSort, loadOffers, setActiveCity, setAuthorization, setComments, setCurrentFullOffer, setErrorText, setLoadingStatus, setNearbyOffers, setUserInfo } from './actions';
+import { changeSort, loadOffers, setActiveCity, setAuthorization, setComments, setCurrentFullOffer, setError, setLoadingStatus, setNearbyOffers, setUserInfo } from './actions';
 import { City, Offer } from '../types/offers';
 import { CITIES } from '../сities';
 
@@ -8,6 +8,7 @@ import { AuthState } from '../const';
 import { UserData } from '../types/user';
 import { FullOffer } from '../types/offer';
 import { TComment } from '../types/comment';
+import { ErrorData } from '../api/error-type';
 
 
 type stateType = {
@@ -17,7 +18,7 @@ type stateType = {
   isLoading: boolean;
   authStatus: AuthState;
   userInfo: UserData | null;
-  errorMessage: string;
+  errorData: ErrorData | null;
   currentOffer: FullOffer | null;
   comments:TComment[] | null;
   nearbyOffers:Offer[] | null;
@@ -30,7 +31,7 @@ const initialState:stateType = {
   isLoading: false,
   authStatus: AuthState.Unknown,
   userInfo: null,
-  errorMessage: '',
+  errorData: null,
   currentOffer: null,
   comments: null,
   nearbyOffers: null
@@ -56,8 +57,8 @@ export const updateCity = createReducer(initialState, (builder) => {
     .addCase(setUserInfo, (state, action)=> {
       state.userInfo = action.payload;
     })
-    .addCase(setErrorText, (state, action)=> {
-      state.errorMessage = action.payload;
+    .addCase(setError, (state, action)=> {
+      state.errorData = action.payload;
     })
     .addCase(setCurrentFullOffer, (state, action)=> {
       state.currentOffer = action.payload;

@@ -22,7 +22,7 @@ type CommentHandler = ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>
 function ReviewList ({comments , id}:ReviewListProps):JSX.Element {
 
   const dispatch = useAppDispatch();
-  const errorText = useAppSelector((state)=>state.errorMessage);
+  const errorText = useAppSelector((state)=>state.errorData);
 
   const rating = [
     {title: 'perfect', value: 5},

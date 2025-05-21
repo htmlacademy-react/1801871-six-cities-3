@@ -6,6 +6,7 @@ import SetError from './error-handler';
 type APIErrorResponse = {
   details: {
     messages: string[];
+    property: string;
   }[];
 
   message:string;
@@ -33,24 +34,31 @@ export const createAPI = (): AxiosInstance => {
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError<APIErrorResponse>) => {
+      // console.log(error.response?.status);
 
-      if(error.config?.url === '/six-cities/login') {
+      const path = error.config?.url;
+      if(error.response?.status === 401 && path === '/six-cities/login') {
+        throw error;
+      }
+      // 400+ 401-
+
+      if(!error.response?.data.details.length) {
+        SetError({
+          path:path as string,
+          message:error.response?.data.message
+        });
         throw error;
       }
 
-      if(error.code !== 'ERR_BAD_REQUEST') {
-        SetError(`Ошибка ${error.code}`);
-        throw error;
-      }
+      SetError({
+        path:path as string,
+        data:error.response?.data.details.map((err)=> ({
+          field:err.property,
+          messages:err.messages
+        })
+        )
+      });
 
-      if (error.response?.data?.details?.[0]?.messages) {
-        SetError(error.response.data.details[0].messages.join(' '));
-        throw error;
-      }
-
-      if (error.response?.data?.message) {
-        SetError(error.response.data.message);
-      }
       throw error;
     }
 

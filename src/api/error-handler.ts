@@ -1,11 +1,15 @@
 import { TIME_ERROR } from '../const';
-import { setErrorText } from '../store/actions';
+import { setError} from '../store/actions';
 import { store } from '../store/store';
+import { ErrorData } from './error-type';
 
-function SetError(error:string) {
-  store.dispatch(setErrorText(error));
+function SetError(error:ErrorData) {
+  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+
+  console.log(error);
+  store.dispatch(setError(error));
   setTimeout(()=> {
-    store.dispatch(setErrorText(''));
+    store.dispatch(setError(null));
   }, TIME_ERROR);
 }
 

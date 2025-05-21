@@ -1,7 +1,9 @@
-import { useAppSelector } from '../../store/hooks';
 
-function ErrorText ():JSX.Element {
-  const errorText = useAppSelector((state)=> state.errorMessage);
+type ErrorTextProps = {
+  errorText:string;
+}
+
+function ErrorText ({errorText}: ErrorTextProps):JSX.Element {
   return(
     <span>{errorText}</span>
   );

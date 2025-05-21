@@ -9,6 +9,8 @@ import { deleteToken, setToken } from '../api/token';
 import { AuthState } from '../const';
 import { FullOffer } from '../types/offer';
 import { TComment } from '../types/comment';
+import { ENDPOINTS } from '../types/endpoint';
+
 
 type CommentPayload = {
   id:string;
@@ -25,7 +27,7 @@ export const fetchOffers = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     try {
       dispatch(setLoadingStatus(true));
-      const {data} = await api.get<Offer[]>('/six-cities/offers');
+      const {data} = await api.get<Offer[]>(ENDPOINTS.offers);
       dispatch(setLoadingStatus(false));
       dispatch(loadOffers(data));
     } catch {
@@ -44,7 +46,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   'user/login',
   async ({login: email, password}, {dispatch, extra: api}) => {
 
-    const { data } = await api.post<UserData>('/six-cities/login', {email, password});
+    const { data } = await api.post<UserData>(ENDPOINTS.login, {email, password});
     setToken(data.token);
     dispatch(setAuthorization(AuthState.Auth));
     dispatch(setUserInfo(data));
@@ -59,7 +61,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
     try {
-      const { data } = await api.get<UserData>('/six-cities/login');
+      const { data } = await api.get<UserData>(ENDPOINTS.login);
       dispatch(setAuthorization(AuthState.Auth));
       dispatch(setUserInfo(data));
     } catch {
@@ -75,7 +77,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
 }>(
   'user/logout',
   async (_arg, {dispatch, extra: api}) => {
-    await api.delete('/six-cities/logout');
+    await api.delete(ENDPOINTS.logout);
     deleteToken();
     dispatch(setAuthorization(AuthState.NoAuth));
   },
@@ -91,7 +93,7 @@ export const fetchFullOffer = createAsyncThunk<void, string, {
   async (id, {dispatch, extra: api}) => {
     try {
       dispatch(setLoadingStatus(true));
-      const {data} = await api.get<FullOffer>(`/six-cities/offers/${id}`);
+      const {data} = await api.get<FullOffer>(`${ENDPOINTS.offers}${id}`);
       dispatch(setLoadingStatus(false));
       dispatch(setCurrentFullOffer(data));
     } catch {
@@ -110,7 +112,7 @@ export const fetchComments = createAsyncThunk<void, string, {
   async (id, {dispatch, extra: api}) => {
     try {
       dispatch(setLoadingStatus(true));
-      const {data} = await api.get<TComment[]>(`/six-cities/comments/${id}`);
+      const {data} = await api.get<TComment[]>(`${ENDPOINTS.comments}${id}`);
       dispatch(setComments(data));
       dispatch(setLoadingStatus(false));
     } catch {
@@ -129,7 +131,7 @@ export const fetchNearbyOffers = createAsyncThunk<void, string, {
   async (id, {dispatch, extra: api}) => {
     try {
       dispatch(setLoadingStatus(true));
-      const {data} = await api.get<Offer[]>(`/six-cities/offers/${id}/nearby`);
+      const {data} = await api.get<Offer[]>(`${ENDPOINTS.offers}${id}/nearby`);
       dispatch(setNearbyOffers(data));
       dispatch(setLoadingStatus(false));
     } catch {
@@ -147,7 +149,7 @@ export const sendComment = createAsyncThunk<void, CommentPayload, {
   'post/sendComment',
   async ({id, comment, rating}, {dispatch, extra: api}) => {
     // dispatch(setLoadingStatus(true));
-    await api.post<TComment>(`/six-cities/comments/${id}`, {
+    await api.post<TComment>(`${ENDPOINTS.comments}${id}`, {
       comment: comment,
       rating: rating,
     });

@@ -1,4 +1,4 @@
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import { loginAction } from '../../store/api-action';
 
 import ErrorText from '../../components/error-text/error-text';
@@ -6,13 +6,16 @@ import ErrorText from '../../components/error-text/error-text';
 import { useAppDispatch, useAppSelector} from '../../store/hooks';
 import { AppRoute, AuthState } from '../../const';
 import { Navigate } from 'react-router-dom';
-import SetError from '../../api/error-handler';
+import { ENDPOINTS } from '../../types/endpoint';
+
 
 function LoginScreen(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const authStatus = useAppSelector((state)=> state.authStatus);
-  const errorMessage = useAppSelector((state)=> state.errorMessage);
+  const errorData = useAppSelector((state)=> state.errorData);
+
+  const [error, SetError] = useState<string | null>(null);
 
   const loginRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -35,8 +38,19 @@ function LoginScreen(): JSX.Element {
         SetError('Данные не валидны, убедитесь, что в пароле есть заглавная буква и цифра, а почта валидна');
         return;
       }
+      SetError(null);
       dispatch(loginAction({ login, password }));
     }
+  }
+
+  function showHideError(field:string) {
+    if(errorData?.path !== ENDPOINTS.login) {
+      return;
+    }
+
+    const err = errorData.data?.find((data)=> data.field === field);
+
+    return err ? <ErrorText errorText={err.messages.join(' ')} /> : undefined;
   }
 
   if(authStatus === AuthState.Auth) {
@@ -67,6 +81,7 @@ function LoginScreen(): JSX.Element {
                   required
                 />
               </div>
+              {showHideError('email')}
 
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
@@ -80,7 +95,8 @@ function LoginScreen(): JSX.Element {
                 />
               </div>
 
-              {errorMessage !== '' ? <ErrorText /> : ''}
+              {showHideError('password')}
+              {error && <ErrorText errorText={error} />}
 
               <button className="login__submit form__submit button" type="submit">
             Sign in
