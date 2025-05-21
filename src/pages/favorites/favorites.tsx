@@ -1,9 +1,15 @@
+import { LoadingSpinner } from '../../components/loading-spinner/loading-spinner';
 import PlaceCard from '../../components/place-card/place-card';
 import { useAppSelector } from '../../store/hooks';
 
 
 function FavoritesScreen(): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
+
+  if(!offers) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
+
   return (
     <div className="page">
       <main className="page__main page__main--favorites">

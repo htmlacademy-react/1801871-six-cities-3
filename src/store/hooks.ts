@@ -3,6 +3,8 @@ import { store } from './store';
 
 type State = ReturnType<typeof store.getState>;
 
+export type StateField<K extends keyof State> = State[K];
+
 type AppDispatch = typeof store.dispatch;
 
 
