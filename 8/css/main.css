@@ -69,4 +69,11 @@
   position: relative;
 }
 
+
+.error-window {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /*# sourceMappingURL=main.css.map */
