@@ -32,6 +32,7 @@ export const fetchOffers = createAsyncThunk<void, undefined, {
       dispatch(loadOffers(data));
     } catch {
       dispatch(loadOffers(null));
+      dispatch(setLoadingStatus(false));
     }
   }
 
@@ -98,6 +99,7 @@ export const fetchFullOffer = createAsyncThunk<void, string, {
       dispatch(setCurrentFullOffer(data));
     } catch {
       dispatch(setCurrentFullOffer(null));
+      dispatch(setLoadingStatus(false));
     }
   }
 );
@@ -117,6 +119,7 @@ export const fetchComments = createAsyncThunk<void, string, {
       dispatch(setLoadingStatus(false));
     } catch {
       dispatch(setComments(null));
+      dispatch(setLoadingStatus(false));
     }
   }
 );
@@ -136,6 +139,7 @@ export const fetchNearbyOffers = createAsyncThunk<void, string, {
       dispatch(setLoadingStatus(false));
     } catch {
       dispatch(setNearbyOffers(null));
+      dispatch(setLoadingStatus(false));
     }
   }
 );
@@ -157,6 +161,7 @@ export const sendComment = createAsyncThunk<void, CommentPayload, {
       dispatch(setLoadingStatus(false));
       dispatch(fetchComments(id));
     } catch {
+      dispatch(setLoadingStatus(false));
       dispatch(setLoadingStatus(false));
     }
   }

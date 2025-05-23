@@ -12,7 +12,8 @@ import { sortDict } from '../../utils/sort';
 
 import Map from '../map/map';
 import { useAppSelector } from '../../store/hooks';
-import { LoadingSpinner } from '../loading-spinner/loading-spinner';
+
+import ErrorWindow from '../error-window/error-window';
 
 
 function CardList():JSX.Element {
@@ -24,8 +25,9 @@ function CardList():JSX.Element {
   const currentSort = useAppSelector((state)=> state.currentSort);
 
   if(!offers) {
-    return <LoadingSpinner></LoadingSpinner>;
+    return <ErrorWindow></ErrorWindow>;
   }
+
 
   const currentOffers = offers.filter((offer)=> offer.city.name === activeCity.name);
 
