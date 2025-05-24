@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { AppRoute } from '../../const';
+import { AppRoute, AuthState } from '../../const';
 
 import Layout from '../layout/layout';
 import MainPage from '../../pages/main-page/main-page';
@@ -11,7 +11,7 @@ import FavoritesScreen from '../../pages/favorites/favorites';
 
 import PrivateRoute from '../private-page/private-page';
 
-import { checkAuthAction, fetchOffers } from '../../store/api-action';
+import { checkAuthAction, fetchFavorites, fetchOffers } from '../../store/api-action';
 import { store } from '../../store/store';
 import { useAppSelector } from '../../store/hooks';
 
@@ -21,6 +21,10 @@ store.dispatch(checkAuthAction());
 
 function App(): JSX.Element {
   const authStatus = useAppSelector((state)=> state.authStatus);
+  if(authStatus === AuthState.Auth){
+    store.dispatch(fetchFavorites());
+
+  }
   return (
 
 

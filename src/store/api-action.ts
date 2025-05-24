@@ -182,7 +182,6 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
       const { data } = await api.get<UserData>(ENDPOINTS.login);
       dispatch(setAuthorization(AuthState.Auth));
       dispatch(setUserInfo(data));
-      dispatch(fetchFavorites());
     } catch {
       dispatch(setAuthorization(AuthState.NoAuth));
     }
