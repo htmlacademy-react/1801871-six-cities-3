@@ -38,7 +38,7 @@ function PlaceCard({offer, handelCurrentActiveCard, type} : PlaceCardProps): JSX
     >
       {isPremium(offer.isPremium)}
       <div className={`${type}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`../offer/${offer.id}`}>
+        <Link to={`/offer/${offer.id}`}>
           <img
             className="place-card__image"
             src={offer.previewImage}
