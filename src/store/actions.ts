@@ -12,7 +12,8 @@ export const Action = {
   SET_ERROR: 'SET_ERROR',
   SET_CURRENT_FULL_OFFER: 'SET_CURRENT_FULL_OFFER',
   SET_COMMENTS:'SET_COMMENTS',
-  SET_NEARBY_OFFERS:'SET_NEARBY_OFFERS'
+  SET_NEARBY_OFFERS:'SET_NEARBY_OFFERS',
+  SET_FAVORITES:'SET_FAVORITES'
 };
 
 
@@ -26,3 +27,4 @@ export const setError = createAction<StateField<'errorData'>>(Action.SET_ERROR);
 export const setCurrentFullOffer = createAction<StateField<'currentOffer'>>(Action.SET_CURRENT_FULL_OFFER);
 export const setComments = createAction<StateField<'comments'>>(Action.SET_COMMENTS);
 export const setNearbyOffers = createAction<StateField<'nearbyOffers'>>(Action.SET_NEARBY_OFFERS);
+export const setFavorites = createAction<StateField<'favorites'>>(Action.SET_FAVORITES);
