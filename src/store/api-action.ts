@@ -54,23 +54,6 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   },
 );
 
-export const checkAuthAction = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'user/checkAuth',
-  async (_arg, {dispatch, extra: api}) => {
-    try {
-      const { data } = await api.get<UserData>(ENDPOINTS.login);
-      dispatch(setAuthorization(AuthState.Auth));
-      dispatch(setUserInfo(data));
-    } catch {
-      dispatch(setAuthorization(AuthState.NoAuth));
-    }
-  },
-);
-
 export const logoutAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
@@ -185,4 +168,23 @@ export const fetchFavorites = createAsyncThunk<void, undefined, {
       dispatch(setLoadingStatus(false));
     }
   }
+);
+
+
+export const checkAuthAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/checkAuth',
+  async (_arg, {dispatch, extra: api}) => {
+    try {
+      const { data } = await api.get<UserData>(ENDPOINTS.login);
+      dispatch(setAuthorization(AuthState.Auth));
+      dispatch(setUserInfo(data));
+      dispatch(fetchFavorites());
+    } catch {
+      dispatch(setAuthorization(AuthState.NoAuth));
+    }
+  },
 );
