@@ -43,7 +43,8 @@ export const createAPI = (): AxiosInstance => {
       if(!error.response?.data.details.length) {
         SetError({
           path:path as string,
-          message:error.response?.data.message
+          message:error.response?.data.message,
+          type: 'major'
         });
         throw error;
       }
@@ -54,7 +55,8 @@ export const createAPI = (): AxiosInstance => {
           field:err.property,
           messages:err.messages
         })
-        )
+        ),
+        type:'minor'
       });
 
       throw error;
