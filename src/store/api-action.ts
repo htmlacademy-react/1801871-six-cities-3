@@ -1,7 +1,4 @@
 
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AppDispatch, State } from '../types/state';
-import { AxiosInstance } from 'axios';
 import { loadOffers, setAuthorization, setComments, setCurrentFullOffer, setFavorites, setLoadingStatus, setNearbyOffers, setUserInfo } from './actions';
 import { Offer } from '../types/offers';
 import { AuthData, UserData } from '../types/user';
@@ -10,6 +7,7 @@ import { AuthState } from '../const';
 import { FullOffer } from '../types/offer';
 import { TComment } from '../types/comment';
 import { ENDPOINTS } from '../types/endpoint';
+import { createAppAsyncThunk } from './hooks';
 
 
 type CommentPayload = {
@@ -18,11 +16,7 @@ type CommentPayload = {
   rating: number;
 }
 
-export const fetchOffers = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
+export const fetchOffers = createAppAsyncThunk<void, undefined>(
   'get/offers',
   async (_arg, {dispatch, extra: api}) => {
     try {
@@ -39,11 +33,7 @@ export const fetchOffers = createAsyncThunk<void, undefined, {
 );
 
 
-export const loginAction = createAsyncThunk<void, AuthData, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
+export const loginAction = createAppAsyncThunk<void, AuthData>(
   'user/login',
   async ({login: email, password}, {dispatch, extra: api}) => {
 
@@ -54,11 +44,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   },
 );
 
-export const logoutAction = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
+export const logoutAction = createAppAsyncThunk<void, undefined>(
   'user/logout',
   async (_arg, {dispatch, extra: api}) => {
     await api.delete(ENDPOINTS.logout);
@@ -68,11 +54,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
 );
 
 
-export const fetchFullOffer = createAsyncThunk<void, string, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
+export const fetchFullOffer = createAppAsyncThunk<void, string>(
   'get/fullOffer',
   async (id, {dispatch, extra: api}) => {
     try {
@@ -88,11 +70,7 @@ export const fetchFullOffer = createAsyncThunk<void, string, {
 );
 
 
-export const fetchComments = createAsyncThunk<void, string, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
+export const fetchComments = createAppAsyncThunk<void, string>(
   'get/fetchComments',
   async (id, {dispatch, extra: api}) => {
     try {
@@ -108,11 +86,7 @@ export const fetchComments = createAsyncThunk<void, string, {
 );
 
 
-export const fetchNearbyOffers = createAsyncThunk<void, string, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
+export const fetchNearbyOffers = createAppAsyncThunk<void, string>(
   'get/nearbyOffers',
   async (id, {dispatch, extra: api}) => {
     try {
@@ -128,11 +102,7 @@ export const fetchNearbyOffers = createAsyncThunk<void, string, {
 );
 
 
-export const sendComment = createAsyncThunk<void, CommentPayload, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
+export const sendComment = createAppAsyncThunk<void, CommentPayload>(
   'post/sendComment',
   async ({id, comment, rating}, {dispatch, extra: api}) => {
     try {
@@ -151,11 +121,7 @@ export const sendComment = createAsyncThunk<void, CommentPayload, {
 );
 
 
-export const fetchFavorites = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
+export const fetchFavorites = createAppAsyncThunk<void, undefined>(
   'get/favorites',
   async (_arg, {dispatch, extra: api}) => {
     try {
@@ -171,11 +137,7 @@ export const fetchFavorites = createAsyncThunk<void, undefined, {
 );
 
 
-export const checkAuthAction = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
+export const checkAuthAction = createAppAsyncThunk<void, undefined>(
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
     try {

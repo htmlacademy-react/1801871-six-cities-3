@@ -13,18 +13,22 @@ import PrivateRoute from '../private-page/private-page';
 
 import { checkAuthAction, fetchFavorites, fetchOffers } from '../../store/api-action';
 import { store } from '../../store/store';
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useEffect } from 'react';
 
 store.dispatch(fetchOffers());
 store.dispatch(checkAuthAction());
 
 
 function App(): JSX.Element {
+  const dispatch = useAppDispatch();
   const authStatus = useAppSelector((state)=> state.authStatus);
-  if(authStatus === AuthState.Auth){
-    store.dispatch(fetchFavorites());
+  useEffect(() => {
+    if (authStatus === AuthState.Auth) {
+      dispatch(fetchFavorites());
+    }
+  }, [authStatus, dispatch]);
 
-  }
   return (
 
 
