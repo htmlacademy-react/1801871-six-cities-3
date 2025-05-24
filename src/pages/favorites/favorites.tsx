@@ -51,18 +51,18 @@ function FavoritesScreen(): JSX.Element {
             <ul className="favorites__list">
 
               {
-                Object.entries(offersByCity).map((city)=>(
+                Object.entries(offersByCity).map(([city, offers])=>(
 
-                  <li className="favorites__locations-items" key={city[0]}>
+                  <li className="favorites__locations-items" key={city}>
                     <div className="favorites__locations locations locations--current">
                       <div className="locations__item">
                         <a className="locations__item-link" href="#">
-                          <span>{city[0]}</span>
+                          <span>{city}</span>
                         </a>
                       </div>
                     </div>
                     <div className="favorites__places">
-                      {city[1].map((offer) => <PlaceCard offer={offer} key={offer.id} type='favorites'/>)}
+                      {offers.map((offer) => <PlaceCard offer={offer} key={offer.id} type='favorites'/>)}
                     </div>
                   </li>))
               }
