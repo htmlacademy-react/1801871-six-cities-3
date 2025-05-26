@@ -5,9 +5,11 @@ import 'leaflet/dist/leaflet.css';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
 
 
-import { City, Offer} from '../../types/offers';
+import { City, Offer } from '../../types/offers';
 
 import useMap from './use-map';
+import { FullOffer } from '../../types/offer';
+
 type ClassName = 'offer' | 'cities';
 
 
@@ -15,12 +17,12 @@ type MapProps = {
   className:Extract<ClassName, 'cities'>;
   city:City;
   points:Offer[];
-  activePoint:Offer| null;
+  activePoint:Offer | null;
 } | {
   className:Exclude<ClassName, 'cities'>;
   city:City;
   points:Offer[];
-  activePoint?:undefined;
+  activePoint:FullOffer;
 };
 
 const defaultCustomIcon = new Icon({
@@ -64,7 +66,7 @@ function Map({city, points, activePoint, className} : MapProps):JSX.Element{
 
         marker
           .setIcon(
-            activePoint !== null && activePoint !== undefined && point.id === activePoint.id
+            activePoint && point.id === activePoint.id
               ? currentCustomIcon
               : defaultCustomIcon
           );
@@ -76,6 +78,22 @@ function Map({city, points, activePoint, className} : MapProps):JSX.Element{
 
     }
   }, [map, points, activePoint]);
+
+  useEffect(() => {
+    if (map && className === 'offer') {
+
+      const marker = new Marker({
+        lat: activePoint.location.latitude,
+        lng: activePoint.location.longitude,
+      });
+
+      marker
+        .setIcon(currentCustomIcon);
+
+      marker.addTo(markerLayer.current);
+
+    }
+  }, [map, activePoint, className]);
 
   return (
     <section className={`${className}__map`} ref={mapRef} />

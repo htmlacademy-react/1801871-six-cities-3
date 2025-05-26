@@ -1,10 +1,15 @@
-import { Offers } from '../../mocks/offers';
+
+import { Offer } from '../../types/offers';
 import PlaceCard from '../place-card/place-card';
 
-function NearPlacesList () :JSX.Element {
+type NearPlacesListProps = {
+  offers: Offer[];
+}
+
+function NearPlacesList ({offers}:NearPlacesListProps) :JSX.Element {
   return (
     <div className="near-places__list places__list">
-      {Offers.map((offer) =>
+      {offers.map((offer) =>
         (<PlaceCard offer={offer} key={offer.id} type='near-places'/>
         ))}
     </div>

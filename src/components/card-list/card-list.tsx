@@ -13,6 +13,8 @@ import { sortDict } from '../../utils/sort';
 import Map from '../map/map';
 import { useAppSelector } from '../../store/hooks';
 
+import ErrorWindow from '../error-window/error-window';
+
 
 function CardList():JSX.Element {
 
@@ -21,6 +23,10 @@ function CardList():JSX.Element {
   const activeCity = useAppSelector((state)=> state.city);
   const offers = useAppSelector((state)=> state.offers);
   const currentSort = useAppSelector((state)=> state.currentSort);
+
+  if(!offers) {
+    return <ErrorWindow></ErrorWindow>;
+  }
 
 
   const currentOffers = offers.filter((offer)=> offer.city.name === activeCity.name);

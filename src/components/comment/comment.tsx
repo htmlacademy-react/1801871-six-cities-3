@@ -16,8 +16,8 @@ function getStarsInWidthPercent(stars:number): string {
 function getHumanDate(date:string):string {
   const objDate = new Date(date);
   const month = objDate.getMonth();
-  const day = objDate.getDay();
-  return `${Month[month]} ${day}`;
+  const year = objDate.getFullYear();
+  return `${Month[month]} ${year}`;
 }
 
 function Comment({comment}:CommentProps):JSX.Element {

@@ -11,21 +11,37 @@ import FavoritesScreen from '../../pages/favorites/favorites';
 
 import PrivateRoute from '../private-page/private-page';
 
+import { checkAuthAction, fetchFavorites, fetchOffers } from '../../store/api-action';
+import { store } from '../../store/store';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useEffect } from 'react';
+
+store.dispatch(fetchOffers());
+store.dispatch(checkAuthAction());
+
 
 function App(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const authStatus = useAppSelector((state)=> state.authStatus);
+  useEffect(() => {
+    if (authStatus === AuthState.Auth) {
+      dispatch(fetchFavorites());
+    }
+  }, [authStatus, dispatch]);
+
   return (
 
 
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Root} element={<Layout authorizationStatus={AuthState.NoAuth}/>}>
+        <Route path={AppRoute.Root} element={<Layout authorizationStatus={authStatus}/>}>
 
           <Route index element={<MainPage/>}/>
 
           <Route path={AppRoute.Offer} element={<OffersScreen/>}/>
 
           <Route path={AppRoute.Favorite} element={
-            <PrivateRoute authorizationStatus={AuthState.Auth}>
+            <PrivateRoute authorizationStatus={authStatus}>
               <FavoritesScreen/>
             </PrivateRoute>
           }
