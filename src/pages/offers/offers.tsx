@@ -147,11 +147,11 @@ function OffersScreen(): JSX.Element | undefined {
                     </p>
                   </div>
                 </div>
-                {comments && id ? <ReviewList id={id} comments={comments}/> : ''}
+                {comments && id && <ReviewList id={id} comments={comments}/>}
               </div>
             </div>
             <div>
-              { nearbyOffers !== null ? <Map city={offer.city} activePoint={offer} points={nearbyOffers} className='offer'/> : ''}
+              { nearbyOffers && <Map city={offer.city} activePoint={offer} points={nearbyOffers} className='offer'/> }
             </div>
           </section>
           <div className="container">
@@ -159,7 +159,7 @@ function OffersScreen(): JSX.Element | undefined {
               <h2 className="near-places__title">
           Other places in the neighbourhood
               </h2>
-              { nearbyOffers !== null ? <NearPlacesList offers={nearbyOffers}/> : ''}
+              { nearbyOffers && <NearPlacesList offers={nearbyOffers}/> }
             </section>
           </div>
         </main>

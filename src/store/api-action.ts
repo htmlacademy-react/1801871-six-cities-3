@@ -115,7 +115,6 @@ export const sendComment = createAppAsyncThunk<void, CommentPayload>(
       dispatch(fetchComments(id));
     } catch {
       dispatch(setLoadingStatus(false));
-      dispatch(setLoadingStatus(false));
     }
   }
 );

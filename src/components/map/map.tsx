@@ -66,7 +66,7 @@ function Map({city, points, activePoint, className} : MapProps):JSX.Element{
 
         marker
           .setIcon(
-            activePoint !== undefined && activePoint !== null && point.id === activePoint.id
+            activePoint && point.id === activePoint.id
               ? currentCustomIcon
               : defaultCustomIcon
           );

@@ -50,7 +50,7 @@ function LoginScreen(): JSX.Element {
 
     const err = errorData.data?.find((data)=> data.field === field);
 
-    return err ? <ErrorText errorText={err.messages.join(' ')} /> : undefined;
+    return err && <ErrorText errorText={err.messages.join(' ')} />;
   }
 
   if(authStatus === AuthState.Auth) {

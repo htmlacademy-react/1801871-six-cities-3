@@ -27,7 +27,7 @@ function ReviewList ({comments , id}:ReviewListProps):JSX.Element {
           (<Comment comment={element} key={element.id} />))}
       </ul>
 
-      { authStatus === AuthState.Auth ? <SendComment id={id}/> : ''}
+      {authStatus === AuthState.Auth && <SendComment id={id}/>}
 
     </section>
   );

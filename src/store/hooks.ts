@@ -5,7 +5,6 @@ import { AxiosInstance } from 'axios';
 
 type State = ReturnType<typeof store.getState>;
 
-export type StateField<K extends keyof State> = State[K];
 
 type AppDispatch = typeof store.dispatch;
 
