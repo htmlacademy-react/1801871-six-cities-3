@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 
 import { Offer } from '../../types/offers';
@@ -24,6 +24,10 @@ function CardList():JSX.Element {
   const offers = useAppSelector((state)=> state.offers);
   const currentSort = useAppSelector((state)=> state.currentSort);
 
+  const memoizedHandleActiveCard = useCallback((offer: Offer | null) => {
+    setActivePoint(offer);
+  }, []);
+
   if(!offers) {
     return <ErrorWindow></ErrorWindow>;
   }
@@ -33,13 +37,6 @@ function CardList():JSX.Element {
 
   currentOffers.sort(sortDict[currentSort].handler);
 
-  function handelCurrentActiveCard (offer: Offer | null){
-    if(offer) {
-      setActivePoint(offer);
-    } else{
-      setActivePoint(null);
-    }
-  }
 
   function getPlaceFoundText(placeAmount:number) {
     return placeAmount > 1 ? 'places' : 'place';
@@ -61,7 +58,7 @@ function CardList():JSX.Element {
                 <PlaceCard
                   offer={offer}
                   key={offer.id}
-                  handelCurrentActiveCard={handelCurrentActiveCard}
+                  handelCurrentActiveCard={memoizedHandleActiveCard}
                   type='cities'
                 />
               ))}

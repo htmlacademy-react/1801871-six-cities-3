@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppDispatch } from '../../store/hooks';
 import { logoutAction } from '../../store/api-action';
+import React from 'react';
 
 
 type authButtonState = Exclude<AuthLayoutState, AuthLayoutState.Hide>;
@@ -31,7 +32,7 @@ const authState : Record<authButtonState, AuthState> = {
 };
 
 
-function AuthButton ({authButtonState}:ButtonStatusProps):JSX.Element {
+function AuthButtonComponent ({authButtonState}:ButtonStatusProps):JSX.Element {
   const state = authState[authButtonState];
   const dispatch = useAppDispatch();
 
@@ -50,6 +51,8 @@ function AuthButton ({authButtonState}:ButtonStatusProps):JSX.Element {
     </li>
   );
 }
+
+const AuthButton = React.memo(AuthButtonComponent);
 
 
 export default AuthButton;

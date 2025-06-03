@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
 
 import { Offer } from '../../types/offers';
+import React from 'react';
 
 
 type Type = 'cities' | 'favorites' | 'near-places';
@@ -28,7 +29,7 @@ function getStarsInWidthPercent(stars:number): string {
   return `${stars * 20}%`;
 }
 
-function PlaceCard({offer, handelCurrentActiveCard, type} : PlaceCardProps): JSX.Element {
+function PlaceCardComponent({offer, handelCurrentActiveCard, type} : PlaceCardProps): JSX.Element {
   const handleMouseEnter = () => type === 'cities' ? handelCurrentActiveCard(offer) : undefined;
   const handleMouseLeave = () => type === 'cities' ? handelCurrentActiveCard(null) : undefined;
   return (
@@ -84,6 +85,8 @@ function PlaceCard({offer, handelCurrentActiveCard, type} : PlaceCardProps): JSX
     </article>
   );
 }
+
+const PlaceCard = React.memo(PlaceCardComponent);
 
 export default PlaceCard;
 

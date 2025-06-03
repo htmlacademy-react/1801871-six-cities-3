@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { changeSort } from '../../store/actions';
 import { sortDict, SortTypeKey} from '../../utils/sort';
+import React from 'react';
 
-function ListSort(): JSX.Element {
+function ListSortComponent(): JSX.Element {
   const [isOpen, setOpenClose] = useState(false);
   const currentSort = useAppSelector((state)=> state.currentSort);
   const dispatch = useAppDispatch();
@@ -60,5 +61,8 @@ function ListSort(): JSX.Element {
     </form>
   );
 }
+
+const ListSort = React.memo(ListSortComponent);
+
 
 export default ListSort;

@@ -2,9 +2,10 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { CITIES } from '../../сities';
 import { setActiveCity } from '../../store/actions';
 import { City } from '../../types/offers';
+import React from 'react';
 
 
-function CityList():JSX.Element {
+function CityListComponent():JSX.Element {
   const activeCity = useAppSelector((state)=>state.city);
   const dispatch = useAppDispatch();
 
@@ -33,5 +34,9 @@ function CityList():JSX.Element {
     </section>
   );
 }
+
+
+const CityList = React.memo(CityListComponent);
+
 export default CityList;
 
