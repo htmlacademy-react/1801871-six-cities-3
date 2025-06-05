@@ -1,5 +1,6 @@
 
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import { shallowEqual } from 'react-redux';
 
 
 import { Offer } from '../../types/offers';
@@ -21,21 +22,24 @@ function CardList():JSX.Element {
 
   const [activePoint, setActivePoint] = useState<Offer | null>(null);
   const activeCity = useAppSelector((state)=> state.city);
-  const offers = useAppSelector((state)=> state.offers);
+  const offers = useAppSelector((state)=> state.offers, shallowEqual);
   const currentSort = useAppSelector((state)=> state.currentSort);
 
   const memoizedHandleActiveCard = useCallback((offer: Offer | null) => {
     setActivePoint(offer);
   }, []);
 
-  if(!offers) {
+  const currentOffers = useMemo(() => {
+    if(!offers) {
+      return null;
+    }
+    const filtered = offers.filter((offer) => offer.city.name === activeCity.name);
+    return [...filtered].sort(sortDict[currentSort].handler);
+  }, [offers, activeCity, currentSort]);
+
+  if(!currentOffers) {
     return <ErrorWindow></ErrorWindow>;
   }
-
-
-  const currentOffers = offers.filter((offer)=> offer.city.name === activeCity.name);
-
-  currentOffers.sort(sortDict[currentSort].handler);
 
 
   function getPlaceFoundText(placeAmount:number) {
