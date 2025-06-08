@@ -1,8 +1,9 @@
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { CITIES } from '../../сities';
-import { setActiveCity } from '../../store/actions';
+
 import { City } from '../../types/offers';
 import React from 'react';
+import { setActiveCity } from '../../store/offers-slice';
 
 
 function CityListComponent():JSX.Element {

@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { changeSort } from '../../store/actions';
+
 import { sortDict, SortTypeKey} from '../../utils/sort';
 import React from 'react';
+import { changeSort } from '../../store/offers-slice';
 
 function ListSortComponent(): JSX.Element {
   const [isOpen, setOpenClose] = useState(false);

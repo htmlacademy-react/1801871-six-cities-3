@@ -1,5 +1,4 @@
 
-import { loadOffers, setAuthorization, setComments, setCurrentFullOffer, setFavorites, setLoadingStatus, setNearbyOffers, setUserInfo } from './actions';
 import { Offer } from '../types/offers';
 import { AuthData, UserData } from '../types/user';
 import { deleteToken, setToken } from '../api/token';
