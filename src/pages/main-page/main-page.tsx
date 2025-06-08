@@ -5,7 +5,7 @@ import { useAppSelector } from '../../store/hooks';
 
 
 function MainPage(): JSX.Element {
-  const isLoading = useAppSelector((state)=>state.isLoading);
+  const isLoading = useAppSelector((state)=>state.isLoading.isLoading);
 
   return (
     <div className="page page--gray page--main">

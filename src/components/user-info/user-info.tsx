@@ -3,8 +3,8 @@ import { useAppSelector } from '../../store/hooks';
 import { AppRoute } from '../../const';
 
 function UserInfo ():JSX.Element {
-  const userInfo = useAppSelector((state)=> state.userInfo);
-  const favorites = useAppSelector((state)=> state.favorites);
+  const userInfo = useAppSelector((state)=> state.auth.userInfo);
+  const favorites = useAppSelector((state)=> state.favorites.favorites);
   return (
     <li className="header__nav-item user">
       <span

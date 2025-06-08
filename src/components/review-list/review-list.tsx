@@ -15,7 +15,7 @@ type ReviewListProps = {
 
 function ReviewList ({comments , id}:ReviewListProps):JSX.Element {
 
-  const authStatus = useAppSelector((state)=> state.authStatus);
+  const authStatus = useAppSelector((state)=> state.auth.authStatus);
 
   return (
     <section className="offer__reviews reviews">

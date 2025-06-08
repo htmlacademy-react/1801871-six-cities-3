@@ -12,7 +12,7 @@ type SendCommentProps = {
 
 function SendComment ({id}:SendCommentProps):JSX.Element {
   const dispatch = useAppDispatch();
-  const errorData = useAppSelector((state)=>state.errorData);
+  const errorData = useAppSelector((state)=>state.error.errorData);
 
 
   const rating = [

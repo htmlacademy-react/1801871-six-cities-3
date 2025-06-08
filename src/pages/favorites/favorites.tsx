@@ -23,8 +23,8 @@ function groupOffersByCity(offers: Offer[]): OffersByCity {
 
 function FavoritesScreen(): JSX.Element {
   const dispatch = useAppDispatch();
-  const favorites = useAppSelector((state) => state.favorites);
-  const isLoading = useAppSelector((state)=> state.isLoading);
+  const favorites = useAppSelector((state) => state.favorites.favorites);
+  const isLoading = useAppSelector((state)=> state.isLoading.isLoading);
   useEffect(() => {
     dispatch(fetchFavorites());
 

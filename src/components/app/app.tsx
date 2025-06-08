@@ -22,7 +22,7 @@ store.dispatch(checkAuthAction());
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
-  const authStatus = useAppSelector((state)=> state.authStatus);
+  const authStatus = useAppSelector((state)=> state.auth.authStatus);
   useEffect(() => {
     if (authStatus === AuthState.Auth) {
       dispatch(fetchFavorites());

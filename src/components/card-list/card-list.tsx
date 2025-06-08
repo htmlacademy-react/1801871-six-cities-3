@@ -21,9 +21,9 @@ function CardList():JSX.Element {
 
 
   const [activePoint, setActivePoint] = useState<Offer | null>(null);
-  const activeCity = useAppSelector((state)=> state.city);
-  const offers = useAppSelector((state)=> state.offers, shallowEqual);
-  const currentSort = useAppSelector((state)=> state.currentSort);
+  const activeCity = useAppSelector((state)=> state.offers.city);
+  const offers = useAppSelector((state)=> state.offers.offers, shallowEqual);
+  const currentSort = useAppSelector((state)=> state.offers.currentSort);
 
   const memoizedHandleActiveCard = useCallback((offer: Offer | null) => {
     setActivePoint(offer);

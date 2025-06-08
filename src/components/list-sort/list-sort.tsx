@@ -7,7 +7,7 @@ import { changeSort } from '../../store/offers-slice';
 
 function ListSortComponent(): JSX.Element {
   const [isOpen, setOpenClose] = useState(false);
-  const currentSort = useAppSelector((state)=> state.currentSort);
+  const currentSort = useAppSelector((state)=> state.offers.currentSort);
   const dispatch = useAppDispatch();
 
   const handleSortPopupClick = () => {

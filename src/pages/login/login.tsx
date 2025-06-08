@@ -12,8 +12,8 @@ import { ENDPOINTS } from '../../types/endpoint';
 function LoginScreen(): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const authStatus = useAppSelector((state)=> state.authStatus);
-  const errorData = useAppSelector((state)=> state.errorData);
+  const authStatus = useAppSelector((state)=> state.auth.authStatus);
+  const errorData = useAppSelector((state)=> state.error.errorData);
 
   const [error, SetError] = useState<string | null>(null);
 

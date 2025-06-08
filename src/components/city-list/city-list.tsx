@@ -7,7 +7,7 @@ import { setActiveCity } from '../../store/offers-slice';
 
 
 function CityListComponent():JSX.Element {
-  const activeCity = useAppSelector((state)=>state.city);
+  const activeCity = useAppSelector((state)=>state.offers.city);
   const dispatch = useAppDispatch();
 
   const handleCityClick = (city:City) => {

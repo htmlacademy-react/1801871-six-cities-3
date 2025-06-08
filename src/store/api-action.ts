@@ -8,6 +8,12 @@ import { TComment } from '../types/comment';
 import { ENDPOINTS } from '../types/endpoint';
 import { createAppAsyncThunk } from './hooks';
 
+import { setLoadingStatus } from './loading-slice';
+import { loadOffers } from './offers-slice';
+import { setAuthorization, setUserInfo } from './auth-slice';
+import { setComments, setCurrentFullOffer, setNearbyOffers } from './full-offer-slice';
+import { setFavorites } from './favorites-slice';
+
 
 type CommentPayload = {
   id:string;
