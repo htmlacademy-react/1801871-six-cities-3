@@ -12,6 +12,7 @@ import { useAppSelector } from '../../store/hooks';
 
 import ErrorWindow from '../error-window/error-window';
 import { selectFilteredSortedOffers } from '../../store/selectors';
+import EmptyPage from '../empty-page/empty-page';
 
 
 function CardList():JSX.Element {
@@ -34,6 +35,10 @@ function CardList():JSX.Element {
 
   function getPlaceFoundText(placeAmount:number) {
     return placeAmount > 1 ? 'places' : 'place';
+  }
+
+  if(currentOffers.length === 0) {
+    return <EmptyPage></EmptyPage>;
   }
 
   return (
