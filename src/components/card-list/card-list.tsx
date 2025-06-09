@@ -1,20 +1,17 @@
 
-import { useCallback, useMemo, useState } from 'react';
-import { shallowEqual } from 'react-redux';
-
+import { useCallback, useState } from 'react';
 
 import { Offer } from '../../types/offers';
 
 import PlaceCard from '../place-card/place-card';
 import ListSort from '../list-sort/list-sort';
 
-import { sortDict } from '../../utils/sort';
-
 
 import Map from '../map/map';
 import { useAppSelector } from '../../store/hooks';
 
 import ErrorWindow from '../error-window/error-window';
+import { selectFilteredSortedOffers } from '../../store/selectors';
 
 
 function CardList():JSX.Element {
@@ -22,20 +19,13 @@ function CardList():JSX.Element {
 
   const [activePoint, setActivePoint] = useState<Offer | null>(null);
   const activeCity = useAppSelector((state)=> state.offers.city);
-  const offers = useAppSelector((state)=> state.offers.offers, shallowEqual);
-  const currentSort = useAppSelector((state)=> state.offers.currentSort);
+
 
   const memoizedHandleActiveCard = useCallback((offer: Offer | null) => {
     setActivePoint(offer);
   }, []);
 
-  const currentOffers = useMemo(() => {
-    if(!offers) {
-      return null;
-    }
-    const filtered = offers.filter((offer) => offer.city.name === activeCity.name);
-    return [...filtered].sort(sortDict[currentSort].handler);
-  }, [offers, activeCity, currentSort]);
+  const currentOffers = useAppSelector(selectFilteredSortedOffers);
 
   if(!currentOffers) {
     return <ErrorWindow></ErrorWindow>;
