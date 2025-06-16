@@ -2,9 +2,13 @@ import { createDraftSafeSelector } from '@reduxjs/toolkit';
 import { sortDict } from '../utils/sort';
 import { State } from '../types/state';
 
-export const selectOffers = (state:State) => state.offers.offers;
-export const selectCity = (state:State) => state.offers.city;
-export const selectCurrentSort = (state:State) => state.offers.currentSort;
+const selectOffers = (state:State) => state.offers.offers;
+const selectCity = (state:State) => state.offers.city;
+const selectCurrentSort = (state:State) => state.offers.currentSort;
+
+const isOffersLoading = (state:State) => state.offers.pending;
+const isAuthLoading = (state:State) => state.auth.pending;
+const isFavoritesLoading = (state:State) => state.favorites.pending;
 
 export const selectFilteredSortedOffers = createDraftSafeSelector(
   [selectOffers, selectCity, selectCurrentSort],
@@ -14,5 +18,14 @@ export const selectFilteredSortedOffers = createDraftSafeSelector(
     }
     const filtered = offers.filter((offer) => offer.city.name === city.name);
     return [...filtered].sort(sortDict[sortType].handler);
+  }
+);
+
+
+export const selectMainScreenIsLoading = createDraftSafeSelector(
+  [isOffersLoading, isAuthLoading, isFavoritesLoading],
+  (offers, auth, favorites) => {
+    console.log(offers || auth || favorites);
+    return offers || auth || favorites;
   }
 );
