@@ -5,11 +5,16 @@ import { useAppSelector } from '../../store/hooks';
 
 
 function MainPage(): JSX.Element {
-  const isLoading = useAppSelector((state)=> state.offers.pending);
+
+  const isOffersLoading = useAppSelector((state)=> state.offers.pending);
+  const isAuthLoading = useAppSelector((state)=> state.auth.pending);
+  const isFavoritesLoading = useAppSelector((state) => state.favorites.pending);
+  //Перепиши на селектор
+
   return (
     <div className="page page--gray page--main">
 
-      { isLoading && <LoadingSpinner /> }
+      { isFavoritesLoading && isOffersLoading && isAuthLoading && <LoadingSpinner /> }
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
