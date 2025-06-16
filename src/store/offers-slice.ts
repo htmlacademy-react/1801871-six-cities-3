@@ -2,11 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { City, Offer } from '../types/offers';
 import { TSortKey } from '../types/sort';
 import { CITIES } from '../сities';
+import { fetchOffers } from './api-action';
 
 type stateType = {
   city: City;
   offers: Offer[] | null;
   currentSort: TSortKey;
+  pending: boolean;
 }
 
 
@@ -14,6 +16,7 @@ const InitialState:stateType = {
   city: CITIES[0],
   offers: [],
   currentSort: 'Popular',
+  pending: false
 };
 
 
@@ -31,6 +34,18 @@ const OffersSlice = createSlice({
       state.city = action.payload;
     }
   },
+
+  extraReducers(builder) {
+    builder.addCase(fetchOffers.pending, (state) => {
+      state.pending = true;
+    });
+    builder.addCase(fetchOffers.rejected, (state) => {
+      state.pending = false;
+    });
+    builder.addCase(fetchOffers.fulfilled, (state) => {
+      state.pending = false;
+    });
+  }
 });
 
 export default OffersSlice.reducer;

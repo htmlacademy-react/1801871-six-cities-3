@@ -8,7 +8,6 @@ import { TComment } from '../types/comment';
 import { ENDPOINTS } from '../types/endpoint';
 import { createAppAsyncThunk } from './hooks';
 
-import { setLoadingStatus } from './loading-slice';
 import { loadOffers } from './offers-slice';
 import { setAuthorization, setUserInfo } from './auth-slice';
 import { setComments, setCurrentFullOffer, setNearbyOffers } from './full-offer-slice';
@@ -25,13 +24,10 @@ export const fetchOffers = createAppAsyncThunk<void, undefined>(
   'get/offers',
   async (_arg, {dispatch, extra: api}) => {
     try {
-      dispatch(setLoadingStatus(true));
       const {data} = await api.get<Offer[]>(ENDPOINTS.offers);
-      dispatch(setLoadingStatus(false));
       dispatch(loadOffers(data));
     } catch {
       dispatch(loadOffers(null));
-      dispatch(setLoadingStatus(false));
     }
   }
 
@@ -63,13 +59,10 @@ export const fetchFullOffer = createAppAsyncThunk<void, string>(
   'get/fullOffer',
   async (id, {dispatch, extra: api}) => {
     try {
-      dispatch(setLoadingStatus(true));
       const {data} = await api.get<FullOffer>(`${ENDPOINTS.offers}/${id}`);
-      dispatch(setLoadingStatus(false));
       dispatch(setCurrentFullOffer(data));
     } catch {
       dispatch(setCurrentFullOffer(null));
-      dispatch(setLoadingStatus(false));
     }
   }
 );
@@ -79,13 +72,10 @@ export const fetchComments = createAppAsyncThunk<void, string>(
   'get/fetchComments',
   async (id, {dispatch, extra: api}) => {
     try {
-      dispatch(setLoadingStatus(true));
       const {data} = await api.get<TComment[]>(`${ENDPOINTS.comments}/${id}`);
       dispatch(setComments(data));
-      dispatch(setLoadingStatus(false));
     } catch {
       dispatch(setComments(null));
-      dispatch(setLoadingStatus(false));
     }
   }
 );
@@ -95,13 +85,10 @@ export const fetchNearbyOffers = createAppAsyncThunk<void, string>(
   'get/nearbyOffers',
   async (id, {dispatch, extra: api}) => {
     try {
-      dispatch(setLoadingStatus(true));
       const {data} = await api.get<Offer[]>(`${ENDPOINTS.offers}/${id}/nearby`);
       dispatch(setNearbyOffers(data));
-      dispatch(setLoadingStatus(false));
     } catch {
       dispatch(setNearbyOffers(null));
-      dispatch(setLoadingStatus(false));
     }
   }
 );
@@ -110,17 +97,11 @@ export const fetchNearbyOffers = createAppAsyncThunk<void, string>(
 export const sendComment = createAppAsyncThunk<void, CommentPayload>(
   'post/sendComment',
   async ({id, comment, rating}, {dispatch, extra: api}) => {
-    try {
-      dispatch(setLoadingStatus(true));
-      await api.post<TComment>(`${ENDPOINTS.comments}/${id}`, {
-        comment: comment,
-        rating: rating,
-      });
-      dispatch(setLoadingStatus(false));
-      dispatch(fetchComments(id));
-    } catch {
-      dispatch(setLoadingStatus(false));
-    }
+    await api.post<TComment>(`${ENDPOINTS.comments}/${id}`, {
+      comment: comment,
+      rating: rating,
+    });
+    dispatch(fetchComments(id));
   }
 );
 
@@ -129,13 +110,10 @@ export const fetchFavorites = createAppAsyncThunk<void, undefined>(
   'get/favorites',
   async (_arg, {dispatch, extra: api}) => {
     try {
-      dispatch(setLoadingStatus(true));
       const {data} = await api.get<Offer[]>(`${ENDPOINTS.favorites}`);
       dispatch(setFavorites(data));
-      dispatch(setLoadingStatus(false));
     } catch {
       dispatch(setFavorites(null));
-      dispatch(setLoadingStatus(false));
     }
   }
 );
