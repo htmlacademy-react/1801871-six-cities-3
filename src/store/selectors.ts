@@ -24,8 +24,5 @@ export const selectFilteredSortedOffers = createDraftSafeSelector(
 
 export const selectMainScreenIsLoading = createDraftSafeSelector(
   [isOffersLoading, isAuthLoading, isFavoritesLoading],
-  (offers, auth, favorites) => {
-    console.log(offers || auth || favorites);
-    return offers || auth || favorites;
-  }
+  (offers, auth, favorites) => offers || auth || favorites
 );
