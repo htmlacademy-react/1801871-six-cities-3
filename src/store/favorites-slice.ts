@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Offer } from '../types/offers';
-import { fetchFavorites } from './api-action';
+import { fetchAddRemoveFromFavorites, fetchFavorites } from './api-action';
 
 
 type stateType = {
@@ -31,6 +31,16 @@ const favoritesSlice = createSlice({
       state.pending = false;
     });
     builder.addCase(fetchFavorites.rejected, (state)=>{
+      state.pending = false;
+    });
+
+    builder.addCase(fetchAddRemoveFromFavorites.pending, (state)=>{
+      state.pending = true;
+    });
+    builder.addCase(fetchAddRemoveFromFavorites.fulfilled, (state)=>{
+      state.pending = false;
+    });
+    builder.addCase(fetchAddRemoveFromFavorites.rejected, (state)=>{
       state.pending = false;
     });
   }

@@ -12,7 +12,7 @@ import Map from '../../components/map/map';
 
 import { fetchComments, fetchFullOffer, fetchNearbyOffers } from '../../store/api-action';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import AddToFavoriteButtonComponent from '../../components/add-to-favorite-button/add-to-favorete-button';
+import AddToFavoriteButtonComponent from '../../components/add-to-favorite-button/add-to-favorite-button';
 
 
 function OffersScreen(): JSX.Element | undefined {
@@ -92,7 +92,7 @@ function OffersScreen(): JSX.Element | undefined {
                   <h1 className="offer__name">
                     {offer.title}
                   </h1>
-                  <AddToFavoriteButtonComponent AddToFavoriteButtonType='fullOffer'></AddToFavoriteButtonComponent>
+                  <AddToFavoriteButtonComponent AddToFavoriteButtonType='fullOffer' id={offer.id} isFavorite={offer.isFavorite}></AddToFavoriteButtonComponent>
                 </div>
                 <div className="offer__rating rating">
                   <div className="offer__stars rating__stars">

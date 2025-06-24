@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 
 import { Offer } from '../../types/offers';
 import React from 'react';
-import AddToFavoriteButtonComponent from '../add-to-favorite-button/add-to-favorete-button';
+import AddToFavoriteButtonComponent from '../add-to-favorite-button/add-to-favorite-button';
 
 
 type Type = 'cities' | 'favorites' | 'near-places';
@@ -31,12 +31,11 @@ function getStarsInWidthPercent(stars:number): string {
 }
 
 function PlaceCardComponent({offer, handelCurrentActiveCard, type} : PlaceCardProps): JSX.Element {
+
+
   const handleMouseEnter = () => type === 'cities' ? handelCurrentActiveCard(offer) : undefined;
   const handleMouseLeave = () => type === 'cities' ? handelCurrentActiveCard(null) : undefined;
 
-  // const handelAddToFavorite = () => {
-  //   dispatch(fetchOfferStatus(offer));
-  // }
 
   return (
     <article className={`${type}__card place-card`}
@@ -61,7 +60,7 @@ function PlaceCardComponent({offer, handelCurrentActiveCard, type} : PlaceCardPr
             <b className="place-card__price-value">{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <AddToFavoriteButtonComponent AddToFavoriteButtonType='card'></AddToFavoriteButtonComponent>
+          <AddToFavoriteButtonComponent AddToFavoriteButtonType='card' id={offer.id} isFavorite={offer.isFavorite}></AddToFavoriteButtonComponent>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

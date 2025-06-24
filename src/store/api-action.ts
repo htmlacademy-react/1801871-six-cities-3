@@ -20,6 +20,11 @@ type CommentPayload = {
   rating: number;
 }
 
+type FavoritePayload = {
+  id:string;
+  isFavorite: boolean;
+}
+
 export const fetchOffers = createAppAsyncThunk<void, undefined>(
   'get/offers',
   async (_arg, {dispatch, extra: api}) => {
@@ -115,6 +120,17 @@ export const fetchFavorites = createAppAsyncThunk<void, undefined>(
     } catch {
       dispatch(setFavorites(null));
     }
+  }
+);
+
+
+export const fetchAddRemoveFromFavorites = createAppAsyncThunk<void, FavoritePayload>(
+  'post/addRemoveFromFavorites',
+  async ({id, isFavorite}, {dispatch, extra: api}) => {
+    await api.post<Offer>(`${ENDPOINTS.favorites}/${id}/${Number(!isFavorite)}`);
+    dispatch(fetchFavorites());
+    dispatch(fetchOffers());
+    dispatch(fetchFullOffer(id));
   }
 );
 
