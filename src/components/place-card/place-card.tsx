@@ -33,6 +33,11 @@ function getStarsInWidthPercent(stars:number): string {
 function PlaceCardComponent({offer, handelCurrentActiveCard, type} : PlaceCardProps): JSX.Element {
   const handleMouseEnter = () => type === 'cities' ? handelCurrentActiveCard(offer) : undefined;
   const handleMouseLeave = () => type === 'cities' ? handelCurrentActiveCard(null) : undefined;
+
+  // const handelAddToFavorite = () => {
+  //   dispatch(fetchOfferStatus(offer));
+  // }
+
   return (
     <article className={`${type}__card place-card`}
       onMouseEnter={handleMouseEnter}
@@ -56,7 +61,7 @@ function PlaceCardComponent({offer, handelCurrentActiveCard, type} : PlaceCardPr
             <b className="place-card__price-value">{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <AddToFavoriteButtonComponent></AddToFavoriteButtonComponent>
+          <AddToFavoriteButtonComponent AddToFavoriteButtonType='card'></AddToFavoriteButtonComponent>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

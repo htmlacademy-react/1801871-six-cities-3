@@ -1,16 +1,35 @@
 type FavoriteButtonTypes = 'card' | 'fullOffer';
 
+type FavoriteButtonStateOption = {
+  width:number;
+  height:number;
+  class:string;
+}
+
 type AddToFavoriteButtonProps = {
   AddToFavoriteButtonType: FavoriteButtonTypes;
 }
 
+const AddToFavoriteButtonState: Record<FavoriteButtonTypes,FavoriteButtonStateOption> = {
+  'card':{
+    width:18,
+    height:19,
+    class:'place'
+  },
+  'fullOffer':{
+    width:31,
+    height:33,
+    class:'offer'
+  }
+};
+
 function AddToFavoriteButtonComponent({AddToFavoriteButtonType}:AddToFavoriteButtonProps):JSX.Element{
   return(
     <button
-      className="place-card__bookmark-button place-card__bookmark-button--active button"
+      className={`${AddToFavoriteButtonState[AddToFavoriteButtonType].class}-card__bookmark-button button`}
       type="button"
     >
-      <svg className="place-card__bookmark-icon" width={18} height={19}>
+      <svg className="place-card__bookmark-icon" width={AddToFavoriteButtonState[AddToFavoriteButtonType].width} height={AddToFavoriteButtonState[AddToFavoriteButtonType].height}>
         <use xlinkHref="#icon-bookmark" />
       </svg>
       <span className="visually-hidden">In bookmarks</span>

@@ -2,6 +2,10 @@ import { createDraftSafeSelector } from '@reduxjs/toolkit';
 import { sortDict } from '../utils/sort';
 import { State } from '../types/state';
 
+
+export const getSelector = <T extends keyof State>(slice: T, field:keyof State[T]) => (state:State) => state[slice][field];
+
+
 const selectOffers = (state:State) => state.offers.offers;
 const selectCity = (state:State) => state.offers.city;
 const selectCurrentSort = (state:State) => state.offers.currentSort;
