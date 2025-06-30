@@ -1,4 +1,4 @@
-import { City, Location } from './offers';
+import { Offer } from './offers';
 
 type Host = {
   name: string;
@@ -6,25 +6,11 @@ type Host = {
   isPro: boolean;
 };
 
-export type FullOffer = {
-  id: string;
-  title: string;
-  type: string;
-  price: number;
-
-  city: City;
-
-  location: Location;
-
-  isFavorite: boolean;
-  isPremium: boolean;
-  rating: number;
+export type FullOffer = Offer & {
   description: string;
   bedrooms: number;
-  goods: [string];
-
+  goods: string[];
   host: Host;
-
-  images: [string];
+  images: string[];
   maxAdults: number;
-  }
+};

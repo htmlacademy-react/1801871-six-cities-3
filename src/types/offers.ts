@@ -22,7 +22,7 @@ export type Location = {
 
 
 export interface Offer {
-      id: string;
+      id: TOfferId;
       title: string;
       type: OfferType;
       price: number;
@@ -33,4 +33,14 @@ export interface Offer {
       isPremium: boolean;
       rating: number;
 }
+
+
+export type Brand<UNIQ extends string, T = string> = T & { __Brand: UNIQ };
+
+export type TOfferId = Brand<'OFFERID'> ;
+
+console.log('egw');
+// параметрический полиморфизм
+// расширить фулоффер
+// перегрузка функции
 

@@ -1,5 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import { fetchAddRemoveFromFavorites } from '../../store/api-action';
-import { useAppDispatch } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { TOfferId } from '../../types/offers';
+import { AuthState } from '../../const';
 
 type FavoriteButtonTypes = 'card' | 'fullOffer';
 
@@ -12,7 +15,7 @@ type FavoriteButtonStateOption = {
 type AddToFavoriteButtonProps = {
   AddToFavoriteButtonType: FavoriteButtonTypes;
   isFavorite: boolean;
-  id:string;
+  id: TOfferId;
 }
 
 const AddToFavoriteButtonState: Record<FavoriteButtonTypes,FavoriteButtonStateOption> = {
@@ -29,15 +32,22 @@ const AddToFavoriteButtonState: Record<FavoriteButtonTypes,FavoriteButtonStateOp
 };
 
 function AddToFavoriteButtonComponent({AddToFavoriteButtonType, isFavorite, id}:AddToFavoriteButtonProps):JSX.Element{
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const isAuthorized = useAppSelector((state)=> state.auth.authStatus);
 
   const handelAddToFavorite = () => {
+    if (isAuthorized === AuthState.NoAuth) {
+      navigate('/login');
+      return;
+    }
     dispatch(fetchAddRemoveFromFavorites({id, isFavorite}));
   };
 
   function ShowHideFavoriteClass() {
     return isFavorite ? `${AddToFavoriteButtonState[AddToFavoriteButtonType].class}__bookmark-button--active` : '';
   }
+
 
   return(
     <button
