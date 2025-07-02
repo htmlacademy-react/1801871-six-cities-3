@@ -1,17 +1,18 @@
-import { FormEvent, useRef, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import { loginAction } from '../../store/api-action';
 
 import ErrorText from '../../components/error-text/error-text';
 
 import { useAppDispatch, useAppSelector} from '../../store/hooks';
 import { AppRoute, AuthState } from '../../const';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ENDPOINTS } from '../../types/endpoint';
 import { deleteCookie, getCookie } from '../../coockies/coockies';
 
 
 function LoginScreen(): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const authStatus = useAppSelector((state)=> state.auth.authStatus);
   const errorData = useAppSelector((state)=> state.error.errorData);
@@ -20,6 +21,18 @@ function LoginScreen(): JSX.Element {
 
   const loginRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (authStatus === AuthState.Auth) {
+      const lastRoute = getCookie('lastRoute');
+      if (lastRoute) {
+        deleteCookie('lastRoute');
+        navigate(lastRoute);
+      } else {
+        navigate(AppRoute.Root);
+      }
+    }
+  }, [authStatus, navigate]);
 
   function isFieldsValid (login:string, password:string):boolean {
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{4,}$/;
@@ -54,18 +67,19 @@ function LoginScreen(): JSX.Element {
     return err && <ErrorText errorText={err.messages.join(' ')} />;
   }
 
-  if(authStatus === AuthState.Auth) {
+  // if (authStatus === AuthState.Auth) {
+  //   const lastRoute = getCookie('lastRoute');
+  //   console.log(lastRoute);
 
-    const lastRoute = getCookie('lastRoute');
-    if(lastRoute) {
-      console.log(lastRoute);
-      deleteCookie('lastRoute');
-      console.log(lastRoute);
-      return <Navigate to={lastRoute} />;
-    }
+  //   if (lastRoute) {
+  //     deleteCookie('lastRoute');
+  //     console.log(lastRoute);
+  //     return <Navigate to={lastRoute} />;
+  //   }
 
-    return <Navigate to={AppRoute.Root} />;
-  }
+  //   console.log('root');
+  //   return <Navigate to={AppRoute.Root} />;
+  // }
 
   return (
     <div className="page page--gray page--login">
