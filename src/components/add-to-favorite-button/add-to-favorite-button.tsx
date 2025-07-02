@@ -3,6 +3,7 @@ import { fetchAddRemoveFromFavorites } from '../../store/api-action';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { TOfferId } from '../../types/offers';
 import { AuthState } from '../../const';
+import { setCookie } from '../../coockies/coockies';
 
 type FavoriteButtonTypes = 'card' | 'fullOffer';
 
@@ -39,6 +40,7 @@ function AddToFavoriteButtonComponent({AddToFavoriteButtonType, isFavorite, id}:
   const handelAddToFavorite = () => {
     if (isAuthorized === AuthState.NoAuth) {
       navigate('/login');
+      setCookie('lastRoute', `/offer/${id}`, 1);
       return;
     }
     dispatch(fetchAddRemoveFromFavorites({id, isFavorite}));

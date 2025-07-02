@@ -25,6 +25,7 @@ type FavoritePayload = {
   isFavorite: boolean;
 }
 
+
 export const fetchOffers = createAppAsyncThunk<void, undefined>(
   'get/offers',
   async (_arg, {dispatch, extra: api}) => {
@@ -56,6 +57,7 @@ export const logoutAction = createAppAsyncThunk<void, undefined>(
     await api.delete(ENDPOINTS.logout);
     deleteToken();
     dispatch(setAuthorization(AuthState.NoAuth));
+    dispatch(fetchOffers());
   },
 );
 

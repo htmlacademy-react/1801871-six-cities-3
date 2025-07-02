@@ -5,8 +5,9 @@ import ErrorText from '../../components/error-text/error-text';
 
 import { useAppDispatch, useAppSelector} from '../../store/hooks';
 import { AppRoute, AuthState } from '../../const';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { ENDPOINTS } from '../../types/endpoint';
+import { deleteCookie, getCookie } from '../../coockies/coockies';
 
 
 function LoginScreen(): JSX.Element {
@@ -39,7 +40,7 @@ function LoginScreen(): JSX.Element {
         return;
       }
       SetError(null);
-      dispatch(loginAction({ login, password }));
+      dispatch(loginAction({ login, password}));
     }
   }
 
@@ -54,6 +55,15 @@ function LoginScreen(): JSX.Element {
   }
 
   if(authStatus === AuthState.Auth) {
+
+    const lastRoute = getCookie('lastRoute');
+    if(lastRoute) {
+      console.log(lastRoute);
+      deleteCookie('lastRoute');
+      console.log(lastRoute);
+      return <Navigate to={lastRoute} />;
+    }
+
     return <Navigate to={AppRoute.Root} />;
   }
 

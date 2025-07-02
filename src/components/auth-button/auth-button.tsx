@@ -38,7 +38,7 @@ function AuthButtonComponent ({authButtonState}:ButtonStatusProps):JSX.Element {
 
   const handleSignOutClick = () => {
 
-    if(state.label === 'Sign out') {
+    if(state.class === 'header__signout') {
       dispatch(logoutAction());
     }
 
