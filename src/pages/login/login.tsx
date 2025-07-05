@@ -8,14 +8,15 @@ import { AppRoute, AuthState } from '../../const';
 import { useNavigate } from 'react-router-dom';
 import { ENDPOINTS } from '../../types/endpoint';
 import { deleteCookie, getCookie } from '../../coockies/coockies';
+import { getSelector } from '../../store/selectors';
 
 
 function LoginScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const authStatus = useAppSelector((state)=> state.auth.authStatus);
-  const errorData = useAppSelector((state)=> state.error.errorData);
+  const authStatus = useAppSelector(getSelector('auth','authStatus'));
+  const errorData = useAppSelector(getSelector('error','errorData'));
 
   const [error, SetError] = useState<string | null>(null);
 

@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { TComment } from '../../types/comment';
+import { getStarsInWidthPercent } from '../../utils/utils';
 
 const Month = [
   'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
@@ -8,10 +9,6 @@ const Month = [
 
 type CommentProps = {
   comment:TComment;
-}
-
-function getStarsInWidthPercent(stars:number): string {
-  return `${stars * 20}%`;
 }
 
 function getHumanDate(date:string):string {

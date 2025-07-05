@@ -13,17 +13,18 @@ import Map from '../../components/map/map';
 import { fetchComments, fetchFullOffer, fetchNearbyOffers } from '../../store/api-action';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import AddToFavoriteButtonComponent from '../../components/add-to-favorite-button/add-to-favorite-button';
+import { getSelector } from '../../store/selectors';
 
 
 function OffersScreen(): JSX.Element | undefined {
   const id = useParams().id;
   const dispatch = useAppDispatch();
 
-  const isLoading = useAppSelector((state)=>state.fullOffer.pending.offer);
-  const offer = useAppSelector((state)=>state.fullOffer.currentOffer);
+  const isLoading = useAppSelector(getSelector('fullOffer','pending'));
+  const offer = useAppSelector(getSelector('fullOffer','offer'));
 
-  const comments = useAppSelector((state)=>state.fullOffer.comments);
-  const nearbyOffers = useAppSelector((state)=>state.fullOffer.nearbyOffers);
+  const comments = useAppSelector(getSelector('fullOffer','comments'));
+  const nearbyOffers = useAppSelector(getSelector('fullOffer', 'nearbyOffers'));
 
 
   useEffect(() => {

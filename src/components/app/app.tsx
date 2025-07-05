@@ -15,6 +15,7 @@ import { checkAuthAction, fetchFavorites, fetchOffers } from '../../store/api-ac
 import { store } from '../../store/store';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { useEffect } from 'react';
+import { getSelector } from '../../store/selectors';
 
 store.dispatch(fetchOffers());
 store.dispatch(checkAuthAction());
@@ -22,7 +23,7 @@ store.dispatch(checkAuthAction());
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
-  const authStatus = useAppSelector((state)=> state.auth.authStatus);
+  const authStatus = useAppSelector(getSelector('auth','authStatus'));
   useEffect(() => {
     if (authStatus === AuthState.Auth) {
       dispatch(fetchFavorites());

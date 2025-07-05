@@ -4,10 +4,11 @@ import { CITIES } from '../../сities';
 import { City } from '../../types/offers';
 import React from 'react';
 import { setActiveCity } from '../../store/offers-slice';
+import { getSelector } from '../../store/selectors';
 
 
 function CityListComponent():JSX.Element {
-  const activeCity = useAppSelector((state)=>state.offers.city);
+  const activeCity = useAppSelector(getSelector('offers', 'city'));
   const dispatch = useAppDispatch();
 
   const handleCityClick = (city:City) => {

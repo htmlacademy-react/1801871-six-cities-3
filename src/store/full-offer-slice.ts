@@ -6,7 +6,7 @@ import { fetchComments, fetchFullOffer, fetchNearbyOffers } from './api-action';
 
 
 type stateType = {
-  currentOffer: FullOffer | null;
+  offer: FullOffer | null;
   comments:TComment[] | null;
   nearbyOffers:Offer[] | null;
   pending: {offer: boolean; comments: boolean; nearbyOffers: boolean};
@@ -14,7 +14,7 @@ type stateType = {
 
 
 const InitialState:stateType = {
-  currentOffer: null,
+  offer: null,
   comments: null,
   nearbyOffers: null,
   pending: {offer: false, comments: false, nearbyOffers: false},
@@ -30,7 +30,7 @@ const FullOfferSlice = createSlice({
   initialState:InitialState,
   reducers: {
     setCurrentFullOffer(state, action: PayloadAction<FullOffer | null>) {
-      state.currentOffer = action.payload;
+      state.offer = action.payload;
     },
     setComments(state, action: PayloadAction<TComment[] | null>) {
       state.comments = action.payload;

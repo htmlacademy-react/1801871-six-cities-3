@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { TOfferId } from '../../types/offers';
 import { AuthState } from '../../const';
 import { setCookie } from '../../coockies/coockies';
+import { getSelector } from '../../store/selectors';
 
 type FavoriteButtonTypes = 'card' | 'fullOffer';
 
@@ -35,8 +36,7 @@ const AddToFavoriteButtonState: Record<FavoriteButtonTypes,FavoriteButtonStateOp
 function AddToFavoriteButtonComponent({AddToFavoriteButtonType, isFavorite, id}:AddToFavoriteButtonProps):JSX.Element{
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const isAuthorized = useAppSelector((state)=> state.auth.authStatus);
-
+  const isAuthorized = useAppSelector(getSelector('auth','authStatus'));
   const handelAddToFavorite = () => {
     if (isAuthorized === AuthState.NoAuth) {
       navigate('/login');

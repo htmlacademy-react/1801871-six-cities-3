@@ -3,8 +3,13 @@ import { sortDict } from '../utils/sort';
 import { State } from '../types/state';
 
 
-export const getSelector = <T extends keyof State>(slice: T, field:keyof State[T]) => (state:State) => state[slice][field];
-
+export const getSelector = <
+  T extends keyof State,
+  K extends keyof State[T]
+>(
+    slice: T,
+    field: K
+  ): ((state: State) => State[T][K]) => (state: State) => state[slice][field];
 
 const selectOffers = (state:State) => state.offers.offers;
 const selectCity = (state:State) => state.offers.city;

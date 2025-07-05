@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../store/hooks';
 import { AppRoute } from '../../const';
+import { getSelector } from '../../store/selectors';
 
 function UserInfo ():JSX.Element {
-  const userInfo = useAppSelector((state)=> state.auth.userInfo);
-  const favorites = useAppSelector((state)=> state.favorites.favorites);
+  const userInfo = useAppSelector(getSelector('auth','userInfo'));
+  const favorites = useAppSelector(getSelector('favorites','favorites'));
   return (
     <li className="header__nav-item user">
       <span
@@ -17,11 +18,13 @@ function UserInfo ():JSX.Element {
         >
 
         </div>
-        <span className="header__user-name user__name">
-          {userInfo?.email}
-        </span>
         <Link to={AppRoute.Favorite}>
-          <span className="header__favorite-count">{favorites?.length}</span>
+          <span className="header__user-name user__name">
+            {userInfo?.email}
+          </span>
+          <span className="header__favorite-count">
+            {favorites?.length}
+          </span>
         </Link>
       </span>
     </li>

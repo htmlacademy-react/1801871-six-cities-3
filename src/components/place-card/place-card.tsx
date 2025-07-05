@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import { Offer } from '../../types/offers';
 import React from 'react';
 import AddToFavoriteButtonComponent from '../add-to-favorite-button/add-to-favorite-button';
+import { getStarsInWidthPercent } from '../../utils/utils';
 
 
 type Type = 'cities' | 'favorites' | 'near-places';
@@ -24,10 +25,6 @@ function isPremium(cardType:boolean): JSX.Element | undefined {
         <span>Premium</span>
       </div>);
   }
-}
-
-function getStarsInWidthPercent(stars:number): string {
-  return `${stars * 20}%`;
 }
 
 function PlaceCardComponent({offer, handelCurrentActiveCard, type} : PlaceCardProps): JSX.Element {

@@ -51,6 +51,7 @@ function ListSortComponent(): JSX.Element {
 
               onClick={()=>{
                 dispatch(changeSort(key));
+                handleSortPopupClick();
               }}
             >
               {sortDict[key].label}
