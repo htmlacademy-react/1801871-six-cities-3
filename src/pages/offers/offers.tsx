@@ -15,6 +15,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import AddToFavoriteButtonComponent from '../../components/add-to-favorite-button/add-to-favorite-button';
 import { getSelector } from '../../store/selectors';
 import { getStarsInWidthPercent } from '../../utils/utils';
+import { AMOUNT_OF_NEARBY_OFFERS } from '../../const';
 
 
 function OffersScreen(): JSX.Element | undefined {
@@ -146,7 +147,7 @@ function OffersScreen(): JSX.Element | undefined {
               </div>
             </div>
             <div>
-              { nearbyOffers && <Map city={offer.city} activePoint={offer} points={nearbyOffers} className='offer'/> }
+              { nearbyOffers && <Map city={offer.city} activePoint={offer} points={nearbyOffers.slice(0, AMOUNT_OF_NEARBY_OFFERS)} className='offer'/> }
             </div>
           </section>
           <div className="container">
@@ -154,7 +155,7 @@ function OffersScreen(): JSX.Element | undefined {
               <h2 className="near-places__title">
           Other places in the neighbourhood
               </h2>
-              { nearbyOffers && <NearPlacesList offers={nearbyOffers}/> }
+              { nearbyOffers && <NearPlacesList offers={nearbyOffers.slice(0, AMOUNT_OF_NEARBY_OFFERS)}/> }
             </section>
           </div>
         </main>
