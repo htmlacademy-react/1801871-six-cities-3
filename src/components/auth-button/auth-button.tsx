@@ -45,7 +45,7 @@ function AuthButtonComponent ({authButtonState}:ButtonStatusProps):JSX.Element {
   };
   return (
     <li className="header__nav-item">
-      <Link className="header__nav-link" to={AppRoute.Login} onClick={handleSignOutClick}>
+      <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login} onClick={handleSignOutClick}>
         <span className={state.class}>{state.label}</span>
       </Link>
     </li>

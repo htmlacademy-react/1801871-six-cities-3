@@ -5,10 +5,12 @@ import ErrorText from '../../components/error-text/error-text';
 
 import { useAppDispatch, useAppSelector} from '../../store/hooks';
 import { AppRoute, AuthState } from '../../const';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ENDPOINTS } from '../../types/endpoint';
 import { deleteCookie, getCookie } from '../../coockies/coockies';
 import { getSelector } from '../../store/selectors';
+import { setActiveCity } from '../../store/offers-slice';
+import { CITIES } from '../../сities';
 
 
 function LoginScreen(): JSX.Element {
@@ -22,6 +24,10 @@ function LoginScreen(): JSX.Element {
 
   const loginRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+
+  const handelCityNameClick = () => {
+    dispatch(setActiveCity(CITIES[3]));
+  };
 
   useEffect(() => {
     if (authStatus === AuthState.Auth) {
@@ -117,9 +123,9 @@ function LoginScreen(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
+              <Link className="locations__item-link" to={AppRoute.Root} onClick={handelCityNameClick}>
                 <span>Amsterdam</span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>
