@@ -14,6 +14,7 @@ import { fetchComments, fetchFullOffer, fetchNearbyOffers } from '../../store/ap
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import AddToFavoriteButtonComponent from '../../components/add-to-favorite-button/add-to-favorite-button';
 import { getSelector } from '../../store/selectors';
+import { getStarsInWidthPercent } from '../../utils/utils';
 
 
 function OffersScreen(): JSX.Element | undefined {
@@ -36,10 +37,6 @@ function OffersScreen(): JSX.Element | undefined {
     }
   }, [id, dispatch]);
 
-
-  function getStarsInWidthPercent(stars:number): string {
-    return `${stars * 20}%`;
-  }
 
   function isPremium(cardType:boolean): JSX.Element | undefined {
     if(cardType) {
