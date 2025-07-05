@@ -68,19 +68,6 @@ function LoginScreen(): JSX.Element {
     return err && <ErrorText errorText={err.messages.join(' ')} />;
   }
 
-  // if (authStatus === AuthState.Auth) {
-  //   const lastRoute = getCookie('lastRoute');
-  //   console.log(lastRoute);
-
-  //   if (lastRoute) {
-  //     deleteCookie('lastRoute');
-  //     console.log(lastRoute);
-  //     return <Navigate to={lastRoute} />;
-  //   }
-
-  //   console.log('root');
-  //   return <Navigate to={AppRoute.Root} />;
-  // }
 
   return (
     <div className="page page--gray page--login">

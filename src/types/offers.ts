@@ -38,9 +38,3 @@ export interface Offer {
 export type Brand<UNIQ extends string, T = string> = T & { __Brand: UNIQ };
 
 export type TOfferId = Brand<'OFFERID'> ;
-
-console.log('egw');
-// параметрический полиморфизм
-// расширить фулоффер
-// перегрузка функции
-
