@@ -4,10 +4,11 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { sortDict, SortTypeKey} from '../../utils/sort';
 import React from 'react';
 import { changeSort } from '../../store/offers-slice';
+import { getSelector } from '../../store/selectors';
 
 function ListSortComponent(): JSX.Element {
   const [isOpen, setOpenClose] = useState(false);
-  const currentSort = useAppSelector((state)=> state.offers.currentSort);
+  const currentSort = useAppSelector(getSelector('offers','currentSort'));
   const dispatch = useAppDispatch();
 
   const handleSortPopupClick = () => {
