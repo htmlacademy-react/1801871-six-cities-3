@@ -21,7 +21,8 @@ function OffersScreen(): JSX.Element | undefined {
   const id = useParams().id;
   const dispatch = useAppDispatch();
 
-  const isLoading = useAppSelector(getSelector('fullOffer','pending'));
+  const isLoadingStatus = useAppSelector(getSelector('fullOffer','pending'));
+  const isLoading = isLoadingStatus.comments && isLoadingStatus.nearbyOffers && isLoadingStatus.offer;
   const offer = useAppSelector(getSelector('fullOffer','offer'));
 
   const comments = useAppSelector(getSelector('fullOffer','comments'));
