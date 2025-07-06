@@ -45,3 +45,5 @@ export const TIME_CONNECTION = 5000;
 export const TIME_ERROR = 5000;
 
 export const TOKEN_KEY_NAME = 'token';
+
+export const AMOUNT_OF_NEARBY_OFFERS = 3;

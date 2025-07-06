@@ -12,17 +12,22 @@ import Map from '../../components/map/map';
 
 import { fetchComments, fetchFullOffer, fetchNearbyOffers } from '../../store/api-action';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import AddToFavoriteButtonComponent from '../../components/add-to-favorite-button/add-to-favorite-button';
+import { getSelector } from '../../store/selectors';
+import { getStarsInWidthPercent } from '../../utils/utils';
+import { AMOUNT_OF_NEARBY_OFFERS } from '../../const';
 
 
 function OffersScreen(): JSX.Element | undefined {
   const id = useParams().id;
   const dispatch = useAppDispatch();
 
-  const isLoading = useAppSelector((state)=>state.isLoading);
-  const offer = useAppSelector((state)=>state.currentOffer);
+  const isLoadingStatus = useAppSelector(getSelector('fullOffer','pending'));
+  const isLoading = isLoadingStatus.comments && isLoadingStatus.nearbyOffers && isLoadingStatus.offer;
+  const offer = useAppSelector(getSelector('fullOffer','offer'));
 
-  const comments = useAppSelector((state)=>state.comments);
-  const nearbyOffers = useAppSelector((state)=>state.nearbyOffers);
+  const comments = useAppSelector(getSelector('fullOffer','comments'));
+  const nearbyOffers = useAppSelector(getSelector('fullOffer', 'nearbyOffers'));
 
 
   useEffect(() => {
@@ -34,10 +39,6 @@ function OffersScreen(): JSX.Element | undefined {
     }
   }, [id, dispatch]);
 
-
-  function getStarsInWidthPercent(stars:number): string {
-    return `${stars * 20}%`;
-  }
 
   function isPremium(cardType:boolean): JSX.Element | undefined {
     if(cardType) {
@@ -91,12 +92,7 @@ function OffersScreen(): JSX.Element | undefined {
                   <h1 className="offer__name">
                     {offer.title}
                   </h1>
-                  <button className="offer__bookmark-button button" type="button">
-                    <svg className="offer__bookmark-icon" width={31} height={33}>
-                      <use xlinkHref="#icon-bookmark" />
-                    </svg>
-                    <span className="visually-hidden">To bookmarks</span>
-                  </button>
+                  <AddToFavoriteButtonComponent AddToFavoriteButtonType='fullOffer' id={offer.id} isFavorite={offer.isFavorite}></AddToFavoriteButtonComponent>
                 </div>
                 <div className="offer__rating rating">
                   <div className="offer__stars rating__stars">
@@ -151,7 +147,7 @@ function OffersScreen(): JSX.Element | undefined {
               </div>
             </div>
             <div>
-              { nearbyOffers && <Map city={offer.city} activePoint={offer} points={nearbyOffers} className='offer'/> }
+              { nearbyOffers && <Map city={offer.city} activePoint={offer} points={nearbyOffers.slice(0, AMOUNT_OF_NEARBY_OFFERS)} className='offer'/> }
             </div>
           </section>
           <div className="container">
@@ -159,7 +155,7 @@ function OffersScreen(): JSX.Element | undefined {
               <h2 className="near-places__title">
           Other places in the neighbourhood
               </h2>
-              { nearbyOffers && <NearPlacesList offers={nearbyOffers}/> }
+              { nearbyOffers && <NearPlacesList offers={nearbyOffers.slice(0, AMOUNT_OF_NEARBY_OFFERS)}/> }
             </section>
           </div>
         </main>

@@ -1,7 +1,8 @@
 import {Link} from 'react-router-dom';
 import { AppRoute } from '../../const';
+import React from 'react';
 
-function Logo ():JSX.Element {
+function LogoComponent ():JSX.Element {
   return(
     <Link className="header__logo-link" to={AppRoute.Root}>
       <img
@@ -14,5 +15,8 @@ function Logo ():JSX.Element {
     </Link>
   );
 }
+
+
+const Logo = React.memo(LogoComponent);
 
 export default Logo;

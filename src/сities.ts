@@ -2,15 +2,6 @@ import { City } from './types/offers';
 
 export const CITIES: City[] = [
   {
-    name: 'Amsterdam',
-    location:{
-      latitude: 52.3909553943508,
-      longitude: 4.897070,
-      zoom: 12,
-
-    }
-  },
-  {
     name: 'Paris',
     location:{
       latitude: 48.864716,
@@ -33,6 +24,15 @@ export const CITIES: City[] = [
     location:{
       latitude: 50.85045,
       longitude: 4.34878,
+      zoom: 12,
+
+    }
+  },
+  {
+    name: 'Amsterdam',
+    location:{
+      latitude: 52.3909553943508,
+      longitude: 4.897070,
       zoom: 12,
 
     }

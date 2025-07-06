@@ -2,10 +2,13 @@ import CardList from '../../components/card-list/card-list';
 import CityList from '../../components/city-list/city-list';
 import { LoadingSpinner } from '../../components/loading-spinner/loading-spinner';
 import { useAppSelector } from '../../store/hooks';
+import { selectMainScreenIsLoading } from '../../store/selectors';
 
 
 function MainPage(): JSX.Element {
-  const isLoading = useAppSelector((state)=>state.isLoading);
+
+
+  const isLoading = useAppSelector(selectMainScreenIsLoading);
 
   return (
     <div className="page page--gray page--main">

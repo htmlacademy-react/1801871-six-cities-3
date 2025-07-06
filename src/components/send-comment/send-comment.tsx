@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { ENDPOINTS } from '../../types/endpoint';
 import ErrorText from '../error-text/error-text';
 import { sendComment } from '../../store/api-action';
+import { getSelector } from '../../store/selectors';
 
 type CommentHandler = ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>
 
@@ -12,7 +13,11 @@ type SendCommentProps = {
 
 function SendComment ({id}:SendCommentProps):JSX.Element {
   const dispatch = useAppDispatch();
-  const errorData = useAppSelector((state)=>state.errorData);
+  const errorData = useAppSelector(getSelector('error','errorData'));
+
+  const [comment, setComment] = useState({comment:'', rating:-1});
+
+  const isSubmitButtonDisabled:boolean = (comment.comment.length >= 50 && comment.comment.length <= 300) && !!comment.rating;
 
 
   const rating = [
@@ -22,8 +27,6 @@ function SendComment ({id}:SendCommentProps):JSX.Element {
     {title: 'badly', value: 2},
     {title: 'terribly', value: 1},
   ];
-
-  const [comment, setComment] = useState({comment:'', rating:-1});
 
 
   const getCommentHandler = (type: keyof typeof comment): CommentHandler => (e) => {
@@ -110,7 +113,7 @@ function SendComment ({id}:SendCommentProps):JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={comment.comment.length <= 50}
+          disabled={isSubmitButtonDisabled}
         >
               Submit
         </button>

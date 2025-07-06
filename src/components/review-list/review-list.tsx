@@ -6,6 +6,7 @@ import { useAppSelector } from '../../store/hooks';
 
 import { AuthState } from '../../const';
 import SendComment from '../send-comment/send-comment';
+import { getSelector } from '../../store/selectors';
 
 type ReviewListProps = {
   comments: TComment[];
@@ -15,7 +16,7 @@ type ReviewListProps = {
 
 function ReviewList ({comments , id}:ReviewListProps):JSX.Element {
 
-  const authStatus = useAppSelector((state)=> state.authStatus);
+  const authStatus = useAppSelector(getSelector('auth','authStatus'));
 
   return (
     <section className="offer__reviews reviews">
@@ -23,7 +24,7 @@ function ReviewList ({comments , id}:ReviewListProps):JSX.Element {
   Reviews · <span className="reviews__amount">{comments.length}</span>
       </h2>
       <ul className="reviews__list">
-        {comments.map((element) =>
+        {comments.slice(0,10).map((element) =>
           (<Comment comment={element} key={element.id} />))}
       </ul>
 

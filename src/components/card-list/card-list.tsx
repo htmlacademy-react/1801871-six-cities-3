@@ -1,48 +1,44 @@
 
-import { useState } from 'react';
-
+import { useCallback, useState } from 'react';
 
 import { Offer } from '../../types/offers';
 
 import PlaceCard from '../place-card/place-card';
 import ListSort from '../list-sort/list-sort';
 
-import { sortDict } from '../../utils/sort';
-
 
 import Map from '../map/map';
 import { useAppSelector } from '../../store/hooks';
 
 import ErrorWindow from '../error-window/error-window';
+import { getSelector, selectFilteredSortedOffers } from '../../store/selectors';
+import EmptyPage from '../empty-page/empty-page';
 
 
 function CardList():JSX.Element {
 
 
   const [activePoint, setActivePoint] = useState<Offer | null>(null);
-  const activeCity = useAppSelector((state)=> state.city);
-  const offers = useAppSelector((state)=> state.offers);
-  const currentSort = useAppSelector((state)=> state.currentSort);
+  const activeCity = useAppSelector(getSelector('offers','city'));
 
-  if(!offers) {
+
+  const memoizedHandleActiveCard = useCallback((offer: Offer | null) => {
+    setActivePoint(offer);
+  }, []);
+
+  const currentOffers = useAppSelector(selectFilteredSortedOffers);
+
+  if(!currentOffers) {
     return <ErrorWindow></ErrorWindow>;
   }
 
 
-  const currentOffers = offers.filter((offer)=> offer.city.name === activeCity.name);
-
-  currentOffers.sort(sortDict[currentSort].handler);
-
-  function handelCurrentActiveCard (offer: Offer | null){
-    if(offer) {
-      setActivePoint(offer);
-    } else{
-      setActivePoint(null);
-    }
-  }
-
   function getPlaceFoundText(placeAmount:number) {
     return placeAmount > 1 ? 'places' : 'place';
+  }
+
+  if(currentOffers.length === 0) {
+    return <EmptyPage></EmptyPage>;
   }
 
   return (
@@ -61,7 +57,7 @@ function CardList():JSX.Element {
                 <PlaceCard
                   offer={offer}
                   key={offer.id}
-                  handelCurrentActiveCard={handelCurrentActiveCard}
+                  handelCurrentActiveCard={memoizedHandleActiveCard}
                   type='cities'
                 />
               ))}

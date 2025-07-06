@@ -1,24 +1,45 @@
-import { FormEvent, useRef, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import { loginAction } from '../../store/api-action';
 
 import ErrorText from '../../components/error-text/error-text';
 
 import { useAppDispatch, useAppSelector} from '../../store/hooks';
 import { AppRoute, AuthState } from '../../const';
-import { Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ENDPOINTS } from '../../types/endpoint';
+import { deleteCookie, getCookie } from '../../coockies/coockies';
+import { getSelector } from '../../store/selectors';
+import { setActiveCity } from '../../store/offers-slice';
+import { CITIES } from '../../сities';
 
 
 function LoginScreen(): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const authStatus = useAppSelector((state)=> state.authStatus);
-  const errorData = useAppSelector((state)=> state.errorData);
+  const authStatus = useAppSelector(getSelector('auth','authStatus'));
+  const errorData = useAppSelector(getSelector('error','errorData'));
 
   const [error, SetError] = useState<string | null>(null);
 
   const loginRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+
+  const handelCityNameClick = () => {
+    dispatch(setActiveCity(CITIES[3]));
+  };
+
+  useEffect(() => {
+    if (authStatus === AuthState.Auth) {
+      const lastRoute = getCookie('lastRoute');
+      if (lastRoute) {
+        deleteCookie('lastRoute');
+        navigate(lastRoute);
+      } else {
+        navigate(AppRoute.Root);
+      }
+    }
+  }, [authStatus, navigate]);
 
   function isFieldsValid (login:string, password:string):boolean {
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{4,}$/;
@@ -39,7 +60,7 @@ function LoginScreen(): JSX.Element {
         return;
       }
       SetError(null);
-      dispatch(loginAction({ login, password }));
+      dispatch(loginAction({ login, password}));
     }
   }
 
@@ -53,9 +74,6 @@ function LoginScreen(): JSX.Element {
     return err && <ErrorText errorText={err.messages.join(' ')} />;
   }
 
-  if(authStatus === AuthState.Auth) {
-    return <Navigate to={AppRoute.Root} />;
-  }
 
   return (
     <div className="page page--gray page--login">
@@ -105,9 +123,9 @@ function LoginScreen(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
+              <Link className="locations__item-link" to={AppRoute.Root} onClick={handelCityNameClick}>
                 <span>Amsterdam</span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>

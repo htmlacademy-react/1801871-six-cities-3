@@ -1,4 +1,6 @@
+import { useMemo } from 'react';
 import { TComment } from '../../types/comment';
+import { getStarsInWidthPercent } from '../../utils/utils';
 
 const Month = [
   'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
@@ -9,10 +11,6 @@ type CommentProps = {
   comment:TComment;
 }
 
-function getStarsInWidthPercent(stars:number): string {
-  return `${stars * 20}%`;
-}
-
 function getHumanDate(date:string):string {
   const objDate = new Date(date);
   const month = objDate.getMonth();
@@ -21,6 +19,10 @@ function getHumanDate(date:string):string {
 }
 
 function Comment({comment}:CommentProps):JSX.Element {
+
+  const ratingPercent = useMemo(() => getStarsInWidthPercent(comment.rating), [comment.rating]);
+  const humanDate = useMemo(() => getHumanDate(comment.date), [comment.date]);
+
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -38,7 +40,7 @@ function Comment({comment}:CommentProps):JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width:getStarsInWidthPercent(comment.rating)}} />
+            <span style={{ width: ratingPercent }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -46,7 +48,7 @@ function Comment({comment}:CommentProps):JSX.Element {
           {comment.comment}
         </p>
         <time className="reviews__time" dateTime={comment.date}>
-          {getHumanDate(comment.date)}
+          {humanDate}
         </time>
       </div>
     </li>

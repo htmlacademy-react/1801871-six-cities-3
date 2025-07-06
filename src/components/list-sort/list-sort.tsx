@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { changeSort } from '../../store/actions';
-import { sortDict, SortTypeKey} from '../../utils/sort';
 
-function ListSort(): JSX.Element {
+import { sortDict, SortTypeKey} from '../../utils/sort';
+import React from 'react';
+import { changeSort } from '../../store/offers-slice';
+import { getSelector } from '../../store/selectors';
+
+function ListSortComponent(): JSX.Element {
   const [isOpen, setOpenClose] = useState(false);
-  const currentSort = useAppSelector((state)=> state.currentSort);
+  const currentSort = useAppSelector(getSelector('offers','currentSort'));
   const dispatch = useAppDispatch();
 
   const handleSortPopupClick = () => {
@@ -49,6 +52,7 @@ function ListSort(): JSX.Element {
 
               onClick={()=>{
                 dispatch(changeSort(key));
+                handleSortPopupClick();
               }}
             >
               {sortDict[key].label}
@@ -60,5 +64,8 @@ function ListSort(): JSX.Element {
     </form>
   );
 }
+
+const ListSort = React.memo(ListSortComponent);
+
 
 export default ListSort;

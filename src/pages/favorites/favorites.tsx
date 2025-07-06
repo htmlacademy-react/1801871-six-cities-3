@@ -5,6 +5,8 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import NotFoundScreen from '../not-found/not-found';
 import { fetchFavorites } from '../../store/api-action';
 import { Offer } from '../../types/offers';
+import EmptyFavorite from '../../components/empty-favorite/empty-favorite';
+import { getSelector } from '../../store/selectors';
 
 
 type OffersByCity = Record<string, Offer[]>;
@@ -23,8 +25,8 @@ function groupOffersByCity(offers: Offer[]): OffersByCity {
 
 function FavoritesScreen(): JSX.Element {
   const dispatch = useAppDispatch();
-  const favorites = useAppSelector((state) => state.favorites);
-  const isLoading = useAppSelector((state)=> state.isLoading);
+  const favorites = useAppSelector(getSelector('favorites','favorites'));
+  const isLoading = useAppSelector(getSelector('favorites','pending'));
   useEffect(() => {
     dispatch(fetchFavorites());
 
@@ -38,6 +40,10 @@ function FavoritesScreen(): JSX.Element {
 
   if(!favorites) {
     return <NotFoundScreen notFoundPageType={'offer'}/>;
+  }
+
+  if(favorites.length === 0) {
+    return <EmptyFavorite></EmptyFavorite>;
   }
 
   const offersByCity = groupOffersByCity(favorites);
