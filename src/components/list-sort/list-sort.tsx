@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-
-import { sortDict, SortTypeKey} from '../../utils/sort';
 import React from 'react';
+
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { sortDict, SortTypeKey} from '../../utils/sort';
 import { changeSort } from '../../store/offers-slice';
 import { getSelector } from '../../store/selectors';
 

@@ -1,6 +1,8 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
+
 import { URL_DATA, TIME_CONNECTION } from '../const';
 import { getToken } from './token';
+
 import SetError from './error-handler';
 
 type APIErrorResponse = {

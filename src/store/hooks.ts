@@ -1,7 +1,8 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { store } from './store';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
+
+import { store } from './store';
 
 type State = ReturnType<typeof store.getState>;
 

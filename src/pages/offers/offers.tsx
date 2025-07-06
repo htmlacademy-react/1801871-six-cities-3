@@ -1,22 +1,18 @@
 import {useParams} from 'react-router-dom';
 import { useEffect } from 'react';
 
-
-import NotFoundScreen from '../not-found/not-found';
-
-import NearPlacesList from '../../components/near-places-list/near-places-list';
-import { LoadingSpinner } from '../../components/loading-spinner/loading-spinner';
-import ReviewList from '../../components/review-list/review-list';
-
-import Map from '../../components/map/map';
-
 import { fetchComments, fetchFullOffer, fetchNearbyOffers } from '../../store/api-action';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import AddToFavoriteButtonComponent from '../../components/add-to-favorite-button/add-to-favorite-button';
 import { getSelector } from '../../store/selectors';
 import { getStarsInWidthPercent } from '../../utils/utils';
 import { AMOUNT_OF_NEARBY_OFFERS } from '../../const';
 
+import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
+import NotFoundScreen from '../not-found/not-found';
+import NearPlacesList from '../../components/near-places-list/near-places-list';
+import ReviewList from '../../components/review-list/review-list';
+import Map from '../../components/map/map';
+import AddToFavoriteButtonComponent from '../../components/add-to-favorite-button/add-to-favorite-button';
 
 function OffersScreen(): JSX.Element | undefined {
   const id = useParams().id;

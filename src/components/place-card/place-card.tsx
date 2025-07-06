@@ -1,10 +1,10 @@
 import {Link} from 'react-router-dom';
+import React from 'react';
 
 import { Offer } from '../../types/offers';
-import React from 'react';
-import AddToFavoriteButtonComponent from '../add-to-favorite-button/add-to-favorite-button';
 import { getStarsInWidthPercent } from '../../utils/utils';
 
+import AddToFavoriteButtonComponent from '../add-to-favorite-button/add-to-favorite-button';
 
 type Type = 'cities' | 'favorites' | 'near-places';
 

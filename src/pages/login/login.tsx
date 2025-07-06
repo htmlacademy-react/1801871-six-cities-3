@@ -1,17 +1,16 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
 import { loginAction } from '../../store/api-action';
-
-import ErrorText from '../../components/error-text/error-text';
-
 import { useAppDispatch, useAppSelector} from '../../store/hooks';
 import { AppRoute, AuthState } from '../../const';
-import { Link, useNavigate } from 'react-router-dom';
 import { ENDPOINTS } from '../../types/endpoint';
 import { deleteCookie, getCookie } from '../../coockies/coockies';
 import { getSelector } from '../../store/selectors';
 import { setActiveCity } from '../../store/offers-slice';
 import { CITIES } from '../../сities';
 
+import ErrorText from '../../components/error-text/error-text';
 
 function LoginScreen(): JSX.Element {
   const dispatch = useAppDispatch();

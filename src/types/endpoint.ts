@@ -1,5 +1,3 @@
-// import { Offer } from './offers';
-
 import { Offer } from './offers';
 
 type TEndpoint = '/six-cities/login' | '/six-cities/offers' | '/six-cities/comments' | '/six-cities/logout' | '/six-cities/favorite' | '/offer';
@@ -14,7 +12,6 @@ export const ENDPOINTS: Record<EndpointKey, TEndpoint> = {
   favorites:'/six-cities/favorite',
   offer:'/offer'
 };
-
 
 export type TRoute = Exclude<TEndpoint, '/offer'> | `${Extract<TEndpoint, '/offer'>}/${Offer['id']}`
 

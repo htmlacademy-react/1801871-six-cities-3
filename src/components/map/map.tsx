@@ -3,12 +3,10 @@ import {Icon, LayerGroup, Marker, layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
-
-
 import { City, Offer } from '../../types/offers';
+import { FullOffer } from '../../types/offer';
 
 import useMap from './use-map';
-import { FullOffer } from '../../types/offer';
 
 type ClassName = 'offer' | 'cities';
 

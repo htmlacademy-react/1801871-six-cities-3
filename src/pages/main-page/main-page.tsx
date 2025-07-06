@@ -1,9 +1,9 @@
-import CardList from '../../components/card-list/card-list';
-import CityList from '../../components/city-list/city-list';
-import { LoadingSpinner } from '../../components/loading-spinner/loading-spinner';
 import { useAppSelector } from '../../store/hooks';
 import { selectMainScreenIsLoading } from '../../store/selectors';
 
+import CardList from '../../components/card-list/card-list';
+import CityList from '../../components/city-list/city-list';
+import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
 
 function MainPage(): JSX.Element {
 

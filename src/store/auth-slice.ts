@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { AuthState } from '../const';
 import { UserData } from '../types/user';
 import { checkAuthAction, loginAction, logoutAction } from './api-action';

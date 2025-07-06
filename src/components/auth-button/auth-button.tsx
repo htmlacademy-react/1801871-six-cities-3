@@ -1,10 +1,10 @@
-import { AuthLayoutState } from '../../const';
 import { Link } from 'react-router-dom';
+import React from 'react';
+
+import { AuthLayoutState } from '../../const';
 import { AppRoute } from '../../const';
 import { useAppDispatch } from '../../store/hooks';
 import { logoutAction } from '../../store/api-action';
-import React from 'react';
-
 
 type authButtonState = Exclude<AuthLayoutState, AuthLayoutState.Hide>;
 

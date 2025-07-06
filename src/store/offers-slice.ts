@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { City, Offer } from '../types/offers';
 import { TSortKey } from '../types/sort';
 import { CITIES } from '../сities';

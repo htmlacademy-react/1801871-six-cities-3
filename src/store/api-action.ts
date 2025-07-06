@@ -7,7 +7,6 @@ import { FullOffer } from '../types/offer';
 import { TComment } from '../types/comment';
 import { ENDPOINTS } from '../types/endpoint';
 import { createAppAsyncThunk } from './hooks';
-
 import { loadOffers } from './offers-slice';
 import { setAuthorization, setUserInfo } from './auth-slice';
 import { setComments, setCurrentFullOffer, setNearbyOffers } from './full-offer-slice';

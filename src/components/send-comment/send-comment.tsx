@@ -1,9 +1,11 @@
 import { ChangeEventHandler, Fragment, useState } from 'react';
+
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { ENDPOINTS } from '../../types/endpoint';
-import ErrorText from '../error-text/error-text';
 import { sendComment } from '../../store/api-action';
 import { getSelector } from '../../store/selectors';
+
+import ErrorText from '../error-text/error-text';
 
 type CommentHandler = ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>
 

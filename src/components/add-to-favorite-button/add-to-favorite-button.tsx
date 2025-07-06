@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+
 import { fetchAddRemoveFromFavorites } from '../../store/api-action';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { TOfferId } from '../../types/offers';
