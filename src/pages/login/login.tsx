@@ -30,19 +30,22 @@ function LoginScreen(): JSX.Element {
   };
 
   useEffect(() => {
-    if (authStatus === AuthState.Auth) {
-      const lastRoute = getCookie('lastRoute');
-      if (lastRoute) {
-        deleteCookie('lastRoute');
-        navigate(lastRoute);
-      } else {
-        navigate(AppRoute.Root);
-      }
+    const isAuth = authStatus === AuthState.Auth;
+    const lastRoute = getCookie('lastRoute');
+
+    if(isAuth && lastRoute) {
+      navigate(lastRoute);
+      deleteCookie('lastRoute');
+      return;
+    }
+
+    if(isAuth) {
+      navigate(AppRoute.Root);
     }
   }, [authStatus, navigate]);
 
   function isFieldsValid (login:string, password:string):boolean {
-    const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{4,}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     return passwordRegex.test(password) && emailRegex.test(login);
@@ -57,10 +60,14 @@ function LoginScreen(): JSX.Element {
 
       if(!isFieldsValid(login, password)){
         SetError('Данные не валидны, убедитесь, что в пароле есть заглавная буква и цифра, а почта валидна');
+        // loginRef.current.value = '';
+        // passwordRef.current.value = '';
         return;
       }
       SetError(null);
       dispatch(loginAction({ login, password}));
+      loginRef.current.value = '';
+      passwordRef.current.value = '';
     }
   }
 
@@ -70,6 +77,11 @@ function LoginScreen(): JSX.Element {
     }
 
     const err = errorData.data?.find((data)=> data.field === field);
+
+    if (loginRef.current !== null && passwordRef.current !== null) {
+      loginRef.current.value = '';
+      passwordRef.current.value = '';
+    }
 
     return err && <ErrorText errorText={err.messages.join(' ')} />;
   }
