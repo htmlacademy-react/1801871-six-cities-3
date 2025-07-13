@@ -12,6 +12,7 @@ type APIErrorResponse = {
   }[];
 
   message:string;
+  errorType: string;
 
 };
 
@@ -42,23 +43,24 @@ export const createAPI = (): AxiosInstance => {
         throw error;
       }
 
-      if(!error.response?.data.details.length) {
+      if(error.response?.data.errorType === 'VALIDATION_ERROR'){
         SetError({
           path:path as string,
-          message:error.response?.data.message,
-          type: 'major'
+          data:error.response?.data.details.map((err)=> ({
+            field:err.property,
+            messages:err.messages
+          })
+          ),
+          type:'validation'
         });
         throw error;
       }
 
+
       SetError({
         path:path as string,
-        data:error.response?.data.details.map((err)=> ({
-          field:err.property,
-          messages:err.messages
-        })
-        ),
-        type:'minor'
+        message:error.response?.data.message,
+        type: 'global'
       });
 
       throw error;

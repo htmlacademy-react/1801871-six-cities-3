@@ -19,7 +19,7 @@ function SendComment ({id}:SendCommentProps):JSX.Element {
 
   const [comment, setComment] = useState({comment:'', rating:-1});
 
-  const isSubmitButtonDisabled:boolean = (comment.comment.length >= 50 && comment.comment.length <= 300) && !!comment.rating;
+  const isSubmitButtonNotDisabled:boolean = (comment.comment.length >= 50 && comment.comment.length <= 300) && !!comment.rating;
 
 
   const rating = [
@@ -115,7 +115,7 @@ function SendComment ({id}:SendCommentProps):JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={isSubmitButtonDisabled}
+          disabled={!isSubmitButtonNotDisabled}
         >
               Submit
         </button>
