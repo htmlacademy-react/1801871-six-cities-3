@@ -7,7 +7,7 @@ function ErrorWindow ():JSX.Element | undefined {
     return undefined;
   }
   return (
-    <span className='error-window'>Упс ошибка</span>
+    <span className='error-window modal__container'>Упс ошибка</span>
   );
 }
 

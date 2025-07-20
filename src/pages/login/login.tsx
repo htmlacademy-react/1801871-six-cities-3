@@ -124,7 +124,7 @@ function LoginScreen(): JSX.Element {
                   type="email"
                   name="email"
                   placeholder="Email"
-                  // required
+                  required
                 />
               </div>
               {showHideError('email')}
@@ -137,7 +137,7 @@ function LoginScreen(): JSX.Element {
                   type="password"
                   name="password"
                   placeholder="Password"
-                  // required
+                  required
                 />
               </div>
 

@@ -6,12 +6,11 @@ import { useAppSelector } from '../../store/hooks';
 import { getSelector, selectFilteredSortedOffers } from '../../store/selectors';
 
 import EmptyPage from '../empty-page/empty-page';
-import ErrorWindow from '../error-window/error-window';
 import Map from '../map/map';
 import PlaceCard from '../place-card/place-card';
 import ListSort from '../list-sort/list-sort';
 
-function CardList():JSX.Element {
+function CardList():JSX.Element | undefined {
 
 
   const [activePoint, setActivePoint] = useState<Offer | null>(null);
@@ -25,7 +24,7 @@ function CardList():JSX.Element {
   const currentOffers = useAppSelector(selectFilteredSortedOffers);
 
   if(!currentOffers) {
-    return <ErrorWindow></ErrorWindow>;
+    return undefined;
   }
 
 
