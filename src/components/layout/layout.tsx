@@ -3,7 +3,6 @@ import { Outlet, useLocation } from 'react-router-dom';
 
 import { AppRoute, AuthState, AuthLayoutState } from '../../const';
 
-
 import Logo from '../logo/logo';
 import UserInfo from '../user-info/user-info';
 import AuthButton from '../auth-button/auth-button';

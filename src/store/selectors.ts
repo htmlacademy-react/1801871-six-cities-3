@@ -12,7 +12,10 @@ export const getSelector = <
     field: K
   ): ((state: State) => State[T][K]) => (state: State) => state[slice][field];
 
-const selectOffers = (state:State) => state.offers.offers;
+// state Pick<State, offer> для типизации селектора
+
+// const selectOffers = (state:State) => state.offers.offers;
+const selectOffers = getSelector('offers','offers');
 const selectCity = (state:State) => state.offers.city;
 const selectCurrentSort = (state:State) => state.offers.currentSort;
 
