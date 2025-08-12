@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { ErrorData } from '../api/error-type';
+import { ErrorData } from '../../api/error-type';
 
 type stateType = {
   errorData: ErrorData | null;

@@ -2,8 +2,8 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import createAPI from '../api/api';
 import offersReducer from './offers-slice';
-import errorReducer from './error-slice';
-import authReducer from './auth-slice';
+import errorReducer from './error-slice/error-slice';
+import authReducer from './auth-slice/auth-slice';
 import fullOfferReducer from './full-offer-slice';
 import favoritesSlice from './favorites-slice';
 

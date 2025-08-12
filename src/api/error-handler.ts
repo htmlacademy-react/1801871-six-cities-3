@@ -1,5 +1,5 @@
 import { TIME_ERROR } from '../const';
-import { setError } from '../store/error-slice';
+import { setError } from '../store/error-slice/error-slice';
 import { store } from '../store/store';
 import { ErrorData } from './error-type';
 
