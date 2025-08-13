@@ -10,7 +10,7 @@ import { createAppAsyncThunk } from './hooks';
 import { loadOffers } from './offers-slice';
 import { setAuthorization, setUserInfo } from './auth-slice/auth-slice';
 import { setComments, setCurrentFullOffer, setNearbyOffers } from './full-offer-slice';
-import { setFavorites } from './favorites-slice';
+import { setFavorites } from './favorite-slice/favorites-slice';
 
 
 type CommentPayload = {

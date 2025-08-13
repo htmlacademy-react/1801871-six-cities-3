@@ -1,6 +1,6 @@
-import { ErrorData } from "../../api/error-type";
+import { ErrorData } from '../../api/error-type';
 import errorSliceReducer from './error-slice';
-import { setError } from "./error-slice";
+import { setError } from './error-slice';
 
 
 type stateType = {
@@ -14,7 +14,7 @@ describe('error-slice', ()=>{
     const emptyAction = { type: '' };
 
     const expectedState:stateType = {
-    errorData: null,
+      errorData: null,
     };
 
     const result = errorSliceReducer(expectedState, emptyAction);
@@ -27,7 +27,7 @@ describe('error-slice', ()=>{
     const emptyAction = { type: '' };
 
     const expectedState:stateType = {
-    errorData: null,
+      errorData: null,
     };
 
     const result = errorSliceReducer(undefined, emptyAction);
@@ -35,17 +35,17 @@ describe('error-slice', ()=>{
     expect(result).toEqual(expectedState);
   });
 
-    it('should set errorData in state when action "setError"',()=>{
-    
-    const payload:ErrorData =  {
-        path: '/path',
-        type: "global"
-    }
+  it('should set errorData in state when action "setError"',()=>{
+
+    const payload:ErrorData = {
+      path: '/path',
+      type: 'global'
+    };
 
     const action = { type: setError, payload:payload };
 
     const expectedState:stateType = {
-        errorData: payload
+      errorData: payload
     };
 
     const result = errorSliceReducer(undefined, action);
