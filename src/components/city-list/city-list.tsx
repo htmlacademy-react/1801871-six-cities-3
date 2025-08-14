@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CITIES } from '../../сities';
+import { CITIES } from '../../cities';
 import { City } from '../../types/offers';
 import { setActiveCity } from '../../store/offers-slice';
 import { getSelector } from '../../store/selectors';

@@ -8,7 +8,7 @@ import { ENDPOINTS } from '../../types/endpoint';
 import { deleteCookie, getCookie } from '../../coockies/coockies';
 import { getSelector } from '../../store/selectors';
 import { setActiveCity } from '../../store/offers-slice';
-import { CITIES } from '../../сities';
+import { CITIES } from '../../cities';
 
 import ErrorText from '../../components/error-text/error-text';
 

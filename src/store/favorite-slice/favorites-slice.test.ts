@@ -1,7 +1,7 @@
 import { Offer, OfferType, TOfferId } from '../../types/offers';
 import favoriteSliceReducer from '../favorite-slice/favorites-slice';
 import { setFavorites } from './favorites-slice';
-import { CITIES } from '../../сities';
+import { CITIES } from '../../cities';
 
 describe('favorite-slice', ()=>{
 

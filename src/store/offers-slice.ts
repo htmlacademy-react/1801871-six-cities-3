@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { City, Offer } from '../types/offers';
 import { TSortKey } from '../types/sort';
-import { CITIES } from '../сities';
+import { CITIES } from '../cities';
 import { fetchOffers } from './api-action';
 
 type stateType = {
@@ -12,18 +12,23 @@ type stateType = {
   pending: boolean;
 }
 
+// const cloneCity = (city: City): City => structuredClone(city);
+const cloneCity = (city: City): City => ({
+  ...city,
+  location: { ...city.location }
+});
 
-const InitialState:stateType = {
-  city: CITIES[0],
-  offers: [],
+export const getInitialState = (): stateType => ({
+  city: cloneCity(CITIES[0]),
+  offers: null,
   currentSort: 'Popular',
   pending: false
-};
+});
 
 
 const OffersSlice = createSlice({
   name:'offers',
-  initialState:InitialState,
+  initialState:getInitialState(),
   reducers: {
     loadOffers(state, action: PayloadAction<Offer[] | null>) {
       state.offers = action.payload;
@@ -32,7 +37,7 @@ const OffersSlice = createSlice({
       state.currentSort = action.payload;
     },
     setActiveCity(state, action: PayloadAction<City>) {
-      state.city = action.payload;
+      state.city = cloneCity(action.payload);
     }
   },
 
