@@ -12,11 +12,7 @@ type stateType = {
   pending: boolean;
 }
 
-// const cloneCity = (city: City): City => structuredClone(city);
-const cloneCity = (city: City): City => ({
-  ...city,
-  location: { ...city.location }
-});
+const cloneCity = (city: City): City => structuredClone(city);
 
 export const getInitialState = (): stateType => ({
   city: cloneCity(CITIES[0]),

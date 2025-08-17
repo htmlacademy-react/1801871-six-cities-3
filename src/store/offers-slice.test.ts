@@ -14,18 +14,14 @@ type stateType = {
   pending: boolean;
 }
 
-// const cloneCity = (city: City): City => structuredClone(city);
-const cloneCity = (city: City): City => ({
-  ...city,
-  location: { ...city.location }
-});
+const cloneCity = (city: City): City => structuredClone(city);
 it('should return initial state with empty action',()=>{
 
   const emptyAction = { type: '' };
 
   const expectedState:stateType = {
     city: cloneCity(CITIES[0]),
-    offers: [],
+    offers: null,
     currentSort: 'Popular',
     pending: false
   };
@@ -35,70 +31,70 @@ it('should return initial state with empty action',()=>{
   expect(result).toEqual(expectedState);
 });
 
-// it('should return default initial state with empty action',()=>{
+it('should return default initial state with empty action',()=>{
 
-//   const emptyAction = { type: '' };
+  const emptyAction = { type: '' };
 
-//   const expectedState:stateType = {
-//     city: cloneCity(CITIES[0]),
-//     offers: [],
-//     currentSort: 'Popular',
-//     pending: false
-//   };
+  const expectedState:stateType = {
+    city: cloneCity(CITIES[0]),
+    offers: null,
+    currentSort: 'Popular',
+    pending: false
+  };
 
-//   const result = fullOfferSliceReducer(undefined, emptyAction);
+  const result = fullOfferSliceReducer(undefined, emptyAction);
 
-//   expect(result).toEqual(expectedState);
-// });
+  expect(result).toEqual(expectedState);
+});
 
 
-// it('should set "pending" to true when action "get/offers/pending"',()=>{
+it('should set "pending" to true when action "get/offers/pending"',()=>{
 
-//   const action = { type: 'get/offers/pending' };
+  const action = { type: 'get/offers/pending' };
 
-//   const expectedState:stateType = {
-//     city: cloneCity(CITIES[0]),
-//     offers: [],
-//     currentSort: 'Popular',
-//     pending: true
-//   };
+  const expectedState:stateType = {
+    city: cloneCity(CITIES[0]),
+    offers: null,
+    currentSort: 'Popular',
+    pending: true
+  };
 
-//   const result = fullOfferSliceReducer(undefined,action);
+  const result = fullOfferSliceReducer(undefined,action);
 
-//   expect(result).toEqual(expectedState);
-// });
+  expect(result).toEqual(expectedState);
+});
 
-// it('should set "pending" to false when action "get/offers/fulfilled"',()=>{
+it('should set "pending" to false when action "get/offers/fulfilled"',()=>{
 
-//   const action = { type: 'get/offers/fulfilled' };
+  const action = { type: 'get/offers/fulfilled' };
 
-//   const expectedState:stateType = {
-//     city: cloneCity(CITIES[0]),
-//     offers: [],
-//     currentSort: 'Popular',
-//     pending: false
-//   };
+  const expectedState:stateType = {
+    city: cloneCity(CITIES[0]),
+    offers: null,
+    currentSort: 'Popular',
+    pending: false
+  };
 
-//   const result = fullOfferSliceReducer(undefined,action);
+  const result = fullOfferSliceReducer(undefined,action);
 
-//   expect(result).toEqual(expectedState);
-// });
+  expect(result).toEqual(expectedState);
+});
 
-// it('should set "pending" to false when action "get/offers/rejected"',()=>{
+it('should set "pending" to false when action "get/offers/rejected"',()=>{
 
-//   const action = { type: 'get/offers/rejected' };
+  const action = { type: 'get/offers/rejected' };
 
-//   const expectedState:stateType = {
-//     city: cloneCity(CITIES[0]),
-//     offers: [],
-//     currentSort: 'Popular',
-//     pending: false
-//   };
+  const expectedState:stateType = {
+    city: cloneCity(CITIES[0]),
+    offers: null,
+    currentSort: 'Popular',
+    pending: false
+  };
 
-//   const result = fullOfferSliceReducer(undefined,action);
+  const result = fullOfferSliceReducer(undefined,action);
 
-//   expect(result).toEqual(expectedState);
-// });
+  expect(result).toEqual(expectedState);
+});
 
 it('should set "currentSort" from payload when action "changeSort"',()=>{
   const sort:TSortKey = 'Price: low to high';
@@ -153,22 +149,22 @@ it('should set "offers" from payload when action "loadOffers"',()=>{
 });
 
 
-// it('should set "ActiveCity" from payload when action "setActiveCity"',()=>{
-//   const city = CITIES[1];
+it('should set "ActiveCity" from payload when action "setActiveCity"',()=>{
+  const city = CITIES[1];
 
-//   const action = { type: setActiveCity, payload:city };
+  const action = { type: setActiveCity, payload:city };
 
-//   const expectedState:stateType = {
-//     city: CITIES[1],
-//     offers: null,
-//     currentSort: 'Popular',
-//     pending: false
-//   };
+  const expectedState:stateType = {
+    city: CITIES[1],
+    offers: null,
+    currentSort: 'Popular',
+    pending: false
+  };
 
-//   const result = fullOfferSliceReducer(undefined,action);
+  const result = fullOfferSliceReducer(undefined,action);
 
-//   expect(result).toEqual(expectedState);
-// });
+  expect(result).toEqual(expectedState);
+});
 
 
 });
