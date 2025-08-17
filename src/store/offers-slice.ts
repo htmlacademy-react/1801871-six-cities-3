@@ -12,19 +12,18 @@ type stateType = {
   pending: boolean;
 }
 
-const cloneCity = (city: City): City => structuredClone(city);
 
-export const getInitialState = (): stateType => ({
-  city: cloneCity(CITIES[0]),
+const initialState:stateType = {
+  city: CITIES[0],
   offers: null,
   currentSort: 'Popular',
   pending: false
-});
+};
 
 
 const OffersSlice = createSlice({
   name:'offers',
-  initialState:getInitialState(),
+  initialState,
   reducers: {
     loadOffers(state, action: PayloadAction<Offer[] | null>) {
       state.offers = action.payload;
@@ -33,7 +32,7 @@ const OffersSlice = createSlice({
       state.currentSort = action.payload;
     },
     setActiveCity(state, action: PayloadAction<City>) {
-      state.city = cloneCity(action.payload);
+      state.city = action.payload;
     }
   },
 

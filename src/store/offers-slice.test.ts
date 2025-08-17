@@ -14,13 +14,13 @@ type stateType = {
   pending: boolean;
 }
 
-const cloneCity = (city: City): City => structuredClone(city);
+// const cloneCity = (city: City): City => structuredClone(city);
 it('should return initial state with empty action',()=>{
 
   const emptyAction = { type: '' };
 
   const expectedState:stateType = {
-    city: cloneCity(CITIES[0]),
+    city: CITIES[0],
     offers: null,
     currentSort: 'Popular',
     pending: false
@@ -36,7 +36,7 @@ it('should return default initial state with empty action',()=>{
   const emptyAction = { type: '' };
 
   const expectedState:stateType = {
-    city: cloneCity(CITIES[0]),
+    city: CITIES[0],
     offers: null,
     currentSort: 'Popular',
     pending: false
@@ -53,7 +53,7 @@ it('should set "pending" to true when action "get/offers/pending"',()=>{
   const action = { type: 'get/offers/pending' };
 
   const expectedState:stateType = {
-    city: cloneCity(CITIES[0]),
+    city: CITIES[0],
     offers: null,
     currentSort: 'Popular',
     pending: true
@@ -69,7 +69,7 @@ it('should set "pending" to false when action "get/offers/fulfilled"',()=>{
   const action = { type: 'get/offers/fulfilled' };
 
   const expectedState:stateType = {
-    city: cloneCity(CITIES[0]),
+    city: CITIES[0],
     offers: null,
     currentSort: 'Popular',
     pending: false
@@ -85,7 +85,7 @@ it('should set "pending" to false when action "get/offers/rejected"',()=>{
   const action = { type: 'get/offers/rejected' };
 
   const expectedState:stateType = {
-    city: cloneCity(CITIES[0]),
+    city: CITIES[0],
     offers: null,
     currentSort: 'Popular',
     pending: false
@@ -103,7 +103,7 @@ it('should set "currentSort" from payload when action "changeSort"',()=>{
 
 
   const expectedState:stateType = {
-    city: cloneCity(CITIES[0]),
+    city: CITIES[0],
     offers: null,
     currentSort: sort,
     pending: false
@@ -137,7 +137,7 @@ it('should set "offers" from payload when action "loadOffers"',()=>{
   const action = loadOffers(offers);
 
   const expectedState:stateType = {
-    city: cloneCity(CITIES[0]),
+    city: CITIES[0],
     offers: offers,
     currentSort: 'Popular',
     pending: false
