@@ -1,13 +1,13 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { loginAction } from '../../store/api-action';
+import { loginAction } from '../../store/api-action/api-action';
 import { useAppDispatch, useAppSelector} from '../../store/hooks';
 import { AppRoute, AuthState } from '../../const';
 import { ENDPOINTS } from '../../types/endpoint';
 import { deleteCookie, getCookie } from '../../coockies/coockies';
 import { getSelector } from '../../store/selectors';
-import { setActiveCity } from '../../store/offers-slice';
+import { setActiveCity } from '../../store/offers-slice/offers-slice';
 import { CITIES } from '../../cities';
 
 import ErrorText from '../../components/error-text/error-text';

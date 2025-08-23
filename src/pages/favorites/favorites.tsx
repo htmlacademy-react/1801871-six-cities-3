@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { fetchFavorites } from '../../store/api-action';
+import { fetchFavorites } from '../../store/api-action/api-action';
 import { Offer } from '../../types/offers';
 import { getSelector } from '../../store/selectors';
 

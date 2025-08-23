@@ -1,7 +1,7 @@
 import {useParams} from 'react-router-dom';
 import { useEffect } from 'react';
 
-import { fetchComments, fetchFullOffer, fetchNearbyOffers } from '../../store/api-action';
+import { fetchComments, fetchFullOffer, fetchNearbyOffers } from '../../store/api-action/api-action';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getSelector } from '../../store/selectors';
 import { getStarsInWidthPercent } from '../../utils/utils';

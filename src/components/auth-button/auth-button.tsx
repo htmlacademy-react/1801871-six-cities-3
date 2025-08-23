@@ -4,7 +4,7 @@ import React from 'react';
 import { AuthLayoutState } from '../../const';
 import { AppRoute } from '../../const';
 import { useAppDispatch } from '../../store/hooks';
-import { logoutAction } from '../../store/api-action';
+import { logoutAction } from '../../store/api-action/api-action';
 
 type authButtonState = Exclude<AuthLayoutState, AuthLayoutState.Hide>;
 

@@ -1,8 +1,8 @@
-import { City, Offer, OfferType, TOfferId } from '../types/offers';
-import { TSortKey } from '../types/sort';
-import fullOfferSliceReducer from '../store/offers-slice';
-import { loadOffers, changeSort, setActiveCity } from '../store/offers-slice';
-import { CITIES } from '../cities';
+import { City, Offer, OfferType, TOfferId } from '../../types/offers';
+import { TSortKey } from '../../types/sort';
+import fullOfferSliceReducer from './offers-slice';
+import { loadOffers, changeSort, setActiveCity } from './offers-slice';
+import { CITIES } from '../../cities';
 
 
 describe('full-offer-slice', ()=>{
@@ -14,7 +14,6 @@ type stateType = {
   pending: boolean;
 }
 
-// const cloneCity = (city: City): City => structuredClone(city);
 it('should return initial state with empty action',()=>{
 
   const emptyAction = { type: '' };

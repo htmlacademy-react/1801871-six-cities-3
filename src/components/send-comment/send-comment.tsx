@@ -2,7 +2,7 @@ import { ChangeEventHandler, Fragment, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { ENDPOINTS } from '../../types/endpoint';
-import { sendComment } from '../../store/api-action';
+import { sendComment } from '../../store/api-action/api-action';
 import { getSelector } from '../../store/selectors';
 
 import ErrorText from '../error-text/error-text';

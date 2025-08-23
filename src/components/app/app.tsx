@@ -11,7 +11,7 @@ import OffersScreen from '../../pages/offers/offers';
 import FavoritesScreen from '../../pages/favorites/favorites';
 import PrivateRoute from '../private-page/private-page';
 
-import { checkAuthAction, fetchFavorites, fetchOffers } from '../../store/api-action';
+import { checkAuthAction, fetchFavorites, fetchOffers } from '../../store/api-action/api-action';
 import { store } from '../../store/store';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getSelector } from '../../store/selectors';

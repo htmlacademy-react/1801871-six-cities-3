@@ -16,7 +16,7 @@ type APIErrorResponse = {
 
 };
 
-export const createAPI = (): AxiosInstance => {
+const createAPI = (): AxiosInstance => {
   const api = axios.create({
     baseURL: URL_DATA,
     timeout: TIME_CONNECTION,

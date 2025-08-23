@@ -14,14 +14,13 @@ export const getSelector = <
 
 // state Pick<State, offer> для типизации селектора
 
-// const selectOffers = (state:State) => state.offers.offers;
 const selectOffers = getSelector('offers','offers');
-const selectCity = (state:State) => state.offers.city;
-const selectCurrentSort = (state:State) => state.offers.currentSort;
+const selectCity = getSelector('offers', 'city');
+const selectCurrentSort = getSelector('offers', 'currentSort');
 
-const isOffersLoading = (state:State) => state.offers.pending;
-const isAuthLoading = (state:State) => state.auth.pending;
-const isFavoritesLoading = (state:State) => state.favorites.pending;
+const isOffersLoading = getSelector('offers', 'pending');
+const isAuthLoading = getSelector('auth', 'pending');
+const isFavoritesLoading = getSelector('favorites','pending');
 
 export const selectFilteredSortedOffers = createDraftSafeSelector(
   [selectOffers, selectCity, selectCurrentSort],

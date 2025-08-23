@@ -2,7 +2,7 @@ import React from 'react';
 
 import { CITIES } from '../../cities';
 import { City } from '../../types/offers';
-import { setActiveCity } from '../../store/offers-slice';
+import { setActiveCity } from '../../store/offers-slice/offers-slice';
 import { getSelector } from '../../store/selectors';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 

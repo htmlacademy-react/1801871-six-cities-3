@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { City, Offer } from '../types/offers';
-import { TSortKey } from '../types/sort';
-import { CITIES } from '../cities';
-import { fetchOffers } from './api-action';
+import { City, Offer } from '../../types/offers';
+import { TSortKey } from '../../types/sort';
+import { CITIES } from '../../cities';
+import { fetchOffers } from '../api-action/api-action';
 
 type stateType = {
   city: City;
