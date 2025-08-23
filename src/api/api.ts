@@ -5,6 +5,7 @@ import { getToken } from './token';
 
 import SetError from './error-handler';
 
+
 type APIErrorResponse = {
   details: {
     messages: string[];

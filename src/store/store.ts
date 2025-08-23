@@ -7,6 +7,7 @@ import authReducer from './auth-slice/auth-slice';
 import fullOfferReducer from './full-offer-slice/full-offer-slice';
 import favoritesSlice from './favorite-slice/favorites-slice';
 
+
 export const api = createAPI();
 
 export const store = configureStore({
@@ -27,3 +28,4 @@ export const store = configureStore({
       },
     })
 });
+
