@@ -21,8 +21,6 @@ const extractActionTypes = (actions: Action<string>[]) => actions.map(({ type })
 
 describe('api-action', () => {
   const axios = api;
-  // спроси про циклическую зависимость
-  // может выкинуть rejected?
   const mockAxiosAdapter = new MockAdapter(axios);
   const middleware = [thunk.withExtraArgument(axios)];
   const mockStoreCreator = configureMockStore<State, Action<string>, AppThunkDispatch>(middleware);

@@ -11,6 +11,9 @@ import { loadOffers } from '../offers-slice/offers-slice';
 import { setAuthorization, setUserInfo } from '../auth-slice/auth-slice';
 import { setComments, setCurrentFullOffer, setNearbyOffers } from '../full-offer-slice/full-offer-slice';
 import { setFavorites } from '../favorite-slice/favorites-slice';
+import { setErrorHandler } from '../../api/error-handler';
+import { store } from '../store';
+import { ErrorData } from '../../api/error-type';
 
 
 type CommentPayload = {
@@ -31,7 +34,8 @@ export const fetchOffers = createAppAsyncThunk<void, undefined>(
     try {
       const {data} = await api.get<Offer[]>(ENDPOINTS.offers);
       dispatch(loadOffers(data));
-    } catch {
+    } catch(error) {
+      setErrorHandler(error as ErrorData);
       dispatch(loadOffers(null));
     }
   }
@@ -67,7 +71,8 @@ export const fetchFullOffer = createAppAsyncThunk<void, string>(
     try {
       const {data} = await api.get<FullOffer>(`${ENDPOINTS.offers}/${id}`);
       dispatch(setCurrentFullOffer(data));
-    } catch {
+    } catch(error) {
+      // setError(error as ErrorData);
       dispatch(setCurrentFullOffer(null));
     }
   }
@@ -80,7 +85,8 @@ export const fetchComments = createAppAsyncThunk<void, string>(
     try {
       const {data} = await api.get<TComment[]>(`${ENDPOINTS.comments}/${id}`);
       dispatch(setComments(data));
-    } catch {
+    } catch(error) {
+      // setError(error as ErrorData);
       dispatch(setComments(null));
     }
   }
@@ -93,7 +99,8 @@ export const fetchNearbyOffers = createAppAsyncThunk<void, string>(
     try {
       const {data} = await api.get<Offer[]>(`${ENDPOINTS.offers}/${id}/nearby`);
       dispatch(setNearbyOffers(data));
-    } catch {
+    } catch(error) {
+      // setError(error as ErrorData);
       dispatch(setNearbyOffers(null));
     }
   }
@@ -118,7 +125,8 @@ export const fetchFavorites = createAppAsyncThunk<void, undefined>(
     try {
       const {data} = await api.get<Offer[]>(`${ENDPOINTS.favorites}`);
       dispatch(setFavorites(data));
-    } catch {
+    } catch(error) {
+      // setError(error as ErrorData);
       dispatch(setFavorites(null));
     }
   }
@@ -143,7 +151,8 @@ export const checkAuthAction = createAppAsyncThunk<void, undefined>(
       const { data } = await api.get<UserData>(ENDPOINTS.login);
       dispatch(setAuthorization(AuthState.Auth));
       dispatch(setUserInfo(data));
-    } catch {
+    } catch(error) {
+      // setError(error as ErrorData);
       dispatch(setAuthorization(AuthState.NoAuth));
     }
   },

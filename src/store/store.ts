@@ -10,8 +10,8 @@ import favoritesSlice from './favorite-slice/favorites-slice';
 
 export const api = createAPI();
 
-export const store = configureStore({
 
+export const store = configureStore({
   reducer: {
     offers:offersReducer,
     error:errorReducer,

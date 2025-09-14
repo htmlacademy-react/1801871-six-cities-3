@@ -1,21 +1,7 @@
-import axios, { AxiosError, AxiosInstance } from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
 import { URL_DATA, TIME_CONNECTION } from '../const';
 import { getToken } from './token';
-
-import SetError from './error-handler';
-
-
-type APIErrorResponse = {
-  details: {
-    messages: string[];
-    property: string;
-  }[];
-
-  message:string;
-  errorType: string;
-
-};
 
 const createAPI = (): AxiosInstance => {
   const api = axios.create({
@@ -34,42 +20,6 @@ const createAPI = (): AxiosInstance => {
       return config;
     }
   );
-
-  api.interceptors.response.use(
-    (response) => response,
-    (error: AxiosError<APIErrorResponse>) => {
-
-      const path = error.config?.url;
-      if(error.response?.status === 401 && path === '/six-cities/login') {
-        throw error;
-      }
-
-      if(error.response?.data.errorType === 'VALIDATION_ERROR'){
-        SetError({
-          path:path as string,
-          data:error.response?.data.details.map((err)=> ({
-            field:err.property,
-            messages:err.messages
-          })
-          ),
-          type:'validation'
-        });
-        throw error;
-      }
-
-
-      SetError({
-        path:path as string,
-        message:error.response?.data.message,
-        type: 'global'
-      });
-
-      throw error;
-    }
-
-  );
-
-
   return api;
 };
 
