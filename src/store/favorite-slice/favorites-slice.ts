@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Offer } from '../types/offers';
-import { fetchAddRemoveFromFavorites, fetchFavorites } from './api-action';
+
+import { Offer } from '../../types/offers';
+import { fetchAddRemoveFromFavorites, fetchFavorites } from '../api-action/api-action';
 
 
 type stateType = {

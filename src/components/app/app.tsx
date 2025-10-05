@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import { AppRoute, AuthState } from '../../const';
 
@@ -8,13 +9,11 @@ import NotFoundScreen from '../../pages/not-found/not-found';
 import LoginScreen from '../../pages/login/login';
 import OffersScreen from '../../pages/offers/offers';
 import FavoritesScreen from '../../pages/favorites/favorites';
-
 import PrivateRoute from '../private-page/private-page';
 
-import { checkAuthAction, fetchFavorites, fetchOffers } from '../../store/api-action';
+import { checkAuthAction, fetchFavorites, fetchOffers } from '../../store/api-action/api-action';
 import { store } from '../../store/store';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { useEffect } from 'react';
 import { getSelector } from '../../store/selectors';
 
 store.dispatch(fetchOffers());

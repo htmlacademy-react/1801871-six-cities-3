@@ -1,13 +1,15 @@
 import { useEffect } from 'react';
-import { LoadingSpinner } from '../../components/loading-spinner/loading-spinner';
-import PlaceCard from '../../components/place-card/place-card';
+
+
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import NotFoundScreen from '../not-found/not-found';
-import { fetchFavorites } from '../../store/api-action';
+import { fetchFavorites } from '../../store/api-action/api-action';
 import { Offer } from '../../types/offers';
-import EmptyFavorite from '../../components/empty-favorite/empty-favorite';
 import { getSelector } from '../../store/selectors';
 
+import EmptyFavorite from '../../components/empty-favorite/empty-favorite';
+import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
+import PlaceCard from '../../components/place-card/place-card';
+import NotFoundScreen from '../not-found/not-found';
 
 type OffersByCity = Record<string, Offer[]>;
 

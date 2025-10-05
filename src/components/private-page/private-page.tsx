@@ -1,6 +1,7 @@
 import { AppRoute, AuthState } from '../../const';
 import { Navigate } from 'react-router-dom';
-import { LoadingSpinner } from '../loading-spinner/loading-spinner';
+
+import LoadingSpinner from '../loading-spinner/loading-spinner';
 
 
 type PrivateRouteProps = {

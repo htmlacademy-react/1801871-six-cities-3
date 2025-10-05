@@ -1,4 +1,5 @@
 import { createDraftSafeSelector } from '@reduxjs/toolkit';
+
 import { sortDict } from '../utils/sort';
 import { State } from '../types/state';
 
@@ -11,13 +12,15 @@ export const getSelector = <
     field: K
   ): ((state: State) => State[T][K]) => (state: State) => state[slice][field];
 
-const selectOffers = (state:State) => state.offers.offers;
-const selectCity = (state:State) => state.offers.city;
-const selectCurrentSort = (state:State) => state.offers.currentSort;
+// state Pick<State, offer> для типизации селектора
 
-const isOffersLoading = (state:State) => state.offers.pending;
-const isAuthLoading = (state:State) => state.auth.pending;
-const isFavoritesLoading = (state:State) => state.favorites.pending;
+const selectOffers = getSelector('offers','offers');
+const selectCity = getSelector('offers', 'city');
+const selectCurrentSort = getSelector('offers', 'currentSort');
+
+const isOffersLoading = getSelector('offers', 'pending');
+const isAuthLoading = getSelector('auth', 'pending');
+const isFavoritesLoading = getSelector('favorites','pending');
 
 export const selectFilteredSortedOffers = createDraftSafeSelector(
   [selectOffers, selectCity, selectCurrentSort],

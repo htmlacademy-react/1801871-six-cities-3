@@ -1,15 +1,14 @@
 import { TIME_ERROR } from '../const';
-import { setError } from '../store/error-slice';
-
-import { store } from '../store/store';
+import { setError } from '../store/error-slice/error-slice';
+import { AppDispatch } from '../types/state';
 import { ErrorData } from './error-type';
 
-function SetError(error:ErrorData) {
 
-  store.dispatch(setError(error));
+export function setErrorHandler(error:ErrorData | null, dispatch: AppDispatch) {
+
+  dispatch(setError(error));
   setTimeout(()=> {
-    store.dispatch(setError(null));
+    dispatch(setError(null));
   }, TIME_ERROR);
 }
 
-export default SetError;

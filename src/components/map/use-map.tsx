@@ -1,5 +1,6 @@
 import {useEffect, useState, MutableRefObject, useRef} from 'react';
 import {Map, TileLayer} from 'leaflet';
+
 import { City } from '../../types/offers';
 import { LAYER_ATTRIBUTE, LAYER_PNG } from '../../const';
 

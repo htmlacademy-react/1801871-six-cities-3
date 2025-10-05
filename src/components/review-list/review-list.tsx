@@ -1,12 +1,10 @@
 import { TComment } from '../../types/comment';
-
-import Comment from '../comment/comment';
-
 import { useAppSelector } from '../../store/hooks';
-
 import { AuthState } from '../../const';
-import SendComment from '../send-comment/send-comment';
 import { getSelector } from '../../store/selectors';
+
+import SendComment from '../send-comment/send-comment';
+import Comment from '../comment/comment';
 
 type ReviewListProps = {
   comments: TComment[];

@@ -1,9 +1,11 @@
 import { ChangeEventHandler, Fragment, useState } from 'react';
+
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { ENDPOINTS } from '../../types/endpoint';
-import ErrorText from '../error-text/error-text';
-import { sendComment } from '../../store/api-action';
+import { sendComment } from '../../store/api-action/api-action';
 import { getSelector } from '../../store/selectors';
+
+import ErrorText from '../error-text/error-text';
 
 type CommentHandler = ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>
 
@@ -17,7 +19,7 @@ function SendComment ({id}:SendCommentProps):JSX.Element {
 
   const [comment, setComment] = useState({comment:'', rating:-1});
 
-  const isSubmitButtonDisabled:boolean = (comment.comment.length >= 50 && comment.comment.length <= 300) && !!comment.rating;
+  const isSubmitButtonNotDisabled:boolean = (comment.comment.length >= 50 && comment.comment.length <= 300) && !!comment.rating;
 
 
   const rating = [
@@ -113,7 +115,7 @@ function SendComment ({id}:SendCommentProps):JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={isSubmitButtonDisabled}
+          disabled={!isSubmitButtonNotDisabled}
         >
               Submit
         </button>

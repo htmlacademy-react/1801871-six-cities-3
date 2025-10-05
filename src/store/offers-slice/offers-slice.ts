@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { City, Offer } from '../types/offers';
-import { TSortKey } from '../types/sort';
-import { CITIES } from '../сities';
-import { fetchOffers } from './api-action';
+
+import { City, Offer } from '../../types/offers';
+import { TSortKey } from '../../types/sort';
+import { CITIES } from '../../cities';
+import { fetchOffers } from '../api-action/api-action';
 
 type stateType = {
   city: City;
@@ -12,9 +13,9 @@ type stateType = {
 }
 
 
-const InitialState:stateType = {
+const initialState:stateType = {
   city: CITIES[0],
-  offers: [],
+  offers: null,
   currentSort: 'Popular',
   pending: false
 };
@@ -22,7 +23,7 @@ const InitialState:stateType = {
 
 const OffersSlice = createSlice({
   name:'offers',
-  initialState:InitialState,
+  initialState,
   reducers: {
     loadOffers(state, action: PayloadAction<Offer[] | null>) {
       state.offers = action.payload;

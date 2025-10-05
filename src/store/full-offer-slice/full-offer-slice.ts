@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { FullOffer } from '../types/offer';
-import { TComment } from '../types/comment';
-import { Offer } from '../types/offers';
-import { fetchComments, fetchFullOffer, fetchNearbyOffers } from './api-action';
+
+import { FullOffer } from '../../types/offer';
+import { TComment } from '../../types/comment';
+import { Offer } from '../../types/offers';
+import { fetchComments, fetchFullOffer, fetchNearbyOffers } from '../api-action/api-action';
 
 
 type stateType = {

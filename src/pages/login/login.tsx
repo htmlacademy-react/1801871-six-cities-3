@@ -1,17 +1,29 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
-import { loginAction } from '../../store/api-action';
+import { Link, useNavigate } from 'react-router-dom';
 
-import ErrorText from '../../components/error-text/error-text';
-
+import { loginAction } from '../../store/api-action/api-action';
 import { useAppDispatch, useAppSelector} from '../../store/hooks';
 import { AppRoute, AuthState } from '../../const';
-import { Link, useNavigate } from 'react-router-dom';
 import { ENDPOINTS } from '../../types/endpoint';
 import { deleteCookie, getCookie } from '../../coockies/coockies';
 import { getSelector } from '../../store/selectors';
-import { setActiveCity } from '../../store/offers-slice';
-import { CITIES } from '../../сities';
+import { setActiveCity } from '../../store/offers-slice/offers-slice';
+import { CITIES } from '../../cities';
 
+import ErrorText from '../../components/error-text/error-text';
+
+
+type TField = 'password' | 'login';
+
+const REGEXP:Record<TField, RegExp> = {
+  password:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/,
+  login:/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+};
+
+const LANG:Record<TField, string> = {
+  password:'Ошибка пароля',
+  login:'Ошибка логина'
+};
 
 function LoginScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -30,22 +42,22 @@ function LoginScreen(): JSX.Element {
   };
 
   useEffect(() => {
-    if (authStatus === AuthState.Auth) {
-      const lastRoute = getCookie('lastRoute');
-      if (lastRoute) {
-        deleteCookie('lastRoute');
-        navigate(lastRoute);
-      } else {
-        navigate(AppRoute.Root);
-      }
+    const isAuth = authStatus === AuthState.Auth;
+    const lastRoute = getCookie('lastRoute');
+
+    if(isAuth && lastRoute) {
+      navigate(lastRoute);
+      deleteCookie('lastRoute');
+      return;
+    }
+
+    if(isAuth) {
+      navigate(AppRoute.Root);
     }
   }, [authStatus, navigate]);
 
-  function isFieldsValid (login:string, password:string):boolean {
-    const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{4,}$/;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    return passwordRegex.test(password) && emailRegex.test(login);
+  function isFieldValid (value:string, type:TField):boolean {
+    return REGEXP[type].test(value);
   }
 
   function handleAuthSubmit (evt: FormEvent<HTMLFormElement>) {
@@ -54,13 +66,24 @@ function LoginScreen(): JSX.Element {
     if (loginRef.current !== null && passwordRef.current !== null) {
       const login = loginRef.current.value;
       const password = passwordRef.current.value;
+      let errorMessage = '';
 
-      if(!isFieldsValid(login, password)){
-        SetError('Данные не валидны, убедитесь, что в пароле есть заглавная буква и цифра, а почта валидна');
+      if(!isFieldValid(login, 'login')){
+        errorMessage = `${errorMessage} ${LANG.login}`;
+      }
+      if(!isFieldValid(password, 'password')){
+        errorMessage = `${errorMessage} ${LANG.password}`;
+      }
+
+      if(errorMessage){
+        SetError(errorMessage);
         return;
       }
+
       SetError(null);
       dispatch(loginAction({ login, password}));
+      loginRef.current.value = '';
+      passwordRef.current.value = '';
     }
   }
 
@@ -70,6 +93,11 @@ function LoginScreen(): JSX.Element {
     }
 
     const err = errorData.data?.find((data)=> data.field === field);
+
+    if (loginRef.current !== null && passwordRef.current !== null) {
+      loginRef.current.value = '';
+      passwordRef.current.value = '';
+    }
 
     return err && <ErrorText errorText={err.messages.join(' ')} />;
   }
