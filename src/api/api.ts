@@ -25,10 +25,7 @@ const createAPI = (): AxiosInstance => {
   api.interceptors.response.use(
 
     (res) => res,
-    (e: AxiosError<ErrorData>) => {
-      console.log(e.response?.data);
-      return Promise.reject(e);
-    }
+    (e: AxiosError<ErrorData>) => Promise.reject(e.response?.data)
   );
 
   return api;
