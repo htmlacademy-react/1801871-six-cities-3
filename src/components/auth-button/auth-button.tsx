@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
 import React from 'react';
 
 import { AuthLayoutState } from '../../const';
+import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppDispatch } from '../../store/hooks';
 import { logoutAction } from '../../store/api-action/api-action';
+
 
 type authButtonState = Exclude<AuthLayoutState, AuthLayoutState.Hide>;
 
@@ -38,14 +39,14 @@ function AuthButtonComponent ({authButtonState}:ButtonStatusProps):JSX.Element {
 
   const handleSignOutClick = () => {
 
-    if(state.class === 'header__signout') {
+    if(state.label === 'Sign out') {
       dispatch(logoutAction());
     }
 
   };
   return (
     <li className="header__nav-item">
-      <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login} onClick={handleSignOutClick} >
+      <Link className="header__nav-link" to={AppRoute.Login} onClick={handleSignOutClick}>
         <span className={state.class}>{state.label}</span>
       </Link>
     </li>

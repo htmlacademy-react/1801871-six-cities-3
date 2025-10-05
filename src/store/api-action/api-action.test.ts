@@ -13,6 +13,7 @@ import { Offer, OfferType, TOfferId } from '../../types/offers';
 import { CITIES } from '../../cities';
 import { loadOffers } from '../offers-slice/offers-slice';
 import { AuthData } from '../../types/user';
+import { setError } from '../error-slice/error-slice';
 
 type State = ReturnType<typeof store.getState>;
 type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>
@@ -112,10 +113,11 @@ describe('api-action', () => {
       const emittedActions = mockStore.getActions();
       const extractedActionTypes = extractActionTypes(emittedActions);
 
-      const fetchOffersActionFulfilled = emittedActions.at(1) as ReturnType<typeof fetchOffers.fulfilled>;
+      const fetchOffersActionFulfilled = emittedActions.at(2) as ReturnType<typeof fetchOffers.fulfilled>;
 
       expect(extractedActionTypes).toEqual([
         fetchOffers.pending.type,
+        setError.type,
         loadOffers.type,
         fetchOffers.fulfilled.type,
       ]);

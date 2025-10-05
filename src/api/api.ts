@@ -1,7 +1,8 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosError, AxiosInstance } from 'axios';
 
 import { URL_DATA, TIME_CONNECTION } from '../const';
 import { getToken } from './token';
+import { ErrorData } from './error-type';
 
 const createAPI = (): AxiosInstance => {
   const api = axios.create({
@@ -20,6 +21,16 @@ const createAPI = (): AxiosInstance => {
       return config;
     }
   );
+
+  api.interceptors.response.use(
+
+    (res) => res,
+    (e: AxiosError<ErrorData>) => {
+      console.log(e.response?.data);
+      return Promise.reject(e);
+    }
+  );
+
   return api;
 };
 

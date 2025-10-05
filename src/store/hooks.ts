@@ -16,5 +16,6 @@ export const useAppSelector: TypedUseSelectorHook<State> = useSelector;
 
 
 export const createAppAsyncThunk = createAsyncThunk.withTypes<{
+    dispatch: AppDispatch;
     extra:AxiosInstance;
 }>();
